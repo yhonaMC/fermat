@@ -58,7 +58,7 @@ public class ActorNetworkServiceRecord implements IntraUserNotification {
     private ActorNetworkServiceRecord(JsonObject jsonObject, Gson gson) {
 
         this.id                        = UUID.fromString(jsonObject.get("id").getAsString());
-        this.actorSenderAlias          = jsonObject.get("actorSenderAlias").getAsString();
+        this.actorSenderAlias          = (jsonObject.get("actorSenderAlias")!=null)?jsonObject.get("actorSenderAlias").getAsString():null;
         this.actorSenderProfileImage   = Base64.decode(jsonObject.get("actorSenderProfileImage").getAsString(), Base64.DEFAULT);
         this.notificationDescriptor    = gson.fromJson(jsonObject.get("notificationDescriptor").getAsString(), NotificationDescriptor.class);
         this.actorDestinationType      = gson.fromJson(jsonObject.get("actorDestinationType").getAsString(), Actors.class);
@@ -88,7 +88,7 @@ public class ActorNetworkServiceRecord implements IntraUserNotification {
 
     @Override
     public byte[] getActorSenderProfileImage() {
-        return (actorSenderProfileImage!=null) ? (byte[] )this.actorSenderProfileImage.clone() : null;
+        return (actorSenderProfileImage!=null) ? this.actorSenderProfileImage.clone() : null;
     }
 
     @Override

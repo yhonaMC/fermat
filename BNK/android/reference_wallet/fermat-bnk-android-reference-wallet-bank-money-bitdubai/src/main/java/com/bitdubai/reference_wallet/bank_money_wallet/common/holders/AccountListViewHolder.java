@@ -44,22 +44,22 @@ public class AccountListViewHolder extends FermatViewHolder {
         availableText = (FermatTextView) itemView.findViewById(R.id.available_text);
         bookText = (FermatTextView) itemView.findViewById(R.id.book_text);
         imageView = (ImageView) itemView.findViewById(R.id.bw_account_image);
-        balanceText.setText("Balance");
-        bookText.setText("Unconfirmed");
-        availableText.setText("Available");
     }
 
     public void bind(BankAccountNumber itemInfo,int pos){
         itemView.setBackgroundColor(335);
         account.setText(itemInfo.getAccount());
         alias.setText(itemInfo.getAlias());
-        //currency.setText(itemInfo.getCurrencyType().getCode());
+        //currency.setText(itemInfo.getMoneyType().getCode());
 
-        availableBalance.setText(String.valueOf(moduleManager.getBankingWallet().getAvailableBalance(itemInfo.getAccount()))+ "  "+itemInfo.getCurrencyType().getCode());
-        bookBalance.setText(String.valueOf(moduleManager.getBankingWallet().getBookBalance(itemInfo.getAccount()))+ "  "+itemInfo.getCurrencyType().getCode());
+        availableBalance.setText(String.valueOf(moduleManager.getBankingWallet().getAvailableBalance(itemInfo.getAccount())) + " " + itemInfo.getCurrencyType().getCode());
+        bookBalance.setText(String.valueOf(moduleManager.getBankingWallet().getBookBalance(itemInfo.getAccount())) + " " + itemInfo.getCurrencyType().getCode());
         if(availableBalance.getText().equals(bookBalance.getText())){
             bookBalance.setVisibility(View.GONE);
             bookText.setVisibility(View.GONE);
+            balanceText.setTextColor(itemView.getResources().getColor(R.color.text_color_soft_blue));
+        }else {
+            balanceText.setTextColor(itemView.getResources().getColor(R.color.soft_purple));
         }
         imageView.setImageResource(getResource(pos));
         imageView.setVisibility(View.VISIBLE);

@@ -131,14 +131,12 @@ public class CreateIssuerIdentityFragment extends AbstractFermatFragment {
     private void setUpPresentation(boolean checkButton) {
         try {
             PresentationDialog presentationDialog = new PresentationDialog.Builder(getActivity(), appSession)
-                    .setBannerRes(R.drawable.banner_asset_issuer)
+                    .setBannerRes(R.drawable.banner_asset_issuer_identity)
                     .setIconRes(R.drawable.asset_issuer)
                     .setVIewColor(R.color.dap_identity_issuer_view_color)
                     .setTitleTextColor(R.color.dap_identity_issuer_view_color)
-                    .setSubTitle("Welcome to the Asset Issuer Identity.")
-                    .setBody("From here you will be able to create an Asset Issuer type identity.\n\n" +
-                            "This Identity, will identify you in the system as an asset issuer, and give you access to all tasks and applications you need.\n\n" +
-                            "Other Redeem Points will be able to request connection to you by finding you with the information you provide here.")
+                    .setSubTitle(R.string.dap_issuer_identity_welcome_subTitle)
+                    .setBody(R.string.dap_issuer_identity_welcome_body)
                     .setTemplateType(PresentationDialog.TemplateType.TYPE_PRESENTATION_WITHOUT_IDENTITIES)
                     .setIsCheckEnabled(checkButton)
                     .build();
@@ -288,7 +286,7 @@ public class CreateIssuerIdentityFragment extends AbstractFermatFragment {
                 bitmap = BitmapFactory.decodeByteArray(identitySelected.getImage(), 0, identitySelected.getImage().length);
 //                bitmap = Bitmap.createScaledBitmap(bitmap, mBrokerImage.getWidth(), mBrokerImage.getHeight(), true);
             } else {
-                bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_profile_male);
+                bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.asset_issuer_identity);
 
                 //Picasso.with(getActivity()).load(R.drawable.profile_image).into(mBrokerImage);
             }
@@ -374,7 +372,7 @@ public class CreateIssuerIdentityFragment extends AbstractFermatFragment {
             if (moduleManager != null) {
                 try {
                     if (!isUpdate)
-                        moduleManager.createNewIdentityAssetIssuer(brokerNameText, (brokerImageByteArray == null) ? convertImage(R.drawable.ic_profile_male) : brokerImageByteArray);
+                        moduleManager.createNewIdentityAssetIssuer(brokerNameText, (brokerImageByteArray == null) ? convertImage(R.drawable.asset_issuer_identity) : brokerImageByteArray);
                     else
                         moduleManager.updateIdentityAssetIssuer(identitySelected.getPublicKey(), brokerNameText, brokerImageByteArray);
                 } catch (CantCreateNewIdentityAssetIssuerException e) {

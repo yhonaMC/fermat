@@ -1,18 +1,14 @@
 package com.bitdubai.sub_app.crypto_broker_community.common.utils;
 
-import android.app.Activity;
+import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
-
 import com.bitdubai.fermat_android_api.layer.definition.wallet.views.FermatTextView;
 import com.bitdubai.fermat_api.layer.modules.common_classes.ActiveActorIdentityInformation;
-import com.bitdubai.fermat_cbp_api.all_definition.identity.ActorIdentity;
-import com.bitdubai.fermat_cbp_api.layer.sub_app_module.crypto_broker_community.interfaces.CryptoBrokerCommunitySelectableIdentity;
 import com.bitdubai.fermat_ccp_api.layer.module.intra_user.exceptions.CantGetActiveLoginIdentityException;
 import com.bitdubai.sub_app.crypto_broker_community.R;
 import com.squareup.picasso.Picasso;
@@ -26,7 +22,7 @@ import com.squareup.picasso.Picasso;
 public class FragmentsCommons {
 
 
-    public static View setUpHeaderScreen(LayoutInflater inflater, Activity activity, ActorIdentity identity) throws CantGetActiveLoginIdentityException {
+    public static View setUpHeaderScreen(LayoutInflater inflater, Context activity, ActiveActorIdentityInformation identity) throws CantGetActiveLoginIdentityException {
         /**
          * Navigation view header
          */
@@ -36,9 +32,9 @@ public class FragmentsCommons {
         View view = inflater.inflate(R.layout.row_navigation_drawer_community_header, relativeLayout, true);
         ImageView imageView = (ImageView) view.findViewById(R.id.image_view_profile);
         if (identity != null) {
-            if (identity.getProfileImage() != null) {
-                if (identity.getProfileImage().length > 0) {
-                    imageView.setImageBitmap((BitmapFactory.decodeByteArray(identity.getProfileImage(), 0, identity.getProfileImage().length)));
+            if (identity.getImage() != null) {
+                if (identity.getImage().length > 0) {
+                    imageView.setImageBitmap((BitmapFactory.decodeByteArray(identity.getImage(), 0, identity.getImage().length)));
                 } else
                     Picasso.with(activity).load(R.drawable.profile_image).into(imageView);
             } else

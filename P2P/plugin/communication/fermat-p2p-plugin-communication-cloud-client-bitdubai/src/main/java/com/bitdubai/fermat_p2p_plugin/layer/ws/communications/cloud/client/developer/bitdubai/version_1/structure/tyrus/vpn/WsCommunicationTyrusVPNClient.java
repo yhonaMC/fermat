@@ -98,7 +98,7 @@ public class WsCommunicationTyrusVPNClient extends Endpoint implements Communica
     public void onOpen(Session session, EndpointConfig config) {
         System.out.println(" --------------------------------------------------------------------- ");
         System.out.println(" WsCommunicationVPNClient - Starting method onOpen");
-        System.out.println(" WsCommunicationVPNClient - VPN Server id = " + session.getId());
+        System.out.println(" WsCommunicationVPNClient - Session id = " + session.getId());
         this.vpnClientConnection = session;
 
         /*
@@ -176,7 +176,6 @@ public class WsCommunicationTyrusVPNClient extends Endpoint implements Communica
         System.out.println(" WsCommunicationVPNClient - Starting method onClose");
         System.out.println("Socket " + session.getId() + " is disconnect! code = " + reason.getCloseCode() + "[" + reason.getCloseCode().getCode() + "] reason = " + reason.getReasonPhrase());
 
-
         switch (reason.getCloseCode().getCode()) {
 
             case 1000:
@@ -190,7 +189,6 @@ public class WsCommunicationTyrusVPNClient extends Endpoint implements Communica
             case 1006:
                     try {
                         wsCommunicationTyrusVPNClientManagerAgent.riseVpnConnectionCloseNotificationEvent(remoteParticipantNetworkService.getNetworkServiceType(), remoteParticipant,false);
-                        System.out.println(" WsCommunicationVPNClient - Connection loose,  trying to reconnect");
                     }catch (Exception e){
                         e.printStackTrace();
                     }
@@ -232,8 +230,10 @@ public class WsCommunicationTyrusVPNClient extends Endpoint implements Communica
         try {
 
             System.out.println(" WsCommunicationVPNClient - close connection");
-            vpnClientConnection.close(new CloseReason(CloseReason.CloseCodes.NORMAL_CLOSURE, "The cloud client close the connection, intentionally."));
-            wsCommunicationTyrusVPNClientManagerAgent.riseVpnConnectionCloseNotificationEvent(remoteParticipantNetworkService.getNetworkServiceType(), remoteParticipant,true);
+            if(vpnClientConnection.isOpen()) {
+                vpnClientConnection.close(new CloseReason(CloseReason.CloseCodes.NORMAL_CLOSURE, "The cloud client close the connection, intentionally."));
+            }
+            wsCommunicationTyrusVPNClientManagerAgent.riseVpnConnectionCloseNotificationEvent(remoteParticipantNetworkService.getNetworkServiceType(), remoteParticipant, true);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -290,10 +290,33 @@ public class WsCommunicationTyrusVPNClient extends Endpoint implements Communica
                                                                                                                     fermatMessage.toJson(),             //Message Content
                                                                                                                     FermatPacketType.MESSAGE_TRANSMIT,  //Packet type
                                                                                                                     vpnClientIdentity.getPrivateKey()); //Sender private key
-        /*
-         * Send the encode packet to the server
-         */
-        vpnClientConnection.getAsyncRemote().sendText(FermatPacketEncoder.encode(fermatPacketRequest));
+
+
+        if (vpnClientConnection.isOpen()){
+
+            /**
+             * if Packet is bigger than 1000 Send the message through of sendDividedChain
+             */
+            if((FermatPacketEncoder.encode(fermatPacketRequest)).length() > 1000){
+
+                try {
+                    sendDividedChain(FermatPacketEncoder.encode(fermatPacketRequest));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }else {
+
+                 /*
+                 * Send the encode packet to the server
+                 */
+                 vpnClientConnection.getAsyncRemote().sendText(FermatPacketEncoder.encode(fermatPacketRequest));
+
+            }
+
+        }else{
+            throw new RuntimeException("Client Connection is Close");
+        }
 
     }
 
@@ -403,4 +426,63 @@ public class WsCommunicationTyrusVPNClient extends Endpoint implements Communica
                 ", vpnServerIdentity='" + vpnServerIdentity + '\'' +
                 '}';
     }
+
+    /**
+     * Send the message divide in packets of Size 1000
+     */
+    private void sendDividedChain(final String message) throws IOException {
+
+        /*
+         * Number of packets to send of Size 1000
+         */
+        int ref = message.length() / 1000;
+
+        /*
+         * Used to validate if the packet is send complete or in two parts
+         */
+        int residue = message.length() % 1000;
+
+        /*
+         * Index to handle the send of packet subString
+         */
+        int beginIndex = 0;
+        int endIndex = 1000;
+
+        for(int i = 0; i < ref-1; i++){
+
+            vpnClientConnection.getBasicRemote().sendText(message.substring(beginIndex, endIndex), Boolean.FALSE);
+            beginIndex = endIndex;
+            endIndex = endIndex + 1000;
+
+        }
+
+        /*
+         * we get the last Chain to send
+         */
+        String lastChain = message.substring(beginIndex, message.length());
+
+        /*
+         * if residue is equals 0 then send the lastChain Complete
+         * else then the lastChain is divided in two parts to send
+         */
+        if(residue == 0){
+
+            /*
+             * the lastChain is send Complete
+             */
+            vpnClientConnection.getBasicRemote().sendText(lastChain, Boolean.TRUE);
+
+        }else{
+
+            /*
+             * the lastChain is divided in two parts to send
+             */
+            int middleIndexlastChain = (lastChain.length() % 2 == 0) ? (lastChain.length() / 2)  : ((lastChain.length() + 1) / 2) - 1;
+            vpnClientConnection.getBasicRemote().sendText(lastChain.substring(0, middleIndexlastChain), Boolean.FALSE);
+            vpnClientConnection.getBasicRemote().sendText(lastChain.substring(middleIndexlastChain, lastChain.length()), Boolean.TRUE);
+
+        }
+
+    }
+
 }

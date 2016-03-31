@@ -1,12 +1,12 @@
 package com.bitdubai.reference_wallet.crypto_broker_wallet.app_connection;
 
-import android.app.Activity;
+import android.content.Context;
 
 import com.bitdubai.fermat_android_api.engine.FermatFragmentFactory;
 import com.bitdubai.fermat_android_api.engine.FooterViewPainter;
 import com.bitdubai.fermat_android_api.engine.HeaderViewPainter;
 import com.bitdubai.fermat_android_api.engine.NavigationViewPainter;
-import com.bitdubai.fermat_android_api.layer.definition.wallet.abstracts.AbstractFermatSession;
+import com.bitdubai.fermat_android_api.engine.NotificationPainter;
 import com.bitdubai.fermat_android_api.layer.definition.wallet.interfaces.AppConnections;
 import com.bitdubai.fermat_api.layer.all_definition.common.system.utils.PluginVersionReference;
 import com.bitdubai.fermat_api.layer.all_definition.enums.Developers;
@@ -14,25 +14,29 @@ import com.bitdubai.fermat_api.layer.all_definition.enums.Layers;
 import com.bitdubai.fermat_api.layer.all_definition.enums.Platforms;
 import com.bitdubai.fermat_api.layer.all_definition.enums.Plugins;
 import com.bitdubai.fermat_api.layer.all_definition.util.Version;
-import com.bitdubai.fermat_cbp_api.all_definition.identity.ActorIdentity;
 import com.bitdubai.reference_wallet.crypto_broker_wallet.common.footer.CryptoBrokerWalletFooterPainter;
 import com.bitdubai.reference_wallet.crypto_broker_wallet.common.header.CryptoBrokerWalletHeaderPainter;
 import com.bitdubai.reference_wallet.crypto_broker_wallet.common.navigationDrawer.CryptoBrokerNavigationViewPainter;
+import com.bitdubai.reference_wallet.crypto_broker_wallet.common.notifications.CryptoBrokerNotificationPainter;
 import com.bitdubai.reference_wallet.crypto_broker_wallet.fragmentFactory.CryptoBrokerWalletFragmentFactory;
 import com.bitdubai.reference_wallet.crypto_broker_wallet.session.CryptoBrokerWalletSession;
+
+import static com.bitdubai.fermat_cbp_api.all_definition.constants.CBPBroadcasterConstants.CBW_CANCEL_NEGOTIATION_NOTIFICATION;
+import static com.bitdubai.fermat_cbp_api.all_definition.constants.CBPBroadcasterConstants.CBW_CONTRACT_EXPIRATION_NOTIFICATION;
+import static com.bitdubai.fermat_cbp_api.all_definition.constants.CBPBroadcasterConstants.CBW_NEW_CONTRACT_NOTIFICATION;
+import static com.bitdubai.fermat_cbp_api.all_definition.constants.CBPBroadcasterConstants.CBW_NEW_NEGOTIATION_NOTIFICATION;
+import static com.bitdubai.fermat_cbp_api.all_definition.constants.CBPBroadcasterConstants.CBW_WAITING_FOR_BROKER_NOTIFICATION;
+
 
 /**
  * Created by Nelson Ramirez
  *
  * @since 2015.12.17
  */
-public class CryptoBrokerWalletFermatAppConnection extends AppConnections {
+public class CryptoBrokerWalletFermatAppConnection extends AppConnections<CryptoBrokerWalletSession> {
 
-    ActorIdentity identity;
-
-    public CryptoBrokerWalletFermatAppConnection(Activity activity, ActorIdentity identity) {
+    public CryptoBrokerWalletFermatAppConnection(Context activity) {
         super(activity);
-        this.identity = identity;
     }
 
     @Override
@@ -51,24 +55,42 @@ public class CryptoBrokerWalletFermatAppConnection extends AppConnections {
         );
 
     }
+
     @Override
-    protected AbstractFermatSession getSession() {
+    protected CryptoBrokerWalletSession getSession() {
         return new CryptoBrokerWalletSession();
     }
 
-
     @Override
     public NavigationViewPainter getNavigationViewPainter() {
-        return new CryptoBrokerNavigationViewPainter(getActivity(), identity);
+        return new CryptoBrokerNavigationViewPainter(getContext(), getFullyLoadedSession());
     }
 
     @Override
     public HeaderViewPainter getHeaderViewPainter() {
-        return new CryptoBrokerWalletHeaderPainter();
+        return new CryptoBrokerWalletHeaderPainter(getContext(), getFullyLoadedSession());
     }
 
     @Override
     public FooterViewPainter getFooterViewPainter() {
-        return new CryptoBrokerWalletFooterPainter();
+        return new CryptoBrokerWalletFooterPainter(getContext(), getFullyLoadedSession());
+    }
+
+    @Override
+    public NotificationPainter getNotificationPainter(String code) {
+        switch (code){
+            case CBW_CONTRACT_EXPIRATION_NOTIFICATION:
+                return new CryptoBrokerNotificationPainter("Expiring contract.","A contract is about to expire, check your wallet.","");
+            case CBW_NEW_NEGOTIATION_NOTIFICATION:
+                return new CryptoBrokerNotificationPainter("New Negotiation","You have a new negotiation! Please check your wallet.","");
+            case CBW_WAITING_FOR_BROKER_NOTIFICATION:
+                return new CryptoBrokerNotificationPainter("Negotiation Update","You have received a negotiation update, check your wallet.","");
+            case CBW_CANCEL_NEGOTIATION_NOTIFICATION:
+                return new CryptoBrokerNotificationPainter("Negotiation Canceled","Check the Contract Story, a customer has canceled a negotiation","");
+            case CBW_NEW_CONTRACT_NOTIFICATION:
+                return new CryptoBrokerNotificationPainter("New Contract.","A new contract has been created, check your wallet.","");
+            default:
+                return super.getNotificationPainter(code);
+        }
     }
 }

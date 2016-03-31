@@ -5,11 +5,13 @@ import com.bitdubai.fermat_api.layer.all_definition.enums.VaultType;
 import com.bitdubai.fermat_api.layer.all_definition.transaction_transference_protocol.TransactionSender;
 import com.bitdubai.fermat_api.layer.all_definition.transaction_transference_protocol.crypto_transactions.CryptoStatus;
 import com.bitdubai.fermat_api.layer.all_definition.transaction_transference_protocol.crypto_transactions.CryptoTransaction;
+import com.bitdubai.fermat_bch_api.layer.crypto_network.bitcoin.BlockchainDownloadProgress;
 import com.bitdubai.fermat_bch_api.layer.crypto_network.bitcoin.BroadcastStatus;
 import com.bitdubai.fermat_bch_api.layer.crypto_network.bitcoin.BlockchainConnectionStatus;
 import com.bitdubai.fermat_bch_api.layer.crypto_network.bitcoin.exceptions.CantBroadcastTransactionException;
 import com.bitdubai.fermat_bch_api.layer.crypto_network.bitcoin.exceptions.CantCancellBroadcastTransactionException;
 import com.bitdubai.fermat_bch_api.layer.crypto_network.bitcoin.exceptions.CantGetBlockchainConnectionStatusException;
+import com.bitdubai.fermat_bch_api.layer.crypto_network.bitcoin.exceptions.CantGetBlockchainDownloadProgress;
 import com.bitdubai.fermat_bch_api.layer.crypto_network.bitcoin.exceptions.CantGetBroadcastStatusException;
 import com.bitdubai.fermat_bch_api.layer.crypto_network.bitcoin.exceptions.CantGetCryptoTransactionException;
 import com.bitdubai.fermat_bch_api.layer.crypto_network.bitcoin.exceptions.CantGetTransactionCryptoStatusException;
@@ -57,16 +59,6 @@ public interface BitcoinNetworkManager extends TransactionSender<CryptoTransacti
      */
     CryptoStatus getCryptoStatus(String txHash) throws CantGetTransactionCryptoStatusException;
 
-    /**
-     * Will get the CryptoTransaction directly from the blockchain by requesting it to a peer.
-     * If the transaction is not part of any of our vaults, we will ask it to a connected peer to retrieve it.
-     * @param txHash the Hash of the transaction we are going to look for.
-     * @param blockHash the Hash of block where this transaction was stored..
-     * @return a CryptoTransaction with the information of the transaction.
-     * @throws CantGetCryptoTransactionException
-     */
-    CryptoTransaction getCryptoTransactionFromBlockChain(String txHash, String blockHash) throws CantGetCryptoTransactionException;
-
     /**********************************************Broadcasting functionality ********************************************/
 
     /**
@@ -74,9 +66,10 @@ public interface BitcoinNetworkManager extends TransactionSender<CryptoTransacti
      * @param blockchainNetworkType
      * @param tx
      * @param transactionId
+     * @param commit specifies if we commit this transaction or there is a chance of rolling back.
      * @throws CantStoreBitcoinTransactionException
      */
-    void storeBitcoinTransaction(BlockchainNetworkType blockchainNetworkType, Transaction tx, UUID transactionId) throws CantStoreBitcoinTransactionException;
+    void storeBitcoinTransaction(BlockchainNetworkType blockchainNetworkType, Transaction tx, UUID transactionId, boolean commit) throws CantStoreBitcoinTransactionException;
 
     /**
      * Broadcast a well formed, commited and signed transaction into the network.
@@ -111,14 +104,6 @@ public interface BitcoinNetworkManager extends TransactionSender<CryptoTransacti
 
 
     /**
-     * Get the Unspent bitcoin transaction stored by the CryptoNetwork
-     * @param blockchainNetworkType the network type
-     * @return the bitcoin transaction
-     */
-    List<Transaction> getUnspentBitcoinTransactions(BlockchainNetworkType blockchainNetworkType);
-
-
-    /**
      * Get the bitcoin transactions stored by the CryptoNetwork
      * @param blockchainNetworkType the network type
      * @return the bitcoin transaction
@@ -143,11 +128,20 @@ public interface BitcoinNetworkManager extends TransactionSender<CryptoTransacti
      */
     CryptoTransaction getCryptoTransaction(String txHash) throws CantGetCryptoTransactionException;
 
+
+    /**
+     * Gets the list of stored CryptoTransactions for the specified network type
+     * @param blockchainNetworkType the network type to get the transactions from.
+     * @return the list of Crypto Transaction
+     * @throws CantGetCryptoTransactionException
+     */
+    List<CryptoTransaction> getCryptoTransactions(BlockchainNetworkType blockchainNetworkType) throws CantGetCryptoTransactionException;
+
     /**
      * Based on the passed transaction chain of Transactions hashes and Blocks hashes, determines the entire path
      * of the chain until the Genesis Transaction is reached.
      * The genesis Transaction will be the first transaction in the map.
-     * @param blockchainNetworkType the active network we are getting this info from. Defaults to BlockchainNetworkType.DEFAULT
+     * @param blockchainNetworkType the active network we are getting this info from. Defaults to BlockchainNetworkType.getDefaultBlockchainNetworkType()
      * @param transactionChain a Map with the form TransactionHash / BlockHash
      * @return all the CryptoTransactions originated at the genesis transaction
      * @throws CantGetCryptoTransactionException
@@ -163,4 +157,15 @@ public interface BitcoinNetworkManager extends TransactionSender<CryptoTransacti
      * @throws CantGetCryptoTransactionException
      */
     List<CryptoTransaction> getChildTransactionsFromParent(String parentTransactionHash) throws CantGetCryptoTransactionException;
+
+
+    /**
+     * Gets the download progress from the specified network
+     * @param blockchainNetworkType The network type we want to know the download progress
+     * @return the BlockchainDownloadProgress class which includes information about pending blocks, total blocks, etc.
+     * @throws CantGetBlockchainDownloadProgress
+     */
+    BlockchainDownloadProgress getBlockchainDownloadProgress(BlockchainNetworkType blockchainNetworkType) throws CantGetBlockchainDownloadProgress;
+
+
 }

@@ -8,7 +8,6 @@ package com.bitdubai.fermat_p2p_api.layer.all_definition.common.network_services
 
 import com.bitdubai.fermat_api.layer.all_definition.components.interfaces.PlatformComponentProfile;
 import com.bitdubai.fermat_api.layer.all_definition.enums.Plugins;
-import com.bitdubai.fermat_api.layer.all_definition.network_service.enums.NetworkServiceType;
 import com.bitdubai.fermat_api.layer.all_definition.network_service.interfaces.NetworkServiceLocal;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.common.network_services.interfaces.NetworkService;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.contents.FermatMessageCommunication;
@@ -45,11 +44,6 @@ public class CommunicationNetworkServiceLocal implements Observer, NetworkServic
     private PlatformComponentProfile remoteNetworkServiceProfile;
 
     /**
-     * Represent the profile of the local network service
-     */
-    private NetworkServiceType networkServiceTypePluginRoot;
-
-    /**
      * DealsWithErrors Interface member variables.
      */
     private ErrorManager errorManager;
@@ -79,13 +73,11 @@ public class CommunicationNetworkServiceLocal implements Observer, NetworkServic
     public CommunicationNetworkServiceLocal(PlatformComponentProfile remoteNetworkServiceProfile,
                                             ErrorManager errorManager, EventManager eventManager,
                                             OutgoingMessageDao outgoingMessageDao,
-                                            NetworkServiceType networkServiceTypePluginRoot,
                                             NetworkService networkService) {
         this.remoteNetworkServiceProfile = remoteNetworkServiceProfile;
         this.errorManager = errorManager;
         this.eventManager = eventManager;
         this.outgoingMessageDao = outgoingMessageDao;
-        this.networkServiceTypePluginRoot = networkServiceTypePluginRoot;
         this.networkServicePluginRoot = networkService;
     }
 

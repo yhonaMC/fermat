@@ -14,7 +14,6 @@ import com.bitdubai.fermat_android_api.ui.adapters.FermatAdapter;
 import com.bitdubai.fermat_android_api.ui.enums.FermatRefreshTypes;
 import com.bitdubai.fermat_android_api.ui.fragments.FermatWalletListFragment;
 import com.bitdubai.fermat_android_api.ui.interfaces.FermatListItemListeners;
-import com.bitdubai.fermat_api.layer.all_definition.enums.FiatCurrency;
 import com.bitdubai.fermat_api.layer.all_definition.enums.UISource;
 import com.bitdubai.fermat_api.layer.all_definition.navigation_structure.enums.Activities;
 import com.bitdubai.fermat_api.layer.all_definition.navigation_structure.enums.Wallets;
@@ -51,7 +50,7 @@ public class BrokerListActivityFragment extends FermatWalletListFragment<BrokerI
     private ErrorManager errorManager;
 
     // Data
-    private ArrayList<BrokerIdentityBusinessInfo> brokerList;
+    private List<BrokerIdentityBusinessInfo> brokerList;
     private CryptoCustomerWalletManager walletManager;
 
     //UI
@@ -71,7 +70,7 @@ public class BrokerListActivityFragment extends FermatWalletListFragment<BrokerI
             walletManager = moduleManager.getCryptoCustomerWallet(appSession.getAppPublicKey());
             errorManager = appSession.getErrorManager();
 
-            brokerList = (ArrayList) getMoreDataAsync(FermatRefreshTypes.NEW, 0);
+            brokerList = getMoreDataAsync(FermatRefreshTypes.NEW, 0);
         } catch (Exception ex) {
             CommonLogger.exception(TAG, ex.getMessage(), ex);
             if (errorManager != null)
@@ -92,18 +91,6 @@ public class BrokerListActivityFragment extends FermatWalletListFragment<BrokerI
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        try {
-            CustomerNavigationViewPainter navigationViewPainter = new CustomerNavigationViewPainter(getActivity(), null);
-        } catch (Exception e) {
-            makeText(getActivity(), "Oops! recovering from system error", Toast.LENGTH_SHORT).show();
-            errorManager.reportUnexpectedUIException(UISource.VIEW, UnexpectedUIExceptionSeverity.CRASH, e);
-        }
-    }
-
-    @Override
     protected boolean hasMenu() {
         return false;
     }
@@ -111,7 +98,7 @@ public class BrokerListActivityFragment extends FermatWalletListFragment<BrokerI
     @Override
     public FermatAdapter getAdapter() {
         if (adapter == null) {
-            adapter = new BrokerListAdapter(getActivity(), brokerList, walletManager);
+            adapter = new BrokerListAdapter(getActivity(), brokerList);
             adapter.setFermatListEventListener(this);
         }
         return adapter;
@@ -164,8 +151,9 @@ public class BrokerListActivityFragment extends FermatWalletListFragment<BrokerI
     @Override
     public void onItemClickListener(BrokerIdentityBusinessInfo data, int position) {
         final CryptoCustomerWalletSession walletSession = (CryptoCustomerWalletSession) this.appSession;
-        walletSession.setCurrencyToBuy(data.getMerchandiseCurrency());
+        walletSession.setCurrencyToBuy(data.getMerchandise());
         walletSession.setSelectedBrokerIdentity(data);
+        walletSession.setQuotes(data.getQuotes());
         changeActivity(Activities.CBP_CRYPTO_CUSTOMER_WALLET_START_NEGOTIATION, this.appSession.getAppPublicKey());
     }
 
@@ -179,9 +167,9 @@ public class BrokerListActivityFragment extends FermatWalletListFragment<BrokerI
 
         if (moduleManager != null) {
             try {
-                data.addAll(TestData.getBrokerListTestData());
+                //data.addAll(TestData.getBrokerListTestData());
 
-                // TODO: data.addAll(walletManager.getListOfConnectedBrokersAndTheirMerchandises("customer_1"));
+                data.addAll(walletManager.getListOfConnectedBrokersAndTheirMerchandises());
 
             } catch (Exception ex) {
                 CommonLogger.exception(TAG, ex.getMessage(), ex);

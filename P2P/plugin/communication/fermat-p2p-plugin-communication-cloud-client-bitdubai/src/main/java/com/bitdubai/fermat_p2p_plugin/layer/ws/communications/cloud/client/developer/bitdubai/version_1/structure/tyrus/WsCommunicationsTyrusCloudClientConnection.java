@@ -81,10 +81,15 @@ import javax.websocket.DeploymentException;
  */
 public class WsCommunicationsTyrusCloudClientConnection implements CommunicationsClientConnection {
 
+    /*
+     * Represent the WsCommunicationsCloudClientPluginRoot
+     */
+    private WsCommunicationsCloudClientPluginRoot WsCommunicationsCloudClientPluginRoot;
+
     /**
      * Represent the WEB_SERVICE_URL
      */
-    private static String WEB_SERVICE_URL = ServerConf.HTTP_PROTOCOL + WsCommunicationsCloudClientPluginRoot.SERVER_IP + ":" + ServerConf.WEB_SERVICE_PORT + "/fermat/cloud-server/v1/components/registered/";
+    //private static String WEB_SERVICE_URL = ServerConf.HTTP_PROTOCOL + WsCommunicationsCloudClientPluginRoot.getServerIp() + ":" + ServerConf.WEB_SERVICE_PORT + "/fermat/cloud-server/v1/components/registered/";
 
     /**
      * Represent the wsCommunicationsTyrusCloudClientChannel
@@ -117,13 +122,14 @@ public class WsCommunicationsTyrusCloudClientConnection implements Communication
      * @param uri
      * @param eventManager
      */
-    public WsCommunicationsTyrusCloudClientConnection(URI uri, EventManager eventManager, LocationManager locationManager, ECCKeyPair clientIdentity) throws IOException, DeploymentException {
+    public WsCommunicationsTyrusCloudClientConnection(URI uri, EventManager eventManager, LocationManager locationManager, ECCKeyPair clientIdentity, WsCommunicationsCloudClientPluginRoot WsCommunicationsCloudClientPluginRoot) throws IOException, DeploymentException {
         super();
         this.uri = uri;
         this.wsCommunicationsTyrusCloudClientChannel = new WsCommunicationsTyrusCloudClientChannel(this, eventManager, clientIdentity);
         this.wsCommunicationTyrusVPNClientManagerAgent    = WsCommunicationTyrusVPNClientManagerAgent.getInstance();
         this.locationManager                         = locationManager;
         this.webSocketContainer = ClientManager.createClient();
+        this.WsCommunicationsCloudClientPluginRoot = WsCommunicationsCloudClientPluginRoot;
     }
 
     /**
@@ -176,10 +182,10 @@ public class WsCommunicationsTyrusCloudClientConnection implements Communication
 
             @Override
             public boolean onDisconnect(CloseReason closeReason) {
-                    System.out.println("############################################################");
-                    System.out.println("#  WsCommunicationsCloudClientConnection - Reconnecting... #");
-                    System.out.println("############################################################");
-                    return true;
+                System.out.println("############################################################");
+                System.out.println("#  WsCommunicationsCloudClientConnection - Reconnecting... #");
+                System.out.println("############################################################");
+                return true;
             }
 
             @Override
@@ -222,11 +228,11 @@ public class WsCommunicationsTyrusCloudClientConnection implements Communication
         try {
 
             //Validate parameters
-            if ((identityPublicKey == null || identityPublicKey == "") ||
-                    (alias == null || alias == "")                     ||
-                        (name == null || name == "")                   ||
-                                    networkServiceType == null         ||
-                                        platformComponentType == null  ){
+            if ((identityPublicKey == null || identityPublicKey.equals("")) ||
+                    (alias == null || alias.equals(""))                     ||
+                    (name == null || name.equals(""))                   ||
+                    networkServiceType == null         ||
+                    platformComponentType == null  ){
 
                 throw new IllegalArgumentException("All argument are required, can not be null ");
 
@@ -246,13 +252,13 @@ public class WsCommunicationsTyrusCloudClientConnection implements Communication
              * Construct a PlatformComponentProfile instance
              */
             return new PlatformComponentProfileCommunication(alias,
-                                                             wsCommunicationsTyrusCloudClientChannel.getClientIdentity().getPublicKey(),
-                                                             identityPublicKey,
-                                                             location,
-                                                             name,
-                                                             networkServiceType,
-                                                             platformComponentType,
-                                                             extraData);
+                    wsCommunicationsTyrusCloudClientChannel.getClientIdentity().getPublicKey(),
+                    identityPublicKey,
+                    location,
+                    name,
+                    networkServiceType,
+                    platformComponentType,
+                    extraData);
 
         } catch (Exception e) {
             throw new IllegalArgumentException(e);
@@ -280,13 +286,13 @@ public class WsCommunicationsTyrusCloudClientConnection implements Communication
             }
 
             return new PlatformComponentProfileCommunication(null,
-                                                            wsCommunicationsTyrusCloudClientChannel.getClientIdentity().getPublicKey(),
-                                                            identityPublicKey,
-                                                            null,
-                                                            null,
-                                                            networkServiceType,
-                                                            platformComponentType,
-                                                            null);
+                    wsCommunicationsTyrusCloudClientChannel.getClientIdentity().getPublicKey(),
+                    identityPublicKey,
+                    null,
+                    null,
+                    networkServiceType,
+                    platformComponentType,
+                    null);
         } catch (Exception e) {
             throw new IllegalArgumentException(e);
         }
@@ -450,19 +456,19 @@ public class WsCommunicationsTyrusCloudClientConnection implements Communication
 
         try {
 
-                Gson gson = new Gson();
-                JsonObject jsonObject = new JsonObject();
-                jsonObject.addProperty(JsonAttNamesConstants.NETWORK_SERVICE_TYPE, networkServiceApplicant.getNetworkServiceType().toString());
-                jsonObject.addProperty(JsonAttNamesConstants.DISCOVERY_PARAM, discoveryQueryParameters.toJson());
+            Gson gson = new Gson();
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.addProperty(JsonAttNamesConstants.NETWORK_SERVICE_TYPE, networkServiceApplicant.getNetworkServiceType().toString());
+            jsonObject.addProperty(JsonAttNamesConstants.DISCOVERY_PARAM, discoveryQueryParameters.toJson());
 
                  /*
                  * Construct a fermat packet whit the filters
                  */
-                FermatPacket fermatPacketRespond = FermatPacketCommunicationFactory.constructFermatPacketEncryptedAndSinged(wsCommunicationsTyrusCloudClientChannel.getServerIdentity(),                  //Destination
-                        wsCommunicationsTyrusCloudClientChannel.getClientIdentity().getPublicKey(),   //Sender
-                        gson.toJson(jsonObject),                                           //Message Content
-                        FermatPacketType.REQUEST_LIST_COMPONENT_REGISTERED,                      //Packet type
-                        wsCommunicationsTyrusCloudClientChannel.getClientIdentity().getPrivateKey()); //Sender private key
+            FermatPacket fermatPacketRespond = FermatPacketCommunicationFactory.constructFermatPacketEncryptedAndSinged(wsCommunicationsTyrusCloudClientChannel.getServerIdentity(),                  //Destination
+                    wsCommunicationsTyrusCloudClientChannel.getClientIdentity().getPublicKey(),   //Sender
+                    gson.toJson(jsonObject),                                           //Message Content
+                    FermatPacketType.REQUEST_LIST_COMPONENT_REGISTERED,                      //Packet type
+                    wsCommunicationsTyrusCloudClientChannel.getClientIdentity().getPrivateKey()); //Sender private key
 
             System.out.println("WsCommunicationsCloudClientConnection - wsCommunicationsTyrusCloudClientChannel.getClientConnection().isOpen() "+ wsCommunicationsTyrusCloudClientChannel.getClientConnection().isOpen());
             if (wsCommunicationsTyrusCloudClientChannel.getClientConnection().isOpen()){
@@ -521,7 +527,7 @@ public class WsCommunicationsTyrusCloudClientConnection implements Communication
             RestTemplate restTemplate = new RestTemplate(true);
             restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
 
-            ResponseEntity<String> responseEntity = restTemplate.exchange(WEB_SERVICE_URL, HttpMethod.POST, requestEntity, String.class);
+            ResponseEntity<String> responseEntity = restTemplate.exchange(getWebServiceURL(), HttpMethod.POST, requestEntity, String.class);
 
             String respond = responseEntity.getBody();
             //System.out.println("responseEntity = " + respond);
@@ -587,7 +593,7 @@ public class WsCommunicationsTyrusCloudClientConnection implements Communication
 
             // Create a new RestTemplate instance
             RestTemplate restTemplate = new RestTemplate(true);
-            String respond = restTemplate.postForObject("http://"+ WsCommunicationsCloudClientPluginRoot.SERVER_IP + ":" + ServerConf.DEFAULT_PORT+"/fermat/components/registered", parameters, String.class);
+            String respond = restTemplate.postForObject("http://" + WsCommunicationsCloudClientPluginRoot.getServerIp() + ":" + WsCommunicationsCloudClientPluginRoot.getServerPort() + "/fermat/components/registered", parameters, String.class);
 
             /*
              * if respond have the result list
@@ -657,7 +663,7 @@ public class WsCommunicationsTyrusCloudClientConnection implements Communication
             jsonObject.addProperty(JsonAttNamesConstants.NAME_IDENTITY, wsCommunicationsTyrusCloudClientChannel.getIdentityPublicKey());
             jsonObject.addProperty(JsonAttNamesConstants.DISCOVERY_PARAM, discoveryQueryParameters.toJson());
 
-            clientConnect = new Socket(WsCommunicationsCloudClientPluginRoot.SERVER_IP,9001);
+            clientConnect = new Socket(WsCommunicationsCloudClientPluginRoot.getServerIp(),9001);
             bufferedReader = new BufferedReader(new InputStreamReader(clientConnect.getInputStream()));
 
             printWriter= new PrintWriter(clientConnect.getOutputStream());
@@ -768,10 +774,10 @@ public class WsCommunicationsTyrusCloudClientConnection implements Communication
              * Construct a fermat packet whit the request
              */
             FermatPacket fermatPacketRespond = FermatPacketCommunicationFactory.constructFermatPacketEncryptedAndSinged(wsCommunicationsTyrusCloudClientChannel.getServerIdentity(),                  //Destination
-                                                                                                                        wsCommunicationsTyrusCloudClientChannel.getClientIdentity().getPublicKey(),   //Sender
-                                                                                                                        jsonListRepresentation,                                                  //Message Content
-                                                                                                                        FermatPacketType.COMPONENT_CONNECTION_REQUEST,                           //Packet type
-                                                                                                                        wsCommunicationsTyrusCloudClientChannel.getClientIdentity().getPrivateKey()); //Sender private key
+                    wsCommunicationsTyrusCloudClientChannel.getClientIdentity().getPublicKey(),   //Sender
+                    jsonListRepresentation,                                                  //Message Content
+                    FermatPacketType.COMPONENT_CONNECTION_REQUEST,                           //Packet type
+                    wsCommunicationsTyrusCloudClientChannel.getClientIdentity().getPrivateKey()); //Sender private key
 
 
             System.out.println("WsCommunicationsCloudClientConnection - wsCommunicationsTyrusCloudClientChannel.getClientConnection().isOpen() " + wsCommunicationsTyrusCloudClientChannel.getClientConnection().isOpen());
@@ -838,10 +844,10 @@ public class WsCommunicationsTyrusCloudClientConnection implements Communication
              * Construct a fermat packet whit the request
              */
             FermatPacket fermatPacketRespond = FermatPacketCommunicationFactory.constructFermatPacketEncryptedAndSinged(wsCommunicationsTyrusCloudClientChannel.getServerIdentity(),                  //Destination
-                                                                                                                        wsCommunicationsTyrusCloudClientChannel.getClientIdentity().getPublicKey(),   //Sender
-                                                                                                                        packetContentJson,                                                  //Message Content
-                                                                                                                        FermatPacketType.DISCOVERY_COMPONENT_CONNECTION_REQUEST,                 //Packet type
-                                                                                                                        wsCommunicationsTyrusCloudClientChannel.getClientIdentity().getPrivateKey()); //Sender private key
+                    wsCommunicationsTyrusCloudClientChannel.getClientIdentity().getPublicKey(),   //Sender
+                    packetContentJson,                                                  //Message Content
+                    FermatPacketType.DISCOVERY_COMPONENT_CONNECTION_REQUEST,                 //Packet type
+                    wsCommunicationsTyrusCloudClientChannel.getClientIdentity().getPrivateKey()); //Sender private key
 
 
             System.out.println("WsCommunicationsCloudClientConnection - wsCommunicationsTyrusCloudClientChannel.getClientConnection().isOpen() " + wsCommunicationsTyrusCloudClientChannel.getClientConnection().isOpen());
@@ -858,7 +864,7 @@ public class WsCommunicationsTyrusCloudClientConnection implements Communication
             }
 
         }catch (Exception e){
-            System.out.println("WsCommunicationsCloudClientConnection - "+e.getStackTrace());
+            System.out.println("WsCommunicationsCloudClientConnection - " + e.getStackTrace());
             CantEstablishConnectionException pluginStartException = new CantEstablishConnectionException(CantEstablishConnectionException.DEFAULT_MESSAGE, e, e.getLocalizedMessage(), e.getLocalizedMessage());
             throw pluginStartException;
         }
@@ -951,7 +957,12 @@ public class WsCommunicationsTyrusCloudClientConnection implements Communication
      */
     @Override
     public boolean isConnected(){
-        return wsCommunicationsTyrusCloudClientChannel.getClientConnection().isOpen();
+
+        if (wsCommunicationsTyrusCloudClientChannel.getClientConnection() != null){
+            return wsCommunicationsTyrusCloudClientChannel.getClientConnection().isOpen();
+        }
+
+        return Boolean.FALSE;
     }
 
     /**
@@ -993,65 +1004,18 @@ public class WsCommunicationsTyrusCloudClientConnection implements Communication
         return wsCommunicationsTyrusCloudClientChannel.isRegister();
     }
 
+    /*
+     * get the WebService URL of the Server Cloud
+     */
+    private String getWebServiceURL(){
+        return ServerConf.HTTP_PROTOCOL + WsCommunicationsCloudClientPluginRoot.getServerIp() + ":" + ServerConf.WEB_SERVICE_PORT + "/fermat/cloud-server/v1/components/registered/";
+    }
 
-
-    public void springTest(){
-
-        System.out.println("Iniciando springTest() = ");
-
-        List<PlatformComponentProfile> resultList = new ArrayList<>();
-
-        try {
-
-             /*
-             * Construct a jsonObject whit the parameters
-             */
-            Gson gson = new Gson();
-            JsonObject jsonObject = new JsonObject();
-            jsonObject.addProperty(JsonAttNamesConstants.NAME_IDENTITY, "09A3B707D154r3B12C7CC626BCD7CF19EA8813B1B56A1B75E1C27335F8086C7ED588A7A06BCA67A289B73097FF67F5B1A0844FF2D550A6FCEFB66277EFDEB13A1");
-            jsonObject.addProperty(JsonAttNamesConstants.DISCOVERY_PARAM, "{\"networkServiceType\":\"UNDEFINED\",\"platformComponentType\":\"ACTOR_INTRA_USER\"}");
-
-            // Create a new RestTemplate instance
-            HttpHeaders requestHeaders = new HttpHeaders();
-            requestHeaders.set("Connection", "Close");
-            requestHeaders.setAccept(Collections.singletonList(new org.springframework.http.MediaType("application", "json")));
-
-            HttpEntity<?> requestEntity = new HttpEntity<Object>(jsonObject.toString(), requestHeaders);
-            RestTemplate restTemplate = new RestTemplate(true);
-            restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
-
-            ResponseEntity<String> responseEntity = restTemplate.exchange(WEB_SERVICE_URL, HttpMethod.POST, requestEntity, String.class);
-
-            String respond = responseEntity.getBody();
-            //System.out.println("responseEntity = " + respond);
-
-            /*
-             * if respond have the result list
-             */
-            if (respond.contains(JsonAttNamesConstants.RESULT_LIST)){
-
-                /*
-                 * Decode into a json object
-                 */
-                JsonParser parser = new JsonParser();
-                JsonObject respondJsonObject = (JsonObject) parser.parse(respond.toString());
-
-                 /*
-                 * Get the receivedList
-                 */
-                resultList = gson.fromJson(respondJsonObject.get(JsonAttNamesConstants.RESULT_LIST).getAsString(), new TypeToken<List<PlatformComponentProfileCommunication>>() {
-                }.getType());
-
-                System.out.println("WsCommunicationsCloudClientConnection - resultList.size() = " + resultList.size());
-
-            }else {
-                System.out.println("WsCommunicationsCloudClientConnection - Requested list is not available, resultList.size() = " + resultList.size());
-            }
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
+    /*
+     * get the WsCommunicationsCloudClientPluginRoot
+     */
+    public WsCommunicationsCloudClientPluginRoot getWsCommunicationsCloudClientPluginRoot(){
+        return WsCommunicationsCloudClientPluginRoot;
     }
 
 }

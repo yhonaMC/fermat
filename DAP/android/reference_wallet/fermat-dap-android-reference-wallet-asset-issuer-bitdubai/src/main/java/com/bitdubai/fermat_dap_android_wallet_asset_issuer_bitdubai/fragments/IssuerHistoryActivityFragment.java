@@ -169,8 +169,8 @@ public class IssuerHistoryActivityFragment extends FermatWalletListFragment<Digi
                     .setIconRes(R.drawable.asset_issuer)
                     .setVIewColor(R.color.dap_issuer_view_color)
                     .setTitleTextColor(R.color.dap_issuer_view_color)
-                    .setSubTitle("Asset Issuer History.")
-                    .setBody("*GIVE ME A TEXT")
+//                    .setSubTitle("Asset Issuer History.")
+//                    .setBody("*GIVE ME A TEXT")
                     .setTemplateType(PresentationDialog.TemplateType.TYPE_PRESENTATION_WITHOUT_IDENTITIES)
                     .setIsCheckEnabled(checkButton)
                     .build();
@@ -184,7 +184,7 @@ public class IssuerHistoryActivityFragment extends FermatWalletListFragment<Digi
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        menu.add(0, SessionConstantsAssetIssuer.IC_ACTION_ISSUER_HELP_HISTORY, 0, "help").setIcon(R.drawable.dap_asset_issuer_help_icon)
+        menu.add(0, SessionConstantsAssetIssuer.IC_ACTION_ISSUER_HELP_HISTORY, 0, "Help").setIcon(R.drawable.dap_asset_issuer_help_icon)
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
     }
 

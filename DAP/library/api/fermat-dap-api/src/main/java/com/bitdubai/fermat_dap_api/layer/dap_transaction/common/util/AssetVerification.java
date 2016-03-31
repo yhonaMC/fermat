@@ -37,10 +37,7 @@ public final class AssetVerification {
                 return false;
             }
             String digitalAssetHash = digitalAssetMetadata.getDigitalAssetHash();
-            if (Validate.isValidString(digitalAssetHash)) {
-                return false;
-            }
-            return true;
+            return !Validate.isValidString(digitalAssetHash);
         } catch (ObjectNotSetException e) {
             return false;
         }
@@ -83,7 +80,7 @@ public final class AssetVerification {
     }
 
     private static CryptoTransaction getCryptoTransactionFromCryptoNetwork(BitcoinNetworkManager bitcoinNetworkManager, DigitalAssetMetadata digitalAssetMetadata) throws DAPException, CantGetCryptoTransactionException {
-        return bitcoinNetworkManager.getGenesisCryptoTransaction(null, digitalAssetMetadata.getTransactionChain());
+        return bitcoinNetworkManager.getGenesisCryptoTransaction(digitalAssetMetadata.getNetworkType(), digitalAssetMetadata.getTransactionChain());
     }
 
     public static CryptoTransaction getCryptoTransactionFromCryptoNetworkByCryptoStatus(BitcoinNetworkManager bitcoinNetworkManager, DigitalAssetMetadata digitalAssetMetadata, CryptoStatus cryptoStatus) throws CantGetCryptoTransactionException {
@@ -119,7 +116,7 @@ public final class AssetVerification {
 
 
     public static CryptoTransaction foundCryptoTransaction(BitcoinNetworkManager bitcoinNetworkManager, DigitalAssetMetadata digitalAssetMetadata) throws CantGetCryptoTransactionException {
-        CryptoTransaction cryptoTransaction = bitcoinNetworkManager.getCryptoTransactionFromBlockChain(digitalAssetMetadata.getLastTransactionHash(), digitalAssetMetadata.getLastTransactionBlock());
+        CryptoTransaction cryptoTransaction = bitcoinNetworkManager.getCryptoTransaction(digitalAssetMetadata.getLastTransactionHash());
         if (cryptoTransaction == null) {
             throw new CantGetCryptoTransactionException(CantGetCryptoTransactionException.DEFAULT_MESSAGE, null, "Getting the genesis transaction from Crypto Network", "The crypto transaction received is null");
         }
@@ -129,6 +126,10 @@ public final class AssetVerification {
     public static boolean isValidContract(DigitalAssetContract digitalAssetContract) {
         //For now, we going to check, only, the expiration date
         ContractProperty contractProperty = digitalAssetContract.getContractProperty(DigitalAssetContractPropertiesConstants.EXPIRATION_DATE);
+        return isValidExpirationDate(contractProperty);
+    }
+
+    public static boolean isValidExpirationDate(ContractProperty contractProperty) {
         Timestamp expirationDate = (Timestamp) contractProperty.getValue();
         return (expirationDate == null || new Timestamp(System.currentTimeMillis()).before(expirationDate));
     }

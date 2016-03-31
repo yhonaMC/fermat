@@ -21,8 +21,8 @@ import com.bitdubai.fermat_api.layer.osa_android.location_system.Location;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.common.network_services.interfaces.NetworkService;
 import com.bitdubai.fermat_p2p_api.layer.p2p_communication.commons.contents.FermatMessage;
 import com.bitdubai.fermat_pip_api.layer.platform_service.error_manager.interfaces.ErrorManager;
-import com.bitdubai.fermat_pip_api.layer.platform_service.event_manager.enums.EventType;
 import com.bitdubai.fermat_pip_api.layer.platform_service.event_manager.interfaces.EventManager;
+import com.bitdubai.fermat_wpd_api.all_definition.enums.EventType;
 import com.bitdubai.fermat_wpd_api.layer.wpd_network_service.wallet_community.interfaces.WalletCommunityManager;
 import com.bitdubai.fermat_wpd_plugin.layer.network_service.wallet_community.developer.bitdubai.version_1.event_handlers.FinishedWalletInstallationEventHandler;
 
@@ -109,7 +109,7 @@ public class WalletCommunityNetworkServicePluginRoot extends AbstractPlugin impl
          * Listen and handle Client Connection Success Reconnect Notification Event
          */
 //        fermatEventListener = eventManager.getNewListener(P2pEventType.CLIENT_SUCCESS_RECONNECT);
-//        fermatEventListener.setEventHandler(new ClientSuccessfullReconnectNotificationEventHandler(this));
+//        fermatEventListener.setEventHandler(new ClientSuccessfulReconnectNotificationEventHandler(this));
 //        eventManager.addListener(fermatEventListener);
 //        listenersAdded.add(fermatEventListener);
 

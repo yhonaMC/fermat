@@ -17,7 +17,6 @@ import com.bitdubai.fermat_api.layer.all_definition.developer.DeveloperDatabaseT
 import com.bitdubai.fermat_api.layer.all_definition.developer.DeveloperObjectFactory;
 import com.bitdubai.fermat_api.layer.all_definition.enums.Actors;
 import com.bitdubai.fermat_api.layer.all_definition.enums.Addons;
-import com.bitdubai.fermat_api.layer.all_definition.enums.AgentStatus;
 import com.bitdubai.fermat_api.layer.all_definition.enums.BlockchainNetworkType;
 import com.bitdubai.fermat_api.layer.all_definition.enums.CryptoCurrency;
 import com.bitdubai.fermat_api.layer.all_definition.enums.Layers;
@@ -29,16 +28,6 @@ import com.bitdubai.fermat_api.layer.all_definition.events.interfaces.FermatEven
 import com.bitdubai.fermat_api.layer.all_definition.events.interfaces.FermatEventListener;
 import com.bitdubai.fermat_api.layer.all_definition.money.CryptoAddress;
 import com.bitdubai.fermat_api.layer.all_definition.network_service.enums.NetworkServiceType;
-import com.bitdubai.fermat_api.layer.osa_android.file_system.FileLifeSpan;
-import com.bitdubai.fermat_api.layer.osa_android.file_system.FilePrivacy;
-import com.bitdubai.fermat_api.layer.osa_android.file_system.PluginTextFile;
-import com.bitdubai.fermat_api.layer.osa_android.file_system.exceptions.CantCreateFileException;
-import com.bitdubai.fermat_api.layer.osa_android.file_system.exceptions.FileNotFoundException;
-import com.bitdubai.fermat_ccp_plugin.layer.network_service.crypto_addresses.developer.bitdubai.version_1.communication.event_handlers.NewMessagesEventHandler;
-import com.bitdubai.fermat_ccp_plugin.layer.network_service.crypto_addresses.developer.bitdubai.version_1.communication.event_handlers.NewSentMessageNotificationEventHandler;
-import com.bitdubai.fermat_ccp_plugin.layer.network_service.crypto_addresses.developer.bitdubai.version_1.messages.ReceivedMessage;
-import com.bitdubai.fermat_ccp_plugin.layer.network_service.crypto_addresses.developer.bitdubai.version_1.structure.AddressesConstants;
-import com.bitdubai.fermat_p2p_api.layer.all_definition.common.network_services.interfaces.NetworkService;
 import com.bitdubai.fermat_api.layer.all_definition.network_service.interfaces.NetworkServiceConnectionManager;
 import com.bitdubai.fermat_api.layer.all_definition.util.Version;
 import com.bitdubai.fermat_api.layer.osa_android.database_system.Database;
@@ -46,7 +35,12 @@ import com.bitdubai.fermat_api.layer.osa_android.database_system.PluginDatabaseS
 import com.bitdubai.fermat_api.layer.osa_android.database_system.exceptions.CantCreateDatabaseException;
 import com.bitdubai.fermat_api.layer.osa_android.database_system.exceptions.CantOpenDatabaseException;
 import com.bitdubai.fermat_api.layer.osa_android.database_system.exceptions.DatabaseNotFoundException;
+import com.bitdubai.fermat_api.layer.osa_android.file_system.FileLifeSpan;
+import com.bitdubai.fermat_api.layer.osa_android.file_system.FilePrivacy;
 import com.bitdubai.fermat_api.layer.osa_android.file_system.PluginFileSystem;
+import com.bitdubai.fermat_api.layer.osa_android.file_system.PluginTextFile;
+import com.bitdubai.fermat_api.layer.osa_android.file_system.exceptions.CantCreateFileException;
+import com.bitdubai.fermat_api.layer.osa_android.file_system.exceptions.FileNotFoundException;
 import com.bitdubai.fermat_api.layer.osa_android.location_system.Location;
 import com.bitdubai.fermat_ccp_api.layer.network_service.crypto_addresses.enums.CryptoAddressDealers;
 import com.bitdubai.fermat_ccp_api.layer.network_service.crypto_addresses.enums.ProtocolState;
@@ -67,9 +61,8 @@ import com.bitdubai.fermat_ccp_plugin.layer.network_service.crypto_addresses.dev
 import com.bitdubai.fermat_ccp_plugin.layer.network_service.crypto_addresses.developer.bitdubai.version_1.communication.event_handlers.CompleteComponentConnectionRequestNotificationEventHandler;
 import com.bitdubai.fermat_ccp_plugin.layer.network_service.crypto_addresses.developer.bitdubai.version_1.communication.event_handlers.CompleteComponentRegistrationNotificationEventHandler;
 import com.bitdubai.fermat_ccp_plugin.layer.network_service.crypto_addresses.developer.bitdubai.version_1.communication.event_handlers.FailureComponentConnectionRequestNotificationEventHandler;
-import com.bitdubai.fermat_ccp_plugin.layer.network_service.crypto_addresses.developer.bitdubai.version_1.communication.event_handlers.NewReceiveMessagesNotificationEventHandler;
+import com.bitdubai.fermat_ccp_plugin.layer.network_service.crypto_addresses.developer.bitdubai.version_1.communication.event_handlers.NewSentMessageNotificationEventHandler;
 import com.bitdubai.fermat_ccp_plugin.layer.network_service.crypto_addresses.developer.bitdubai.version_1.communication.event_handlers.VPNConnectionCloseNotificationEventHandler;
-import com.bitdubai.fermat_ccp_plugin.layer.network_service.crypto_addresses.developer.bitdubai.version_1.communication.structure.CommunicationRegistrationProcessNetworkServiceAgent;
 import com.bitdubai.fermat_ccp_plugin.layer.network_service.crypto_addresses.developer.bitdubai.version_1.database.CryptoAddressesNetworkServiceDao;
 import com.bitdubai.fermat_ccp_plugin.layer.network_service.crypto_addresses.developer.bitdubai.version_1.database.CryptoAddressesNetworkServiceDeveloperDatabaseFactory;
 import com.bitdubai.fermat_ccp_plugin.layer.network_service.crypto_addresses.developer.bitdubai.version_1.exceptions.CantChangeProtocolStateException;
@@ -82,27 +75,27 @@ import com.bitdubai.fermat_ccp_plugin.layer.network_service.crypto_addresses.dev
 import com.bitdubai.fermat_ccp_plugin.layer.network_service.crypto_addresses.developer.bitdubai.version_1.messages.AcceptMessage;
 import com.bitdubai.fermat_ccp_plugin.layer.network_service.crypto_addresses.developer.bitdubai.version_1.messages.DenyMessage;
 import com.bitdubai.fermat_ccp_plugin.layer.network_service.crypto_addresses.developer.bitdubai.version_1.messages.NetworkServiceMessage;
+import com.bitdubai.fermat_ccp_plugin.layer.network_service.crypto_addresses.developer.bitdubai.version_1.messages.ReceivedMessage;
 import com.bitdubai.fermat_ccp_plugin.layer.network_service.crypto_addresses.developer.bitdubai.version_1.messages.RequestMessage;
+import com.bitdubai.fermat_ccp_plugin.layer.network_service.crypto_addresses.developer.bitdubai.version_1.structure.AddressesConstants;
 import com.bitdubai.fermat_ccp_plugin.layer.network_service.crypto_addresses.developer.bitdubai.version_1.structure.CryptoAddressesExecutorAgent;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.common.network_services.abstract_classes.AbstractNetworkService;
-import com.bitdubai.fermat_p2p_api.layer.all_definition.common.network_services.exceptions.CantLoadKeyPairException;
+import com.bitdubai.fermat_p2p_api.layer.all_definition.common.network_services.interfaces.NetworkService;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.common.network_services.template.communications.CommunicationNetworkServiceDatabaseConstants;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.common.network_services.template.communications.CommunicationNetworkServiceDatabaseFactory;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.common.network_services.template.exceptions.CantInitializeNetworkServiceDatabaseException;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.common.network_services.template.structure.CommunicationNetworkServiceConnectionManager_V2;
+import com.bitdubai.fermat_p2p_api.layer.all_definition.common.network_services.template.structure.CommunicationRegistrationProcessNetworkServiceAgent;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.enums.P2pEventType;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.events.ClientConnectionCloseNotificationEvent;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.events.VPNConnectionCloseNotificationEvent;
 import com.bitdubai.fermat_p2p_api.layer.p2p_communication.WsCommunicationsCloudClientManager;
 import com.bitdubai.fermat_p2p_api.layer.p2p_communication.commons.contents.FermatMessage;
-import com.bitdubai.fermat_p2p_api.layer.p2p_communication.commons.exceptions.CantRegisterComponentException;
 import com.bitdubai.fermat_p2p_api.layer.p2p_communication.commons.exceptions.CantRequestListException;
-import com.bitdubai.fermat_pip_api.layer.platform_service.error_manager.interfaces.ErrorManager;
 import com.bitdubai.fermat_pip_api.layer.platform_service.error_manager.enums.UnexpectedPluginExceptionSeverity;
+import com.bitdubai.fermat_pip_api.layer.platform_service.error_manager.interfaces.ErrorManager;
 import com.bitdubai.fermat_pip_api.layer.platform_service.event_manager.interfaces.EventManager;
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -150,6 +143,8 @@ public class CryptoAddressesNetworkServicePluginRoot extends AbstractNetworkServ
      */
     private CommunicationNetworkServiceConnectionManager_V2 communicationNetworkServiceConnectionManager;
 
+
+
     @Override
     public List<DeveloperDatabase> getDatabaseList(DeveloperObjectFactory developerObjectFactory) {
         return new CryptoAddressesNetworkServiceDeveloperDatabaseFactory(pluginDatabaseSystem, pluginId).getDatabaseList(developerObjectFactory);
@@ -168,7 +163,7 @@ public class CryptoAddressesNetworkServicePluginRoot extends AbstractNetworkServ
     @Override
     public List<DeveloperDatabaseTableRecord> getDatabaseTableContent(DeveloperObjectFactory developerObjectFactory, DeveloperDatabase developerDatabase, DeveloperDatabaseTable developerDatabaseTable) {
         try {
-            return new CryptoAddressesNetworkServiceDeveloperDatabaseFactory(pluginDatabaseSystem, pluginId).getDatabaseTableContent(developerObjectFactory, developerDatabaseTable);
+            return new CryptoAddressesNetworkServiceDeveloperDatabaseFactory(pluginDatabaseSystem, pluginId).getDatabaseTableContent(developerObjectFactory, developerDatabase,developerDatabaseTable);
         } catch (Exception e) {
             System.out.println(e);
             return new ArrayList<>();
@@ -189,13 +184,14 @@ public class CryptoAddressesNetworkServicePluginRoot extends AbstractNetworkServ
 
     private CryptoAddressesNetworkServiceDao cryptoAddressesNetworkServiceDao;
 
-    private  boolean beforeRegistered;
-
     /**
      * Represent the flag to start only once
      */
     private AtomicBoolean flag = new AtomicBoolean(false);
 
+    private long reprocessTimer =  300000; //five minutes
+
+    private Timer timer = new Timer();
 
     public CryptoAddressesNetworkServicePluginRoot() {
 
@@ -210,7 +206,7 @@ public class CryptoAddressesNetworkServicePluginRoot extends AbstractNetworkServ
         );
 
         this.listenersAdded = new ArrayList<>();
-        beforeRegistered = Boolean.FALSE;
+        this.remoteNetworkServicesRegisteredList = new CopyOnWriteArrayList<>();
 
     }
 
@@ -226,14 +222,6 @@ public class CryptoAddressesNetworkServicePluginRoot extends AbstractNetworkServ
             if (this.serviceStatus != ServiceStatus.STARTING) {
                 serviceStatus = ServiceStatus.STARTING;
 
-//                try {
-//                    loadKeyPair(pluginFileSystem);
-//                } catch (CantLoadKeyPairException e) {
-//
-//                    errorManager.reportUnexpectedPluginException(this.getPluginVersionReference(), UnexpectedPluginExceptionSeverity.DISABLES_THIS_PLUGIN, e);
-//                    throw new CantStartPluginException(e, "", "Problem trying to load the key pair of the plugin.");
-//                }
-
                 /*
                  * Create a new key pair for this execution
                  */
@@ -241,9 +229,9 @@ public class CryptoAddressesNetworkServicePluginRoot extends AbstractNetworkServ
 
                 System.out.println("********* Crypto Addresses: Starting. ");
 
-        /*
-         * Validate required resources
-         */
+                /*
+                 * Validate required resources
+                 */
                 validateInjectedResources();
 
 
@@ -264,46 +252,57 @@ public class CryptoAddressesNetworkServicePluginRoot extends AbstractNetworkServ
 
                 try {
 
-            /*
-             * Initialize the data base
-             */
+                    /*
+                     * Initialize the data base
+                     */
                     initializeCommunicationDb();
 
-            /*
-             * Initialize listeners
-             */
+                    /*
+                     * Initialize listeners
+                     */
                     initializeListener();
 
+                    /*
+                     * Initialize connection manager
+                     */
+                    initializeCommunicationNetworkServiceConnectionManager();
 
-            /*
-             * Verify if the communication cloud client is active
-             */
+                    /*
+                     * Verify if the communication cloud client is active
+                     */
                     if (!wsCommunicationsCloudClientManager.isDisable()){
 
-                /*
-                 * Initialize the agent and start
-                 */
+                        /*
+                         * Construct my profile and register me
+                         */
+                        PlatformComponentProfile platformComponentProfilePluginRoot =  wsCommunicationsCloudClientManager.getCommunicationsCloudClientConnection().constructPlatformComponentProfileFactory(
+                                getIdentityPublicKey(),
+                                getAlias().toLowerCase(),
+                                getName(),
+                                getNetworkServiceType(),
+                                getPlatformComponentType(),
+                                getExtraData()
+                        );
+
+                        setPlatformComponentProfilePluginRoot(platformComponentProfilePluginRoot);
+
+
+                        /*
+                         * Initialize the agent and start
+                         */
                         communicationRegistrationProcessNetworkServiceAgent = new CommunicationRegistrationProcessNetworkServiceAgent(this, wsCommunicationsCloudClientManager);
                         communicationRegistrationProcessNetworkServiceAgent.start();
                     }
-
-                    remoteNetworkServicesRegisteredList = new CopyOnWriteArrayList<>();
 
                     // change message state to process again first time
                     reprocessMessage();
 
                     //declare a schedule to process waiting request message
-                    Timer timer = new Timer();
-
-                    timer.schedule(new TimerTask() {
-                        @Override
-                        public void run() {
-                            // change message state to process again
-                            reprocessMessage();
-                        }
-                    }, 2*3600*1000);
+                    startTimer();
 
 
+
+                    initializeAgent();
             /*
              * Its all ok, set the new status
             */
@@ -322,6 +321,7 @@ public class CryptoAddressesNetworkServicePluginRoot extends AbstractNetworkServ
 
                     errorManager.reportUnexpectedPluginException(this.getPluginVersionReference(),UnexpectedPluginExceptionSeverity.DISABLES_THIS_PLUGIN, pluginStartException);
                     throw pluginStartException;
+
                 }
 
                 System.out.println("********* Crypto Addresses: Successful start. ");
@@ -426,14 +426,6 @@ public class CryptoAddressesNetworkServicePluginRoot extends AbstractNetworkServ
 
         fermatEventListener = eventManager.getNewListener(P2pEventType.FAILURE_COMPONENT_CONNECTION_REQUEST_NOTIFICATION);
         fermatEventListener.setEventHandler(new FailureComponentConnectionRequestNotificationEventHandler(this));
-        eventManager.addListener(fermatEventListener);
-        listenersAdded.add(fermatEventListener);
-
-        /*
-         * new message
-         */
-        fermatEventListener = eventManager.getNewListener(P2pEventType.NEW_NETWORK_SERVICE_MESSAGE_RECEIVE_NOTIFICATION);
-        fermatEventListener.setEventHandler(new NewMessagesEventHandler(this));
         eventManager.addListener(fermatEventListener);
         listenersAdded.add(fermatEventListener);
 
@@ -765,18 +757,19 @@ public class CryptoAddressesNetworkServicePluginRoot extends AbstractNetworkServ
                                                                      PendingRequestNotFoundException           {
 
         System.out.println("****** crypto addresses -> confirming address");
-        try {
+       try {
 
-            cryptoAddressesNetworkServiceDao.confirmAddressExchangeRequest(requestId);
+           //only the record you request the addromperess
+           if(cryptoAddressesNetworkServiceDao.getPendingRequest(requestId).getMessageType().equals(AddressesConstants.OUTGOING_MESSAGE))
+               cryptoAddressesNetworkServiceDao.confirmAddressExchangeRequest(requestId);
 
-        } catch (CantConfirmAddressExchangeRequestException | PendingRequestNotFoundException e){
-            // PendingRequestNotFoundException - THIS SHOULD' HAPPEN.
-            errorManager.reportUnexpectedPluginException(this.getPluginVersionReference(), UnexpectedPluginExceptionSeverity.DISABLES_SOME_FUNCTIONALITY_WITHIN_THIS_PLUGIN, e);
-            throw e;
-        } catch (Exception e){
-
-            errorManager.reportUnexpectedPluginException(this.getPluginVersionReference(), UnexpectedPluginExceptionSeverity.DISABLES_SOME_FUNCTIONALITY_WITHIN_THIS_PLUGIN, e);
-            throw new CantConfirmAddressExchangeRequestException(FermatException.wrapException(e), null, "Unhandled Exception.");
+       } catch (CantConfirmAddressExchangeRequestException | PendingRequestNotFoundException e){
+           // PendingRequestNotFoundException - THIS SHOULD' HAPPEN.
+           errorManager.reportUnexpectedPluginException(this.getPluginVersionReference(), UnexpectedPluginExceptionSeverity.DISABLES_SOME_FUNCTIONALITY_WITHIN_THIS_PLUGIN, e);
+           throw e;
+       } catch (Exception e){
+           errorManager.reportUnexpectedPluginException(this.getPluginVersionReference(), UnexpectedPluginExceptionSeverity.DISABLES_SOME_FUNCTIONALITY_WITHIN_THIS_PLUGIN, e);
+           throw new CantConfirmAddressExchangeRequestException(FermatException.wrapException(e), null, "Unhandled Exception.");
         }
     }
 
@@ -814,7 +807,13 @@ public class CryptoAddressesNetworkServicePluginRoot extends AbstractNetworkServ
     @Override
     public void markReceivedRequest(UUID requestId) throws CantConfirmAddressExchangeRequestException {
         try {
-            cryptoAddressesNetworkServiceDao.markRead(requestId);
+
+            //update message to read with destination, and update state in DONE, End Message
+            if(cryptoAddressesNetworkServiceDao.getPendingRequest(requestId).getMessageType().equals(AddressesConstants.INCOMING_MESSAGE)){
+                cryptoAddressesNetworkServiceDao.markRead(requestId);
+            }else {
+                cryptoAddressesNetworkServiceDao.markReadAndDone(requestId);
+            }
         }catch (Exception e){
             throw new CantConfirmAddressExchangeRequestException(e,"","No se pudo marcar como leido el request exchange de address");
         }
@@ -935,76 +934,63 @@ public class CryptoAddressesNetworkServicePluginRoot extends AbstractNetworkServ
     /**
      * Handles the events CompleteComponentRegistrationNotification
      */
-    public void initializeAgent() {
+    public void initializeAgent(){
+
+        System.out.println("CryptoAddressesNetworkServicePluginRoot - Starting method initializeAgent");
 
         try {
+            if (cryptoAddressesExecutorAgent == null){
 
-            cryptoAddressesExecutorAgent = new CryptoAddressesExecutorAgent(
-                    this,
-                    errorManager,
-                    eventManager,
-                    cryptoAddressesNetworkServiceDao,
-                    wsCommunicationsCloudClientManager
-            );
+                cryptoAddressesExecutorAgent = new CryptoAddressesExecutorAgent(
+                        this,
+                        cryptoAddressesNetworkServiceDao
+                );
 
-            cryptoAddressesExecutorAgent.start();
-
-        } catch(CantStartAgentException e) {
-
-            CantStartPluginException pluginStartException = new CantStartPluginException(e, "", "Problem initializing crypto addresses dao.");
-            errorManager.reportUnexpectedPluginException(this.getPluginVersionReference(), UnexpectedPluginExceptionSeverity.DISABLES_THIS_PLUGIN, pluginStartException);
+                this.cryptoAddressesExecutorAgent.start();
+            }
+        } catch (CantStartAgentException e) {
+            e.printStackTrace();
         }
+
     }
 
     public void handleCompleteComponentRegistrationNotificationEvent(PlatformComponentProfile platformComponentProfileRegistered){
 
-        if (platformComponentProfileRegistered.getPlatformComponentType() == PlatformComponentType.COMMUNICATION_CLOUD_CLIENT && this.register){
+        System.out.println("CryptoAddressesNetworkServicePluginRoot - Starting method handleCompleteComponentRegistrationNotificationEvent");
 
-            beforeRegistered = Boolean.TRUE;
+        try {
 
-            PlatformComponentProfile platformComponentProfileToReconnect =  wsCommunicationsCloudClientManager.getCommunicationsCloudClientConnection().constructPlatformComponentProfileFactory(this.getIdentityPublicKey(),
-                    this.getAlias().toLowerCase(),
-                    this.getName(),
-                    this.getNetworkServiceType(),
-                    this.getPlatformComponentType(),
-                    this.getExtraData());
+            if (platformComponentProfileRegistered.getPlatformComponentType() == PlatformComponentType.COMMUNICATION_CLOUD_CLIENT && !this.register){
 
-            try {
-                    /*
-                     * Register me
-                     */
-                wsCommunicationsCloudClientManager.getCommunicationsCloudClientConnection().registerComponentForCommunication(this.getNetworkServiceType(), platformComponentProfileToReconnect);
+                if(communicationRegistrationProcessNetworkServiceAgent != null && communicationRegistrationProcessNetworkServiceAgent.getActive()){
+                    communicationRegistrationProcessNetworkServiceAgent.stop();
+                    communicationRegistrationProcessNetworkServiceAgent = null;
+                }
 
-            } catch (CantRegisterComponentException e) {
-                e.printStackTrace();
+                wsCommunicationsCloudClientManager.getCommunicationsCloudClientConnection().registerComponentForCommunication(this.getNetworkServiceType(), getPlatformComponentProfilePluginRoot());
+
             }
 
+            if (platformComponentProfileRegistered.getPlatformComponentType() == PlatformComponentType.NETWORK_SERVICE &&
+                    platformComponentProfileRegistered.getNetworkServiceType() == this.getNetworkServiceType() &&
+                    platformComponentProfileRegistered.getIdentityPublicKey().equals(identity.getPublicKey())) {
+
+                System.out.println("CryptoAddressesNetworkServicePluginRoot - NetWork Service is Registered: " + platformComponentProfileRegistered.getAlias());
+                initializeAgent();
+                this.register = Boolean.TRUE;
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        /*
-         * If the component registered have my profile and my identity public key
-         */
-        if (platformComponentProfileRegistered.getPlatformComponentType()  == getPlatformComponentType() &&
-                platformComponentProfileRegistered.getNetworkServiceType()  == getNetworkServiceType() &&
-                platformComponentProfileRegistered.getIdentityPublicKey().equals(identity.getPublicKey())){
-
-            /*
-             * Mark as register
-             */
-            this.register = Boolean.TRUE;
-
-        //    if(!beforeRegistered)
-            initializeAgent();
-            initializeCommunicationNetworkServiceConnectionManager();
-        }
-
     }
 
 
     @Override
     public void handleFailureComponentRegistrationNotificationEvent(PlatformComponentProfile networkServiceApplicant, PlatformComponentProfile remoteParticipant) {
         System.out.println("----------------------------------\n" +
-                "CRYPTO ADDRESSES FAILED CONNECTION WITH "+remoteParticipant.getAlias()+"\n" +
+                "CRYPTO ADDRESSES FAILED CONNECTION WITH "+remoteParticipant.getIdentityPublicKey()+"\n" +
                 "--------------------------------------------------------");
         cryptoAddressesExecutorAgent.connectionFailure(remoteParticipant.getIdentityPublicKey());
 
@@ -1036,19 +1022,18 @@ public class CryptoAddressesNetworkServicePluginRoot extends AbstractNetworkServ
 
                 String remotePublicKey =  vpnConnectionCloseNotificationEvent.getRemoteParticipant().getIdentityPublicKey();
 
-
                 if(communicationNetworkServiceConnectionManager != null) {
                     communicationNetworkServiceConnectionManager.closeConnection(remotePublicKey);
                 }
 
-                /**
-                 * remove messages
-                 */
-
                 if (cryptoAddressesExecutorAgent.isConnectionOpen(remotePublicKey)){
                     cryptoAddressesExecutorAgent.connectionFailure(remotePublicKey);
                 }
-                //reprocessMessage(remotePublicKey);
+
+                //reprocess not DONE messages
+                if(!((VPNConnectionCloseNotificationEvent) fermatEvent).isCloseNormal())
+                    reprocessMessage(remotePublicKey);
+
             }
 
         }
@@ -1067,9 +1052,12 @@ public class CryptoAddressesNetworkServicePluginRoot extends AbstractNetworkServ
             reprocessMessage();
 
             this.register = false;
+
             if(communicationNetworkServiceConnectionManager != null) {
                 communicationNetworkServiceConnectionManager.closeAllConnection();
+                communicationNetworkServiceConnectionManager.stop();
             }
+
         }
 
     }
@@ -1083,9 +1071,8 @@ public class CryptoAddressesNetworkServicePluginRoot extends AbstractNetworkServ
         if(communicationNetworkServiceConnectionManager != null) {
             communicationNetworkServiceConnectionManager.stop();
         }
-        if(cryptoAddressesExecutorAgent!=null) {
-            cryptoAddressesExecutorAgent.pause();
-        }
+
+        this.register = Boolean.FALSE;
 
     }
 
@@ -1096,67 +1083,24 @@ public class CryptoAddressesNetworkServicePluginRoot extends AbstractNetworkServ
     public void handleClientSuccessfullReconnectNotificationEvent(FermatEvent fermatEvent) {
 
 
-            if(communicationNetworkServiceConnectionManager != null) {
+        try {
+
+            if (communicationNetworkServiceConnectionManager != null){
                 communicationNetworkServiceConnectionManager.restart();
             }
 
 
+            initializeAgent();
 
-            if(communicationRegistrationProcessNetworkServiceAgent != null && !this.register){
-                if(communicationRegistrationProcessNetworkServiceAgent != null) {
-                    communicationRegistrationProcessNetworkServiceAgent.stop();
-                    communicationRegistrationProcessNetworkServiceAgent = null;
-
-                       /*
-                 * Construct my profile and register me
-                 */
-                    PlatformComponentProfile platformComponentProfileToReconnect =  wsCommunicationsCloudClientManager.getCommunicationsCloudClientConnection().constructPlatformComponentProfileFactory(this.getIdentityPublicKey(),
-                            this.getAlias().toLowerCase(),
-                            this.getName(),
-                            this.getNetworkServiceType(),
-                            this.getPlatformComponentType(),
-                            this.getExtraData());
-
-                    try {
-                    /*
-                     * Register me
-                     */
-                        wsCommunicationsCloudClientManager.getCommunicationsCloudClientConnection().registerComponentForCommunication(this.getNetworkServiceType(), platformComponentProfileToReconnect);
-
-                    } catch (CantRegisterComponentException e) {
-                        e.printStackTrace();
-                    }
-
-                /*
-                 * Configure my new profile
-                 */
-                    this.setPlatformComponentProfilePluginRoot(platformComponentProfileToReconnect);
-
-                /*
-                 * Initialize the connection manager
-                 */
-                    if(communicationNetworkServiceConnectionManager==null) {
-                        this.initializeCommunicationNetworkServiceConnectionManager();
-                    }
-                }
-            }
-
-         /*
+            /*
              * Mark as register
              */
-        this.register = Boolean.TRUE;
+            this.register = Boolean.TRUE;
 
-        if(cryptoAddressesExecutorAgent!=null) {
-            try {
-                cryptoAddressesExecutorAgent.start();
-            } catch (CantStartAgentException e) {
-                e.printStackTrace();
-            }
-        }else {
-            initializeAgent();
+
+        }catch (Exception e){
+            e.printStackTrace();
         }
-
-
 
     }
 
@@ -1176,16 +1120,27 @@ public class CryptoAddressesNetworkServicePluginRoot extends AbstractNetworkServ
 
             NetworkServiceMessage networkServiceMessage = gson.fromJson(jsonMessage, NetworkServiceMessage.class);
 
+            FermatEvent eventToRaise;
             switch (networkServiceMessage.getMessageType()) {
 
                 case ACCEPT:
                     AcceptMessage acceptMessage = gson.fromJson(jsonMessage, AcceptMessage.class);
                     receiveAcceptance(acceptMessage);
+
+
+                    //close connection - end message
+                    communicationNetworkServiceConnectionManager.closeConnection(acceptMessage.getActorDestination());
+                    cryptoAddressesExecutorAgent.getPoolConnectionsWaitingForResponse().remove(acceptMessage.getActorDestination());
+
                     break;
 
                 case DENY:
                     DenyMessage denyMessage = gson.fromJson(jsonMessage, DenyMessage.class);
                     receiveDenial(denyMessage);
+
+                    //close connection - end message
+                    communicationNetworkServiceConnectionManager.closeConnection(denyMessage.getActorDestination());
+                    cryptoAddressesExecutorAgent.getPoolConnectionsWaitingForResponse().remove(denyMessage.getActorDestination());
                     break;
 
                 case REQUEST:
@@ -1246,13 +1201,13 @@ public class CryptoAddressesNetworkServicePluginRoot extends AbstractNetworkServ
 
             switch (networkServiceMessage.getMessageType()) {
                 case ACCEPT:
-//                    AcceptMessage acceptMessage = gson.fromJson(jsonMessage, AcceptMessage.class);
-//                    cryptoAddressesNetworkServiceDao.changeProtocolState(acceptMessage.getRequestId(), ProtocolState.DONE);
+                    AcceptMessage acceptMessage = gson.fromJson(jsonMessage, AcceptMessage.class);
+                   cryptoAddressesNetworkServiceDao.changeProtocolState(acceptMessage.getRequestId(), ProtocolState.DONE);
 
                     break;
                 case DENY:
-//                    DenyMessage denyMessage = gson.fromJson(jsonMessage, DenyMessage.class);
-//                    cryptoAddressesNetworkServiceDao.changeProtocolState(denyMessage.getRequestId(), ProtocolState.DONE);
+                    DenyMessage denyMessage = gson.fromJson(jsonMessage, DenyMessage.class);
+                    cryptoAddressesNetworkServiceDao.changeProtocolState(denyMessage.getRequestId(), ProtocolState.DONE);
                     break;
                 case REQUEST:
                     // update the request to processing receive state with the given action.
@@ -1335,7 +1290,7 @@ public class CryptoAddressesNetworkServicePluginRoot extends AbstractNetworkServ
                     protocolState
             );
 
-            cryptoAddressesNetworkServiceDao.changeActionState(acceptMessage.getRequestId(),RequestAction.RECEIVED);
+            cryptoAddressesNetworkServiceDao.changeActionState(acceptMessage.getRequestId(), RequestAction.RECEIVED);
 
 
 
@@ -1396,8 +1351,14 @@ public class CryptoAddressesNetworkServicePluginRoot extends AbstractNetworkServ
                 {
                     if(record.getSentNumber() > 10)
                     {
+                      //  if(record.getSentNumber() > 20)
+                       // {
+                            //reprocess at two hours
+                       //     reprocessTimer =  2 * 3600 * 1000;
+                        //}
                          //update state and process again later
                         cryptoAddressesNetworkServiceDao.changeProtocolState(record.getRequestId(),ProtocolState.WAITING_RESPONSE);
+                        cryptoAddressesNetworkServiceDao.changeSentNumber(record.getRequestId(),1);
                     }
                     else
                     {
@@ -1429,7 +1390,7 @@ public class CryptoAddressesNetworkServicePluginRoot extends AbstractNetworkServ
         }
         catch(Exception e)
         {
-            System.out.print("EXCEPCION VERIFICANDO WAIT MESSAGE");
+            System.out.println("EXCEPCION VERIFICANDO WAIT MESSAGE");
             e.printStackTrace();
         }
 
@@ -1449,7 +1410,7 @@ public class CryptoAddressesNetworkServicePluginRoot extends AbstractNetworkServ
         }
         catch(CantListPendingCryptoAddressRequestsException | CantChangeProtocolStateException |PendingRequestNotFoundException e)
         {
-            System.out.print("ADDRESS NS EXCEPCION REPROCESANDO WAIT MESSAGE");
+            System.out.println("ADDRESS NS EXCEPCION REPROCESANDO WAIT MESSAGE");
             e.printStackTrace();
         }
     }
@@ -1468,11 +1429,38 @@ public class CryptoAddressesNetworkServicePluginRoot extends AbstractNetworkServ
         }
         catch(CantListPendingCryptoAddressRequestsException | CantChangeProtocolStateException |PendingRequestNotFoundException e)
         {
-            System.out.print("ADDRESS NS EXCEPCION REPROCESANDO WAIT MESSAGE");
+            System.out.println("ADDRESS NS EXCEPCION REPROCESANDO WAIT MESSAGE");
             e.printStackTrace();
         }
     }
 
 
+    public WsCommunicationsCloudClientManager getWsCommunicationsCloudClientManager() {
+        return wsCommunicationsCloudClientManager;
+    }
 
+    public ErrorManager getErrorManager() {
+        return errorManager;
+    }
+
+    private void startTimer() {
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                // change message state to process retry later
+                reprocessMessage();
+            }
+        }, 0,reprocessTimer);
+
+
+    }
+
+    public EventManager getEventManager() {
+        return eventManager;
+    }
+
+    public CommunicationNetworkServiceConnectionManager_V2 getCommunicationNetworkServiceConnectionManager() {
+        return communicationNetworkServiceConnectionManager;
+
+    }
 }
