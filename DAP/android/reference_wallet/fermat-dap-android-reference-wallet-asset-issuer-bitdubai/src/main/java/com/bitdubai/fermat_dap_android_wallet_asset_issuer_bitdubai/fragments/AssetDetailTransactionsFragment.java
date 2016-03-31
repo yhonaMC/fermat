@@ -331,7 +331,11 @@ public class AssetDetailTransactionsFragment extends FermatWalletListFragment<Tr
             e.printStackTrace();
         }
 
+<<<<<<< HEAD
         toolbar.setTitle(digitalAsset.getName());
+=======
+//        toolbar.setTitle(digitalAsset.getName());
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 
         byte[] img = (digitalAsset.getImage() == null) ? new byte[0] : digitalAsset.getImage();
         BitmapWorkerTask bitmapWorkerTask = new BitmapWorkerTask(assetImageDetail, res, R.drawable.img_asset_without_image, false);
@@ -435,9 +439,15 @@ public class AssetDetailTransactionsFragment extends FermatWalletListFragment<Tr
                     .setShowAsAction(MenuItem.SHOW_AS_ACTION_WITH_TEXT);
             menu.add(0, SessionConstantsAssetIssuer.IC_ACTION_ISSUER_APPROPRIATE, 1, getResources().getString(R.string.dap_issuer_wallet_action_appropriate))
                     .setShowAsAction(MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+<<<<<<< HEAD
             menu.add(0, SessionConstantsAssetIssuer.IC_ACTION_ISSUER_SHOW_STATS, 2, getResources().getString(R.string.dap_issuer_wallet_action_show_statistics))
                     .setShowAsAction(MenuItem.SHOW_AS_ACTION_WITH_TEXT);
         }
+=======
+        }
+        menu.add(0, SessionConstantsAssetIssuer.IC_ACTION_ISSUER_SHOW_STATS, 2, getResources().getString(R.string.dap_issuer_wallet_action_show_statistics))
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
         menu.add(0, SessionConstantsAssetIssuer.IC_ACTION_ISSUER_HELP_DETAIL, 3, "Help")
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_WITH_TEXT);
     }

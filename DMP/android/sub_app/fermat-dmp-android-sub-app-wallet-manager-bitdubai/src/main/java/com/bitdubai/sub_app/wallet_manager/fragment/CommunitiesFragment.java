@@ -14,6 +14,10 @@ import com.bitdubai.fermat_android_api.ui.enums.FermatRefreshTypes;
 import com.bitdubai.fermat_android_api.ui.fragments.FermatWalletListFragment;
 import com.bitdubai.fermat_android_api.ui.interfaces.FermatListItemListeners;
 import com.bitdubai.fermat_api.FermatException;
+<<<<<<< HEAD
+=======
+import com.bitdubai.fermat_api.layer.all_definition.enums.Platforms;
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 import com.bitdubai.fermat_api.layer.all_definition.enums.UISource;
 import com.bitdubai.fermat_api.layer.all_definition.navigation_structure.enums.Wallets;
 import com.bitdubai.fermat_api.layer.all_definition.navigation_structure.interfaces.DesktopAppSelector;
@@ -167,6 +171,7 @@ public class CommunitiesFragment extends FermatWalletListFragment<InstalledApp> 
         List<InstalledApp> data = new ArrayList<>();
 
 
+<<<<<<< HEAD
         com.bitdubai.fermat_api.layer.dmp_module.wallet_manager.InstalledApp installedSubApp = new InstalledSubApp(SubApps.CCP_INTRA_USER_COMMUNITY,null,null,"intra_user_community_sub_app","Wallet Users","public_key_intra_user_commmunity","intra_user_community_sub_app",new Version(1,0,0));
         installedSubApp.setIconResource(R.drawable.cryptou_community);
         data.add(installedSubApp);
@@ -180,6 +185,21 @@ public class CommunitiesFragment extends FermatWalletListFragment<InstalledApp> 
         data.add(installedSubApp);
 
         installedSubApp = new InstalledSubApp(SubApps.DAP_ASSETS_COMMUNITY_REDEEM_POINT, null, null, "sub-app-asset-community-redeem-point", "Redeem Points", "public_key_dap_redeem_point_community", "sub-app-asset-community-redeem-point", new Version(1, 0, 0));
+=======
+        com.bitdubai.fermat_api.layer.dmp_module.wallet_manager.InstalledApp installedSubApp = new InstalledSubApp(SubApps.CCP_INTRA_USER_COMMUNITY,null,null,"intra_user_community_sub_app","Wallet Users","public_key_intra_user_commmunity","intra_user_community_sub_app",new Version(1,0,0), Platforms.CRYPTO_CURRENCY_PLATFORM);
+        installedSubApp.setIconResource(R.drawable.cryptou_community);
+        data.add(installedSubApp);
+
+        installedSubApp = new InstalledSubApp(SubApps.DAP_ASSETS_COMMUNITY_ISSUER, null, null, "sub-app-asset-community-issuer", "Asset Issuers", "public_key_dap_issuer_community", "sub-app-asset-community-issuer", new Version(1, 0, 0),Platforms.DIGITAL_ASSET_PLATFORM);
+        installedSubApp.setIconResource(R.drawable.aissuer_community);
+        data.add(installedSubApp);
+
+        installedSubApp = new InstalledSubApp(SubApps.DAP_ASSETS_COMMUNITY_USER, null, null, "sub-app-asset-community-user", "Asset Users", "public_key_dap_user_community", "sub-app-asset-community-user", new Version(1, 0, 0),Platforms.DIGITAL_ASSET_PLATFORM);
+        installedSubApp.setIconResource(R.drawable.auser_community);
+        data.add(installedSubApp);
+
+        installedSubApp = new InstalledSubApp(SubApps.DAP_ASSETS_COMMUNITY_REDEEM_POINT, null, null, "sub-app-asset-community-redeem-point", "Redeem Points", "public_key_dap_redeem_point_community", "sub-app-asset-community-redeem-point", new Version(1, 0, 0),Platforms.DIGITAL_ASSET_PLATFORM);
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
         installedSubApp.setIconResource(R.drawable.reddem_point_community);
         data.add(installedSubApp);
 
@@ -191,6 +211,7 @@ public class CommunitiesFragment extends FermatWalletListFragment<InstalledApp> 
                 "Brokers",
                 "public_key_crypto_broker_community",
                 "sub_app_crypto_broker_community",
+<<<<<<< HEAD
                 new Version(1, 0, 0));
         installedSubApp.setIconResource(R.drawable.cbroker_community);
         data.add(installedSubApp);
@@ -198,6 +219,13 @@ public class CommunitiesFragment extends FermatWalletListFragment<InstalledApp> 
 
 
 
+=======
+                new Version(1, 0, 0),
+                Platforms.CRYPTO_BROKER_PLATFORM);
+        installedSubApp.setIconResource(R.drawable.cbroker_community);
+        data.add(installedSubApp);
+
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
         installedSubApp = new InstalledSubApp(
                 SubApps.CBP_CRYPTO_CUSTOMER_COMMUNITY,
                 null,
@@ -206,19 +234,30 @@ public class CommunitiesFragment extends FermatWalletListFragment<InstalledApp> 
                 "Customers",
                 "public_key_crypto_customer_community",
                 "sub_app_crypto_customer_community",
+<<<<<<< HEAD
                 new Version(1, 0, 0));
+=======
+                new Version(1, 0, 0),
+                Platforms.CRYPTO_BROKER_PLATFORM);
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
         installedSubApp.setIconResource(R.drawable.ccustomer_community);
         data.add(installedSubApp);
 
 
+<<<<<<< HEAD
         data.add(installedSubApp);
 
+=======
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 
         return data;
     }
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
     @Override
     public void onItemClickListener(InstalledApp data, int position) {
         //intraUserIdentitySubAppSession.setData(SessionConstants.IDENTITY_SELECTED,data);
@@ -235,7 +274,10 @@ public class CommunitiesFragment extends FermatWalletListFragment<InstalledApp> 
 
     }
 
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 }

@@ -6,7 +6,11 @@ import com.bitdubai.fermat_ccp_api.layer.basic_wallet.common.exceptions.CantRegi
 import com.bitdubai.fermat_ccp_api.layer.basic_wallet.common.exceptions.CantRegisterDebitException;
 
 /**
+<<<<<<< HEAD
  * Created by ciencias on 7/6/15.
+=======
+ * Created by Natalia Cortez 03/14/2016
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
  */
 public interface BitcoinLossProtectedWalletBalance {
 
@@ -15,10 +19,23 @@ public interface BitcoinLossProtectedWalletBalance {
     * amount of satoshis the user has.
    */
 
+<<<<<<< HEAD
     long getBalance() throws CantCalculateBalanceException;
 
     long getBalance(BlockchainNetworkType blockchainNetworkType) throws CantCalculateBalanceException;
 
+=======
+    long getBalance(BlockchainNetworkType blockchainNetworkType) throws CantCalculateBalanceException;
+
+ /**
+  * Throw the method <code>getTransactionById</code> return wallet available balance for actual exchange rate.
+  * @param blockchainNetworkType
+  * @param exchangeRate
+  * @return
+  * @throws CantCalculateBalanceException
+  */
+   long getBalance(BlockchainNetworkType blockchainNetworkType, long exchangeRate) throws CantCalculateBalanceException;
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 
     void debit(BitcoinLossProtectedWalletTransactionRecord cryptoTransaction) throws CantRegisterDebitException;
 

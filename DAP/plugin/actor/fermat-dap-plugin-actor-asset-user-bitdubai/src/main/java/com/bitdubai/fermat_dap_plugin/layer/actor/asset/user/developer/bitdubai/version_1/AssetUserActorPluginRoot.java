@@ -21,6 +21,7 @@ import com.bitdubai.fermat_api.layer.all_definition.enums.Layers;
 import com.bitdubai.fermat_api.layer.all_definition.enums.Platforms;
 import com.bitdubai.fermat_api.layer.all_definition.enums.Plugins;
 import com.bitdubai.fermat_api.layer.all_definition.enums.ServiceStatus;
+import com.bitdubai.fermat_api.layer.all_definition.enums.SubAppsPublicKeys;
 import com.bitdubai.fermat_api.layer.all_definition.events.interfaces.FermatEventHandler;
 import com.bitdubai.fermat_api.layer.all_definition.events.interfaces.FermatEventListener;
 import com.bitdubai.fermat_api.layer.all_definition.util.Version;
@@ -292,6 +293,22 @@ public class AssetUserActorPluginRoot extends AbstractPlugin implements
     }
 
     @Override
+<<<<<<< HEAD
+=======
+    public void updateOfflineUserRegisterInNetworkService(List<ActorAssetUser> actorAssetUsers) throws CantGetAssetUserActorsException {
+
+        try {
+            assetUserActorDao.updateOfflineUserRegisterInNetworkService(actorAssetUsers);
+        } catch (CantGetAssetUsersListException e) {
+            throw new CantGetAssetUserActorsException("CAN'T GET LIST ASSET USER REGISTERED", e, "", "");
+        } catch (CantUpdateAssetUserConnectionException e) {
+            throw new CantGetAssetUserActorsException("CAN'T UPDATE ACTOR ASSET USER REGISTERED", e, "", "");
+        }
+
+    }
+
+    @Override
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
     public void createActorAssetUserRegisterInNetworkService(ActorAssetUser actorAssetUsers) throws CantCreateAssetUserActorException {
         try {
             List<ActorAssetUser> assetUsers = new ArrayList<>();
@@ -427,8 +444,13 @@ public class AssetUserActorPluginRoot extends AbstractPlugin implements
                         actorAssetRedeemPoint.getActorPublicKey(),
                         CryptoAddressDealers.DAP_WATCH_ONLY,
                         blockchainNetworkType);
+<<<<<<< HEAD
 
 
+=======
+
+
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
                 actorAssetRedeemPointManager.updateRedeemPointDAPConnectionStateActorNetworkService(actorAssetRedeemPoint.getActorPublicKey(), DAPConnectionState.CONNECTING);
 //                    this.assetUserActorDao.updateAssetUserDAPConnectionStateActorNetworService(actorAssetUser.getActorPublicKey(), DAPConnectionState.CONNECTING, actorAssetUser.getCryptoAddress());
 //                } catch (CantUpdateAssetUserConnectionException e) {
@@ -495,7 +517,7 @@ public class AssetUserActorPluginRoot extends AbstractPlugin implements
         List<ActorAssetUserGroup> list = null;
         try {
             list = this.assetUserActorDao.getAssetUserGroupsList();
-        } catch (com.bitdubai.fermat_dap_plugin.layer.actor.asset.user.developer.bitdubai.version_1.exceptions.CantGetAssetUserGroupExcepcion cantGetAssetUserGroupExcepcion) {
+        } catch (CantGetAssetUserGroupExcepcion cantGetAssetUserGroupExcepcion) {
             throw new CantGetAssetUserGroupException("You can not get groups list", cantGetAssetUserGroupExcepcion, "Error", "");
         }
         return list;
@@ -514,7 +536,7 @@ public class AssetUserActorPluginRoot extends AbstractPlugin implements
     public List<ActorAssetUserGroup> getListAssetUserGroupsByActorAssetUser(String actorAssetUserPublicKey) throws CantGetAssetUserGroupException {
         try {
             return this.assetUserActorDao.getListAssetUserGroupsByActorAssetUser(actorAssetUserPublicKey);
-        } catch (com.bitdubai.fermat_dap_plugin.layer.actor.asset.user.developer.bitdubai.version_1.exceptions.CantGetAssetUserGroupExcepcion ex) {
+        } catch (CantGetAssetUserGroupExcepcion ex) {
             throw new CantGetAssetUserGroupException("You can not get groups by users", ex, "Error", "");
         }
     }
@@ -801,7 +823,11 @@ public class AssetUserActorPluginRoot extends AbstractPlugin implements
                             System.out.println("Actor Asset User: " + actorAssetUser1.getDapConnectionState());
 
                             broadcaster.publish(BroadcasterType.UPDATE_VIEW, DAPConstants.DAP_UPDATE_VIEW_ANDROID);
+<<<<<<< HEAD
                             broadcaster.publish(BroadcasterType.NOTIFICATION_SERVICE, DAPPublicKeys.DAP_COMMUNITY_USER.getCode(), "CRYPTO-REQUEST_" + actorAssetUser1.getName());
+=======
+                            broadcaster.publish(BroadcasterType.NOTIFICATION_SERVICE, SubAppsPublicKeys.DAP_COMMUNITY_USER.getCode(), "CRYPTO-REQUEST_" + actorAssetUser1.getName());
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 
                         } else {
                             System.out.println("Actor Asset User FALLO Recepcion CryptoAddress para User: " + actorAssetUser1.getName());

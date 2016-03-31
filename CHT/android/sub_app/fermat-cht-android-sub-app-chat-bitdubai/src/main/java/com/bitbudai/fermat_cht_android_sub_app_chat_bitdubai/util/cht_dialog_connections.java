@@ -6,6 +6,10 @@ import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+<<<<<<< HEAD
+=======
+import android.util.Log;
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -121,7 +125,12 @@ public class cht_dialog_connections extends FermatDialog<FermatSession, SubAppRe
                                 contacticon.add(bmd.getBitmap());
                             }
                         }catch(Exception e){
+<<<<<<< HEAD
                             errorManager.reportUnexpectedSubAppException(SubApps.CHT_CHAT, UnexpectedSubAppExceptionSeverity.DISABLES_SOME_FUNCTIONALITY_WITHIN_THIS_FRAGMENT, e);
+=======
+                            //errorManager.reportUnexpectedSubAppException(SubApps.CHT_CHAT, UnexpectedSubAppExceptionSeverity.DISABLES_SOME_FUNCTIONALITY_WITHIN_THIS_FRAGMENT, e);
+                            Log.i("CHT add contacts", "se ha ignorado contacto mal creado.");
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
                         }
                     }
                 }

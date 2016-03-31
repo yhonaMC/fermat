@@ -1,5 +1,12 @@
 package com.bitdubai.fermat_dap_plugin.layer.wallet.wallet.redeem.point.developer.bitdubai.version_1.structure.functional;
 
+<<<<<<< HEAD
+=======
+import com.bitdubai.fermat_api.layer.all_definition.enums.WalletsPublicKeys;
+import com.bitdubai.fermat_api.layer.osa_android.broadcaster.Broadcaster;
+import com.bitdubai.fermat_api.layer.osa_android.broadcaster.BroadcasterType;
+import com.bitdubai.fermat_dap_api.layer.all_definition.DAPConstants;
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 import com.bitdubai.fermat_dap_api.layer.dap_wallet.asset_issuer_wallet.exceptions.CantCalculateBalanceException;
 import com.bitdubai.fermat_dap_api.layer.dap_wallet.asset_issuer_wallet.exceptions.CantRegisterCreditException;
 import com.bitdubai.fermat_dap_api.layer.dap_wallet.asset_issuer_wallet.exceptions.CantRegisterDebitException;
@@ -16,12 +23,22 @@ import java.util.List;
 public class AssetRedeemPointWalletBalanceImpl implements com.bitdubai.fermat_dap_api.layer.dap_wallet.asset_redeem_point.interfaces.AssetRedeemPointWalletBalance {
 
     private AssetRedeemPointWalletDao assetRedeemPointWalletDao;
+<<<<<<< HEAD
+=======
+    private Broadcaster broadcaster;
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 
     /**
      * Constructor.
      */
+<<<<<<< HEAD
     public AssetRedeemPointWalletBalanceImpl(AssetRedeemPointWalletDao assetRedeemPointWalletDao) {
         this.assetRedeemPointWalletDao = assetRedeemPointWalletDao;
+=======
+    public AssetRedeemPointWalletBalanceImpl(AssetRedeemPointWalletDao assetRedeemPointWalletDao, Broadcaster broadcaster) {
+        this.assetRedeemPointWalletDao = assetRedeemPointWalletDao;
+        this.broadcaster = broadcaster;
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
     }
 
     @Override
@@ -37,10 +54,16 @@ public class AssetRedeemPointWalletBalanceImpl implements com.bitdubai.fermat_da
     @Override
     public void debit(AssetRedeemPointWalletTransactionRecord assetRedeemPointWalletTransactionRecord, BalanceType balanceType) throws CantRegisterDebitException {
         assetRedeemPointWalletDao.addDebit(assetRedeemPointWalletTransactionRecord, balanceType);
+
+        broadcaster.publish(BroadcasterType.UPDATE_VIEW, DAPConstants.DAP_UPDATE_VIEW_ANDROID);
+        broadcaster.publish(BroadcasterType.NOTIFICATION_SERVICE, WalletsPublicKeys.DAP_REDEEM_WALLET.getCode(), "ASSET-REDEEM-DEBIT_" + "Name: " + assetRedeemPointWalletTransactionRecord.getDigitalAsset().getName() + " - Balance: " + balanceType.getCode());
     }
 
     @Override
     public void credit(AssetRedeemPointWalletTransactionRecord assetRedeemPointWalletTransactionRecord, BalanceType balanceType) throws CantRegisterCreditException {
         assetRedeemPointWalletDao.addCredit(assetRedeemPointWalletTransactionRecord, balanceType);
+
+        broadcaster.publish(BroadcasterType.UPDATE_VIEW, DAPConstants.DAP_UPDATE_VIEW_ANDROID);
+        broadcaster.publish(BroadcasterType.NOTIFICATION_SERVICE, WalletsPublicKeys.DAP_REDEEM_WALLET.getCode(), "ASSET-REDEEM-CREDIT_" + "Name: " + assetRedeemPointWalletTransactionRecord.getDigitalAsset().getName() + " - Balance: " + balanceType.getCode());
     }
 }

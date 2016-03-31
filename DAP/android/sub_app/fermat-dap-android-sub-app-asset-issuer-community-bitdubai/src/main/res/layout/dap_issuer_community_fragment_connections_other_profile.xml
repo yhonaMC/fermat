@@ -114,7 +114,11 @@
                 android:background="@drawable/bg_shape_grey"
                 android:paddingLeft="18dp"
                 android:paddingRight="18dp"
+<<<<<<< HEAD
                 android:text="Connection Rejected"
+=======
+                android:text="Connection Canceled"
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
                 android:textColor="#ffffff"
                 android:visibility="gone"
                 tools:ignore="HardcodedText" />

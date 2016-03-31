@@ -56,8 +56,13 @@ public class TransactionViewHolder extends ChildViewHolder {
                 txt_notes.setText((cryptoWalletTransaction.getMemo()==null) ? "No information" : cryptoWalletTransaction.getMemo() + "(Reversed)");
                 else
                     txt_notes.setText((cryptoWalletTransaction.getMemo()==null) ? "No information" : cryptoWalletTransaction.getMemo());
+<<<<<<< HEAD
             SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
             txt_time.setText(sdf.format(cryptoWalletTransaction.getTimestamp()));
+=======
+            SimpleDateFormat sdf = new SimpleDateFormat("MMMM dd, yyyy HH:mm", Locale.US);
+            txt_time.setText(sdf.format(cryptoWalletTransaction.getTimestamp())+ " hs");
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
         }else{
             container_sub_item.setVisibility(View.GONE);
         }

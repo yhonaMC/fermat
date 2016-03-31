@@ -47,6 +47,7 @@ public class DeveloperDatabaseFactory {
          * We only have one table in each database, let's complete it
          */
         List<String> basicWalletBitcoinWalletColumns = new ArrayList<>();
+<<<<<<< HEAD
         basicWalletBitcoinWalletColumns.add(BitcoinLossProtectedWalletDatabaseConstants.BITCOIN_WALLET_TABLE_ID_COLUMN_NAME);
         basicWalletBitcoinWalletColumns.add(BitcoinLossProtectedWalletDatabaseConstants.BBITCOIN_WALLET_TABLE_VERIFICATION_ID_COLUMN_NAME);
         basicWalletBitcoinWalletColumns.add(BitcoinLossProtectedWalletDatabaseConstants.BITCOIN_WALLET_TABLE_ADDRESS_FROM_COLUMN_NAME);
@@ -65,30 +66,87 @@ public class DeveloperDatabaseFactory {
         basicWalletBitcoinWalletColumns.add(BitcoinLossProtectedWalletDatabaseConstants.BITCOIN_WALLET_TABLE_RUNNING_AVAILABLE_BALANCE_COLUMN_NAME);
         basicWalletBitcoinWalletColumns.add(BitcoinLossProtectedWalletDatabaseConstants.BITCOIN_WALLET_TABLE_RUNNING_NETWORK_TYPE);
         basicWalletBitcoinWalletColumns.add(BitcoinLossProtectedWalletDatabaseConstants.BITCOIN_WALLET_TABLE_TRANSACTION_STATE_COLUMN_NAME);
+=======
+        basicWalletBitcoinWalletColumns.add(BitcoinLossProtectedWalletDatabaseConstants.LOSS_PROTECTED_WALLET_TABLE_ID_COLUMN_NAME);
+        basicWalletBitcoinWalletColumns.add(BitcoinLossProtectedWalletDatabaseConstants.LOSS_PROTECTED_WALLET_TABLE_VERIFICATION_ID_COLUMN_NAME);
+        basicWalletBitcoinWalletColumns.add(BitcoinLossProtectedWalletDatabaseConstants.LOSS_PROTECTED_WALLET_TABLE_ADDRESS_FROM_COLUMN_NAME);
+        basicWalletBitcoinWalletColumns.add(BitcoinLossProtectedWalletDatabaseConstants.LOSS_PROTECTED_WALLET_TABLE_ADDRESS_TO_COLUMN_NAME);
+        basicWalletBitcoinWalletColumns.add(BitcoinLossProtectedWalletDatabaseConstants.LOSS_PROTECTED_WALLET_TABLE_ACTOR_FROM_COLUMN_NAME);
+        basicWalletBitcoinWalletColumns.add(BitcoinLossProtectedWalletDatabaseConstants.LOSS_PROTECTED_WALLET_TABLE_ACTOR_TO_COLUMN_NAME);
+        basicWalletBitcoinWalletColumns.add(BitcoinLossProtectedWalletDatabaseConstants.LOSS_PROTECTED_WALLET_TABLE_ACTOR_FROM_TYPE_COLUMN_NAME);
+        basicWalletBitcoinWalletColumns.add(BitcoinLossProtectedWalletDatabaseConstants.LOSS_PROTECTED_WALLET_TABLE_ACTOR_TO_TYPE_COLUMN_NAME);
+        basicWalletBitcoinWalletColumns.add(BitcoinLossProtectedWalletDatabaseConstants.LOSS_PROTECTED_WALLET_TABLE_AMOUNT_COLUMN_NAME);
+        basicWalletBitcoinWalletColumns.add(BitcoinLossProtectedWalletDatabaseConstants.LOSS_PROTECTED_WALLET_TABLE_TYPE_COLUMN_NAME);
+        basicWalletBitcoinWalletColumns.add(BitcoinLossProtectedWalletDatabaseConstants.LOSS_PROTECTED_WALLET_TABLE_BALANCE_TYPE_COLUMN_NAME);
+        basicWalletBitcoinWalletColumns.add(BitcoinLossProtectedWalletDatabaseConstants.LOSS_PROTECTED_WALLET_TABLE_TIME_STAMP_COLUMN_NAME);
+        basicWalletBitcoinWalletColumns.add(BitcoinLossProtectedWalletDatabaseConstants.LOSS_PROTECTED_WALLET_TABLE_MEMO_COLUMN_NAME);
+        basicWalletBitcoinWalletColumns.add(BitcoinLossProtectedWalletDatabaseConstants.LOSS_PROTECTED_WALLET_TABLE_TRANSACTION_HASH_COLUMN_NAME);
+        basicWalletBitcoinWalletColumns.add(BitcoinLossProtectedWalletDatabaseConstants.LOSS_PROTECTED_WALLET_TABLE_RUNNING_BOOK_BALANCE_COLUMN_NAME);
+        basicWalletBitcoinWalletColumns.add(BitcoinLossProtectedWalletDatabaseConstants.LOSS_PROTECTED_WALLET_TABLE_RUNNING_AVAILABLE_BALANCE_COLUMN_NAME);
+        basicWalletBitcoinWalletColumns.add(BitcoinLossProtectedWalletDatabaseConstants.LOSS_PROTECTED_WALLET_TABLE_RUNNING_NETWORK_TYPE);
+        basicWalletBitcoinWalletColumns.add(BitcoinLossProtectedWalletDatabaseConstants.LOSS_PROTECTED_WALLET_TABLE_TRANSACTION_STATE_COLUMN_NAME);
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 
         /**
          * basicWalletBitcoinWalletColumns table
          */
+<<<<<<< HEAD
         DeveloperDatabaseTable  cryptoTransactionsTable = developerObjectFactory.getNewDeveloperDatabaseTable(BitcoinLossProtectedWalletDatabaseConstants.BITCOIN_WALLET_TABLE_NAME, basicWalletBitcoinWalletColumns);
+=======
+        DeveloperDatabaseTable  cryptoTransactionsTable = developerObjectFactory.getNewDeveloperDatabaseTable(BitcoinLossProtectedWalletDatabaseConstants.LOSS_PROTECTED_WALLET_TABLE_NAME, basicWalletBitcoinWalletColumns);
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
         tables.add(cryptoTransactionsTable);
 
         /**
          * Added new table BitcoinWalletWalletTotalBalances
          */
+<<<<<<< HEAD
         List<String> bitcoinWalletWalletTotalBalancesColumns = new ArrayList<>();
         bitcoinWalletWalletTotalBalancesColumns.add(BitcoinLossProtectedWalletDatabaseConstants.BITCOIN_WALLET_BALANCE_TABLE_ID_COLUMN_NAME);
         bitcoinWalletWalletTotalBalancesColumns.add(BitcoinLossProtectedWalletDatabaseConstants.BITCOIN_WALLET_BALANCE_TABLE_AVAILABLE_BALANCE_COLUMN_NAME);
         bitcoinWalletWalletTotalBalancesColumns.add(BitcoinLossProtectedWalletDatabaseConstants.BITCOIN_WALLET_BALANCE_TABLE_BOOK_BALANCE_COLUMN_NAME);
         bitcoinWalletWalletTotalBalancesColumns.add(BitcoinLossProtectedWalletDatabaseConstants.BITCOIN_WALLET_BALANCE_TABLE_RUNNING_NETWORK_TYPE);
+=======
+        List<String> LossProtectedWalletTotalBalancesColumns = new ArrayList<>();
+        LossProtectedWalletTotalBalancesColumns.add(BitcoinLossProtectedWalletDatabaseConstants.LOSS_PROTECTED_WALLET_BALANCE_TABLE_ID_COLUMN_NAME);
+        LossProtectedWalletTotalBalancesColumns.add(BitcoinLossProtectedWalletDatabaseConstants.LOSS_PROTECTED_WALLET_BALANCE_TABLE_AVAILABLE_BALANCE_COLUMN_NAME);
+        LossProtectedWalletTotalBalancesColumns.add(BitcoinLossProtectedWalletDatabaseConstants.LOSS_PROTECTED_WALLET_BALANCE_TABLE_BOOK_BALANCE_COLUMN_NAME);
+        LossProtectedWalletTotalBalancesColumns.add(BitcoinLossProtectedWalletDatabaseConstants.LOSS_PROTECTED_WALLET_BALANCE_TABLE_RUNNING_NETWORK_TYPE);
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 
 
 
         /**
          * basicWalletBitcoinWalletColumns table
          */
+<<<<<<< HEAD
         DeveloperDatabaseTable  bitcoinWalletWalletTotalBalances = developerObjectFactory.getNewDeveloperDatabaseTable(BitcoinLossProtectedWalletDatabaseConstants.BITCOIN_WALLET_BALANCE_TABLE_NAME, bitcoinWalletWalletTotalBalancesColumns);
         tables.add(bitcoinWalletWalletTotalBalances);
 
+=======
+        DeveloperDatabaseTable  bitcoinWalletWalletTotalBalances = developerObjectFactory.getNewDeveloperDatabaseTable(BitcoinLossProtectedWalletDatabaseConstants.LOSS_PROTECTED_WALLET_BALANCE_TABLE_NAME, LossProtectedWalletTotalBalancesColumns);
+        tables.add(bitcoinWalletWalletTotalBalances);
+
+        /**
+         * Added new table Bitcoin Spending
+         */
+        List<String> LossProtectedBtcSpendingColumns = new ArrayList<>();
+        LossProtectedBtcSpendingColumns.add(BitcoinLossProtectedWalletDatabaseConstants.LOSS_PROTECTED_WALLET_SPENT_TABLE_ID_COLUMN_NAME);
+        LossProtectedBtcSpendingColumns.add(BitcoinLossProtectedWalletDatabaseConstants.LOSS_PROTECTED_WALLET_SPENT_TRANSACTION_ID_COLUMN_NAME);
+        LossProtectedBtcSpendingColumns.add(BitcoinLossProtectedWalletDatabaseConstants.LOSS_PROTECTED_WALLET_SPENT_TABLE_BTC_SPENT_COLUMN_NAME);
+        LossProtectedBtcSpendingColumns.add(BitcoinLossProtectedWalletDatabaseConstants.LOSS_PROTECTED_WALLET_SPENT_TABLE_TIME_STAMP_COLUMN_NAME);
+
+
+
+
+        /**
+         * basicWalletBitcoinWalletColumns table
+         */
+        DeveloperDatabaseTable  LossProtectedtWalletSpeding = developerObjectFactory.getNewDeveloperDatabaseTable(BitcoinLossProtectedWalletDatabaseConstants.LOSS_PROTECTED_WALLET_SPENT_TABLE_NAME, LossProtectedBtcSpendingColumns);
+        tables.add(LossProtectedtWalletSpeding);
+
+
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 
         return tables;
     }

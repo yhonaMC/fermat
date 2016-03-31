@@ -10,6 +10,10 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+<<<<<<< HEAD
+=======
+import android.support.design.widget.TabLayout;
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -532,7 +536,17 @@ public class WalletActivity extends FermatActivity implements FermatScreenSwappe
         }catch (Exception e){
             e.printStackTrace();
         }
+<<<<<<< HEAD
+=======
     }
 
 
+    @Override
+    public void setTabCustomImageView(int position,View view) {
+        TabLayout.Tab tab = tabLayout.getTabAt(position);
+//        ImageView imageView = new ImageView(this);
+//        imageView.setImageDrawable(new BadgeDrawable.BadgeDrawableBuilder(this).setCount().setPosition(BadgeDrawable.Position.CENTER).build());
+        tab.setCustomView(view);
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
+    }
 }

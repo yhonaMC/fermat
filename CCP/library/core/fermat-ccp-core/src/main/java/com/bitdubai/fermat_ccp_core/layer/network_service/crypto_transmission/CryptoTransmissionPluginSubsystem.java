@@ -5,7 +5,11 @@ import com.bitdubai.fermat_api.layer.all_definition.enums.Plugins;
 import com.bitdubai.fermat_core_api.layer.all_definition.system.abstract_classes.AbstractPluginSubsystem;
 import com.bitdubai.fermat_core_api.layer.all_definition.system.exceptions.CantStartSubsystemException;
 
+<<<<<<< HEAD
 import bitdubai.DeveloperBitDubai;
+=======
+import com.bitdubai.fermat_ccp_plugin.layer.network_service.crypto_transmission.developer.bitdubai.DeveloperBitDubai;
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 
 /**
  * Created by Matias Furszyfer - (matiasfurszyfer@gmail.com) on 09/10/2015.

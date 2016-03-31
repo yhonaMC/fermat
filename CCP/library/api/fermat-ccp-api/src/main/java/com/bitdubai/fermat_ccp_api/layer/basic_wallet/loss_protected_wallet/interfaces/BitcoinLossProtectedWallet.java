@@ -4,6 +4,10 @@ package com.bitdubai.fermat_ccp_api.layer.basic_wallet.loss_protected_wallet.int
 import com.bitdubai.fermat_ccp_api.layer.basic_wallet.common.enums.BalanceType;
 import com.bitdubai.fermat_ccp_api.layer.basic_wallet.common.enums.TransactionType;
 import com.bitdubai.fermat_ccp_api.layer.basic_wallet.common.exceptions.CantListTransactionsException;
+<<<<<<< HEAD
+=======
+import com.bitdubai.fermat_ccp_api.layer.basic_wallet.loss_protected_wallet.exceptions.CantListSpendingException;
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 import com.bitdubai.fermat_ccp_api.layer.basic_wallet.loss_protected_wallet.exceptions.CantRevertLossProtectedTransactionException;
 
 import java.util.List;
@@ -14,7 +18,11 @@ import java.util.UUID;
  * haves all consumable methods from a bitcoin wallet.
  *
  * Created by eze on 2015.06.17..
+<<<<<<< HEAD
  * Modified by Leon Acosta - (laion.cj91@gmail.com) on 18/09/15.
+=======
+ * Modified by  Natalia Cortez 03/14/2016
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
  * @version 1.0
  */
 public interface BitcoinLossProtectedWallet {
@@ -146,10 +154,27 @@ public interface BitcoinLossProtectedWallet {
 
 
     /**
+<<<<<<< HEAD
      *
      * @param transactionRecord
      * @param credit
      * @throws CantRevertLossProtectedTransactionException
      */
+=======
+     *  Throw the method <code>listTransactionsSpending</code> return spending btc information for transaction id.
+     * @param transactionId
+     * @return
+     * @throws CantListSpendingException
+     */
+     List<BitcoinLossProtectedWalletSpend> listTransactionsSpending(UUID transactionId) throws CantListSpendingException;
+
+
+        /**
+         *
+         * @param transactionRecord
+         * @param credit
+         * @throws CantRevertLossProtectedTransactionException
+         */
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
     void revertTransaction(BitcoinLossProtectedWalletTransactionRecord transactionRecord, boolean credit) throws CantRevertLossProtectedTransactionException;
 }

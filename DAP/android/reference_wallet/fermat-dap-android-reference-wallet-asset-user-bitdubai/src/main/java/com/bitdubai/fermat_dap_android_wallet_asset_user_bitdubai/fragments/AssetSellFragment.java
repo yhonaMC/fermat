@@ -495,7 +495,11 @@ public class AssetSellFragment extends AbstractFermatFragment {
             e.printStackTrace();
         }
 
+<<<<<<< HEAD
         toolbar.setTitle(digitalAsset.getName());
+=======
+//        toolbar.setTitle(digitalAsset.getName());
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 
 //        if (digitalAsset.getImage() != null) {
 //            assetSellImage.setImageBitmap(BitmapFactory.decodeStream(new ByteArrayInputStream(digitalAsset.getImage())));

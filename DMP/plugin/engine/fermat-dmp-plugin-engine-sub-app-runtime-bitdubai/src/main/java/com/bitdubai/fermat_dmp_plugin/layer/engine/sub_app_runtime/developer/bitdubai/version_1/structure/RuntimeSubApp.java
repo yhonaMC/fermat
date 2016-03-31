@@ -33,6 +33,7 @@ public class RuntimeSubApp implements SubApp {
     Activities lastActivity;
 
     Map<String,LanguagePackage> languagePackages = new HashMap<String,LanguagePackage>();
+    private int bannerRes;
 
 
     /**
@@ -151,4 +152,17 @@ public class RuntimeSubApp implements SubApp {
     public int getIconResource() {
         return 0;
     }
+<<<<<<< HEAD
+=======
+
+    @Override
+    public void setBanner(int res) {
+        this.bannerRes = res;
+    }
+
+    @Override
+    public int getBannerRes() {
+        return bannerRes;
+    }
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 }

@@ -3,30 +3,46 @@ package com.bitdubai.fermat_bch_plugin.layer.crypto_network.bitcoin.developer.bi
 import com.bitdubai.fermat_api.CantStartAgentException;
 import com.bitdubai.fermat_api.layer.all_definition.enums.BlockchainNetworkType;
 import com.bitdubai.fermat_api.layer.all_definition.enums.Plugins;
+<<<<<<< HEAD
+=======
+import com.bitdubai.fermat_api.layer.all_definition.money.CryptoAddress;
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 import com.bitdubai.fermat_api.layer.all_definition.transaction_transference_protocol.ProtocolStatus;
 import com.bitdubai.fermat_api.layer.all_definition.transaction_transference_protocol.Specialist;
 import com.bitdubai.fermat_api.layer.all_definition.transaction_transference_protocol.TransactionProtocolManager;
 import com.bitdubai.fermat_api.layer.all_definition.transaction_transference_protocol.crypto_transactions.CryptoStatus;
 import com.bitdubai.fermat_api.layer.all_definition.transaction_transference_protocol.crypto_transactions.CryptoTransaction;
+import com.bitdubai.fermat_api.layer.all_definition.transaction_transference_protocol.crypto_transactions.CryptoTransactionType;
 import com.bitdubai.fermat_api.layer.all_definition.transaction_transference_protocol.exceptions.CantConfirmTransactionException;
 import com.bitdubai.fermat_api.layer.all_definition.transaction_transference_protocol.exceptions.CantDeliverPendingTransactionsException;
+<<<<<<< HEAD
 import com.bitdubai.fermat_api.layer.all_definition.util.XMLParser;
 import com.bitdubai.fermat_api.layer.osa_android.database_system.PluginDatabaseSystem;
 import com.bitdubai.fermat_api.layer.osa_android.file_system.FileLifeSpan;
 import com.bitdubai.fermat_api.layer.osa_android.file_system.FilePrivacy;
 import com.bitdubai.fermat_api.layer.osa_android.file_system.PluginFileSystem;
 import com.bitdubai.fermat_api.layer.osa_android.file_system.PluginTextFile;
+=======
+import com.bitdubai.fermat_api.layer.osa_android.broadcaster.Broadcaster;
+import com.bitdubai.fermat_api.layer.osa_android.database_system.PluginDatabaseSystem;
+import com.bitdubai.fermat_api.layer.osa_android.file_system.PluginFileSystem;
+import com.bitdubai.fermat_api.layer.osa_android.file_system.exceptions.CantCreateFileException;
+import com.bitdubai.fermat_api.layer.osa_android.file_system.exceptions.FileNotFoundException;
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 import com.bitdubai.fermat_bch_api.layer.crypto_network.bitcoin.BitcoinNetworkSelector;
 import com.bitdubai.fermat_bch_api.layer.crypto_network.bitcoin.BlockchainConnectionStatus;
+import com.bitdubai.fermat_bch_api.layer.crypto_network.bitcoin.BlockchainDownloadProgress;
 import com.bitdubai.fermat_bch_api.layer.crypto_network.bitcoin.BroadcastStatus;
 import com.bitdubai.fermat_bch_api.layer.crypto_network.bitcoin.exceptions.CantBroadcastTransactionException;
 import com.bitdubai.fermat_bch_api.layer.crypto_network.bitcoin.exceptions.CantCancellBroadcastTransactionException;
 import com.bitdubai.fermat_bch_api.layer.crypto_network.bitcoin.exceptions.CantFixTransactionInconsistenciesException;
 import com.bitdubai.fermat_bch_api.layer.crypto_network.bitcoin.exceptions.CantGetBlockchainConnectionStatusException;
+import com.bitdubai.fermat_bch_api.layer.crypto_network.bitcoin.exceptions.CantGetBlockchainDownloadProgress;
 import com.bitdubai.fermat_bch_api.layer.crypto_network.bitcoin.exceptions.CantGetBroadcastStatusException;
 import com.bitdubai.fermat_bch_api.layer.crypto_network.bitcoin.exceptions.CantGetCryptoTransactionException;
 import com.bitdubai.fermat_bch_api.layer.crypto_network.bitcoin.exceptions.CantGetTransactionCryptoStatusException;
 import com.bitdubai.fermat_bch_api.layer.crypto_network.bitcoin.exceptions.CantGetTransactionException;
+import com.bitdubai.fermat_bch_api.layer.crypto_network.bitcoin.exceptions.CantGetTransactionsException;
 import com.bitdubai.fermat_bch_api.layer.crypto_network.bitcoin.exceptions.CantStoreBitcoinTransactionException;
 import com.bitdubai.fermat_bch_api.layer.crypto_network.enums.Status;
 import com.bitdubai.fermat_bch_api.layer.crypto_vault.enums.CryptoVaults;
@@ -34,7 +50,11 @@ import com.bitdubai.fermat_bch_plugin.layer.crypto_network.bitcoin.developer.bit
 import com.bitdubai.fermat_bch_plugin.layer.crypto_network.bitcoin.developer.bitdubai.version_1.exceptions.CantExecuteDatabaseOperationException;
 import com.bitdubai.fermat_bch_plugin.layer.crypto_network.bitcoin.developer.bitdubai.version_1.exceptions.CantLoadTransactionFromFileException;
 import com.bitdubai.fermat_bch_plugin.layer.crypto_network.bitcoin.developer.bitdubai.version_1.util.TransactionProtocolData;
+<<<<<<< HEAD
 import com.bitdubai.fermat_dap_api.layer.dap_wallet.common.exceptions.CantGetTransactionsException;
+=======
+
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 import com.bitdubai.fermat_pip_api.layer.platform_service.error_manager.enums.UnexpectedPluginExceptionSeverity;
 import com.bitdubai.fermat_pip_api.layer.platform_service.error_manager.interfaces.ErrorManager;
 import com.bitdubai.fermat_pip_api.layer.platform_service.event_manager.interfaces.EventManager;
@@ -49,9 +69,11 @@ import org.bitcoinj.core.Sha256Hash;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.TransactionInput;
 import org.bitcoinj.core.Wallet;
+<<<<<<< HEAD
 import org.bitcoinj.core.WalletExtension;
+=======
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 import org.bitcoinj.store.UnreadableWalletException;
-import org.bitcoinj.wallet.WalletTransaction;
 
 import java.io.File;
 import java.io.IOException;
@@ -65,7 +87,7 @@ import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Nullable;
 
-import static com.bitdubai.fermat_dap_api.layer.all_definition.util.Validate.isValidString;
+
 
 /**
  * The Class <code>com.bitdubai.fermat_bch_plugin.layer.cryptonetwork.bitcoin.developer.bitdubai.version_1.structure.BitcoinCryptoNetworkManager</code>
@@ -80,11 +102,14 @@ import static com.bitdubai.fermat_dap_api.layer.all_definition.util.Validate.isV
  */
 public class BitcoinCryptoNetworkManager implements TransactionProtocolManager {
 
+<<<<<<< HEAD
 
     /**
      * UTXO Provider interface variables
      */
     BlockchainNetworkType utxoProviderNetworkParameter;
+=======
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 
     /**
      * class variables
@@ -107,6 +132,10 @@ public class BitcoinCryptoNetworkManager implements TransactionProtocolManager {
     UUID pluginId;
     PluginFileSystem pluginFileSystem;
     ErrorManager errorManager;
+<<<<<<< HEAD
+=======
+    Broadcaster broadcaster;
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 
     /**
      * Constructor
@@ -114,13 +143,21 @@ public class BitcoinCryptoNetworkManager implements TransactionProtocolManager {
      * @param eventManager
      * @param pluginDatabaseSystem
      */
+<<<<<<< HEAD
     public BitcoinCryptoNetworkManager(EventManager eventManager, PluginDatabaseSystem pluginDatabaseSystem, PluginFileSystem pluginFileSystem, UUID pluginId, ErrorManager errorManager) {
+=======
+    public BitcoinCryptoNetworkManager(EventManager eventManager, PluginDatabaseSystem pluginDatabaseSystem, PluginFileSystem pluginFileSystem, UUID pluginId, ErrorManager errorManager, Broadcaster broadcaster) {
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
         this.eventManager = eventManager;
         this.pluginDatabaseSystem = pluginDatabaseSystem;
         this.pluginFileSystem = pluginFileSystem;
         this.pluginId = pluginId;
         this.errorManager = errorManager;
         this.WALLET_PATH = pluginFileSystem.getAppPath();
+<<<<<<< HEAD
+=======
+        this.broadcaster = broadcaster;
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 
         runningAgents = new HashMap<>();
 
@@ -222,7 +259,11 @@ public class BitcoinCryptoNetworkManager implements TransactionProtocolManager {
                      * once the agent is stopped, I will restart it with the new wallet.
                      */
                     File walletFilename = new File(WALLET_PATH, blockchainNetworkType.getCode());
+<<<<<<< HEAD
                     bitcoinCryptoNetworkMonitor = new BitcoinCryptoNetworkMonitor(this.pluginDatabaseSystem, pluginId, wallet, walletFilename, pluginFileSystem, errorManager, context);
+=======
+                    bitcoinCryptoNetworkMonitor = new BitcoinCryptoNetworkMonitor(this.pluginDatabaseSystem, pluginId, wallet, walletFilename, pluginFileSystem, errorManager, context, broadcaster);
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
                     runningAgents.put(blockchainNetworkType, bitcoinCryptoNetworkMonitor);
 
                     bitcoinCryptoNetworkMonitor.start();
@@ -232,7 +273,11 @@ public class BitcoinCryptoNetworkManager implements TransactionProtocolManager {
                  * If the agent for the network is not running, I will start a new one.
                  */
                 File walletFilename = new File(WALLET_PATH, blockchainNetworkType.getCode());
+<<<<<<< HEAD
                 BitcoinCryptoNetworkMonitor bitcoinCryptoNetworkMonitor = new BitcoinCryptoNetworkMonitor(this.pluginDatabaseSystem, pluginId, wallet, walletFilename, pluginFileSystem, errorManager, context);
+=======
+                BitcoinCryptoNetworkMonitor bitcoinCryptoNetworkMonitor = new BitcoinCryptoNetworkMonitor(this.pluginDatabaseSystem, pluginId, wallet, walletFilename, pluginFileSystem, errorManager, context, broadcaster);
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
                 runningAgents.put(blockchainNetworkType, bitcoinCryptoNetworkMonitor);
 
                 System.out.println("***CryptoNetwork*** starting new agent with " + keyList.size() + " keys for " + cryptoVault.getCode() + " vault...");
@@ -459,7 +504,7 @@ public class BitcoinCryptoNetworkManager implements TransactionProtocolManager {
      */
     public List<CryptoTransaction> getGenesisTransaction(String txHash) throws CantGetCryptoTransactionException {
         try {
-            return getDao().getIncomingCryptoTransaction(txHash);
+            return getDao().getCryptoTransactions(txHash,null,null);
         } catch (CantExecuteDatabaseOperationException e) {
             errorManager.reportUnexpectedPluginException(Plugins.BITDUBAI_BITCOIN_CRYPTO_NETWORK, UnexpectedPluginExceptionSeverity.DISABLES_SOME_FUNCTIONALITY_WITHIN_THIS_PLUGIN, e);
             throw new CantGetCryptoTransactionException(CantGetCryptoTransactionException.DEFAULT_MESSAGE, e, "database operation issue.", "database error");
@@ -511,7 +556,11 @@ public class BitcoinCryptoNetworkManager implements TransactionProtocolManager {
      * @return
      */
     public List<Transaction> getBitcoinTransactions(BlockchainNetworkType blockchainNetworkType) {
+<<<<<<< HEAD
         return runningAgents.get(blockchainNetworkType).wallet.getTransactionsByTime();
+=======
+        return runningAgents.get(blockchainNetworkType).getWallet().getTransactionsByTime();
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
     }
 
 
@@ -789,18 +838,40 @@ public class BitcoinCryptoNetworkManager implements TransactionProtocolManager {
      * @return the last recorded CryptoTransaction.
      * @throws CantGetCryptoTransactionException
      */
+<<<<<<< HEAD
     public CryptoTransaction getCryptoTransaction(String txHash) throws CantGetCryptoTransactionException {
+=======
+    public CryptoTransaction getCryptoTransaction(String txHash, @Nullable CryptoTransactionType cryptoTransactionType, @Nullable CryptoAddress toAddress) throws CantGetCryptoTransactionException {
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
         if (StringUtils.isBlank(txHash))
             throw new CantGetCryptoTransactionException(CantGetCryptoTransactionException.DEFAULT_MESSAGE, null ,"Invalid parameter. TxHash: " + txHash, "GetCryptoTransaction on CryptoNetwork");
 
         CryptoTransaction cryptoTransaction = null;
         try {
+<<<<<<< HEAD
             cryptoTransaction = getDao().getCryptoTransaction(txHash);
+=======
+            cryptoTransaction = getDao().getCryptoTransaction(txHash, cryptoTransactionType, toAddress);
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
         } catch (CantExecuteDatabaseOperationException e) {
             errorManager.reportUnexpectedPluginException(Plugins.BITDUBAI_BITCOIN_CRYPTO_NETWORK, UnexpectedPluginExceptionSeverity.DISABLES_SOME_FUNCTIONALITY_WITHIN_THIS_PLUGIN, e);
             throw new CantGetCryptoTransactionException(CantGetCryptoTransactionException.DEFAULT_MESSAGE, e, "database error getting the last crypto transaction.", "database error");
         }
 
+<<<<<<< HEAD
+=======
+        // If I didn't got it in the right transactionType, will try getting them all
+        if (cryptoTransaction == null){
+            try {
+                cryptoTransaction = getDao().getCryptoTransaction(txHash, null, toAddress);
+            } catch (CantExecuteDatabaseOperationException e) {
+                errorManager.reportUnexpectedPluginException(Plugins.BITDUBAI_BITCOIN_CRYPTO_NETWORK, UnexpectedPluginExceptionSeverity.DISABLES_SOME_FUNCTIONALITY_WITHIN_THIS_PLUGIN, e);
+                throw new CantGetCryptoTransactionException(CantGetCryptoTransactionException.DEFAULT_MESSAGE, e, "database error getting the last crypto transaction.", "database error");
+            }
+        }
+
+
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
         /**
          * This might happen if the transaction we are searching for is not yet broadcasted
          */
@@ -815,16 +886,41 @@ public class BitcoinCryptoNetworkManager implements TransactionProtocolManager {
                     // If I find it on a running agent, then I will form the CryptoTransaction and return it.
                     if (transaction != null){
                         cryptoTransaction = CryptoTransaction.getCryptoTransaction(entry.getKey(), transaction);
+<<<<<<< HEAD
                         return cryptoTransaction;
                     }
                 } catch (CantLoadTransactionFromFileException e) {
                     CantGetCryptoTransactionException exception = new CantGetCryptoTransactionException(CantGetCryptoTransactionException.DEFAULT_MESSAGE, e, "There was an error getting the CryptoTransaction from disk", "IO Error");
                     errorManager.reportUnexpectedPluginException(Plugins.BITDUBAI_BITCOIN_CRYPTO_NETWORK, UnexpectedPluginExceptionSeverity.DISABLES_SOME_FUNCTIONALITY_WITHIN_THIS_PLUGIN, exception);
                     throw exception;
+=======
+                        cryptoTransaction.setCryptoTransactionType(CryptoTransactionType.OUTGOING);
+                        return cryptoTransaction;
+                    }
+                } catch (CantLoadTransactionFromFileException | CantCreateFileException e) {
+                    CantGetCryptoTransactionException exception = new CantGetCryptoTransactionException(CantGetCryptoTransactionException.DEFAULT_MESSAGE, e, "There was an error getting the CryptoTransaction from disk", "IO Error");
+                    errorManager.reportUnexpectedPluginException(Plugins.BITDUBAI_BITCOIN_CRYPTO_NETWORK, UnexpectedPluginExceptionSeverity.DISABLES_SOME_FUNCTIONALITY_WITHIN_THIS_PLUGIN, exception);
+                    throw exception;
+                } catch (FileNotFoundException e) {
+                    // If I couldn't find it, then it just may not be at that network
+                    e.printStackTrace();
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
                 }
             }
         }
 
+<<<<<<< HEAD
+=======
+        /**
+         * if it is still null then there is something wrong
+         */
+        if (cryptoTransaction == null){
+            CantGetCryptoTransactionException exception = new CantGetCryptoTransactionException(CantGetCryptoTransactionException.DEFAULT_MESSAGE, null, "The passed Transaction hash " + txHash + " is not stored anywhere!", "wrong transaction hash");
+            errorManager.reportUnexpectedPluginException(Plugins.BITDUBAI_BITCOIN_CRYPTO_NETWORK, UnexpectedPluginExceptionSeverity.NOT_IMPORTANT, exception);
+            throw exception;
+        }
+
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
         return cryptoTransaction;
     }
 
@@ -920,7 +1016,7 @@ public class BitcoinCryptoNetworkManager implements TransactionProtocolManager {
             /**
              * first iteration may have block hash null because transaction is not yet confirmed. If this is the case I will move to the next one
              */
-            if (!isValidString(entry.getValue()))
+            if (StringUtils.isBlank(entry.getValue()))
                 continue;
 
             /**
@@ -1036,12 +1132,31 @@ public class BitcoinCryptoNetworkManager implements TransactionProtocolManager {
      * @return the list of Crypto Transaction
      * @throws CantGetCryptoTransactionException
      */
+<<<<<<< HEAD
     public List<CryptoTransaction> getCryptoTransactions(BlockchainNetworkType blockchainNetworkType) throws CantGetCryptoTransactionException {
         try{
             return this.getDao().getCryptoTransactions(blockchainNetworkType);
+=======
+    public List<CryptoTransaction> getCryptoTransactions(BlockchainNetworkType blockchainNetworkType, CryptoAddress addressTo, @Nullable CryptoTransactionType cryptoTransactionType) throws CantGetCryptoTransactionException {
+        try{
+            return this.getDao().getCryptoTransactions(blockchainNetworkType, addressTo, cryptoTransactionType);
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
         } catch (Exception e){
             throw new CantGetCryptoTransactionException(CantGetCryptoTransactionException.DEFAULT_MESSAGE, e, "There was an error getting the list of stored cryptoTransactions", "Database issue");
         }
 
     }
+<<<<<<< HEAD
+=======
+
+    /**
+     * returns the blockchain download progress for the passed network type
+     * @param blockchainNetworkType
+     * @return
+     * @throws CantGetBlockchainDownloadProgress
+     */
+    public BlockchainDownloadProgress getBlockchainDownloadProgress(BlockchainNetworkType blockchainNetworkType) throws CantGetBlockchainDownloadProgress {
+        return this.runningAgents.get(blockchainNetworkType).getBlockchainDownloadProgress();
+    }
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 }

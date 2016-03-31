@@ -69,4 +69,10 @@ public class AppsConfiguration {
         return appsInstalledInDevice;
     }
 
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 }

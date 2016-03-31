@@ -2,7 +2,10 @@ package com.bitdubai.reference_niche_wallet.loss_protected_wallet.common.models;
 
 
 import com.bitdubai.fermat_android_api.ui.expandableRecicler.ParentListItem;
+<<<<<<< HEAD
 import com.bitdubai.fermat_ccp_api.layer.wallet_module.crypto_wallet.interfaces.CryptoWalletTransaction;
+=======
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 
 import java.util.List;
 
@@ -32,6 +35,14 @@ public class GrouperItem<CHILD_TYPE,ITEM> implements ParentListItem {
         return childCount;
     }
 
+<<<<<<< HEAD
+=======
+    @Override
+    public CHILD_TYPE getItem() {
+        return null;
+    }
+
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
     /**
      * Getter method for the list of children associated with this parent list item
      *

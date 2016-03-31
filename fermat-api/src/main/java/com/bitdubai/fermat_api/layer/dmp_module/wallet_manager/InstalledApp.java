@@ -1,5 +1,9 @@
 package com.bitdubai.fermat_api.layer.dmp_module.wallet_manager;
 
+<<<<<<< HEAD
+=======
+import com.bitdubai.fermat_api.layer.all_definition.enums.Platforms;
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 import com.bitdubai.fermat_api.layer.all_definition.runtime.FermatApp;
 import com.bitdubai.fermat_api.layer.dmp_middleware.wallet_manager.InstalledLanguage;
 import com.bitdubai.fermat_api.layer.dmp_middleware.wallet_manager.InstalledSkin;
@@ -44,4 +48,10 @@ public interface InstalledApp extends Serializable, FermatInterfaceObject, Ferma
 
 
     int getBanner();
+<<<<<<< HEAD
+=======
+
+
+    Platforms getPlatform();
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 }

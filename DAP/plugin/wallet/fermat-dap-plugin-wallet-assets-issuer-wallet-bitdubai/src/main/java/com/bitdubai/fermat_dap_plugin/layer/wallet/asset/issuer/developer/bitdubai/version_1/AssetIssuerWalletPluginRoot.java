@@ -18,6 +18,7 @@ import com.bitdubai.fermat_api.layer.all_definition.enums.Platforms;
 import com.bitdubai.fermat_api.layer.all_definition.enums.Plugins;
 import com.bitdubai.fermat_api.layer.all_definition.enums.ServiceStatus;
 import com.bitdubai.fermat_api.layer.all_definition.util.Version;
+import com.bitdubai.fermat_api.layer.osa_android.broadcaster.Broadcaster;
 import com.bitdubai.fermat_api.layer.osa_android.database_system.Database;
 import com.bitdubai.fermat_api.layer.osa_android.database_system.PluginDatabaseSystem;
 import com.bitdubai.fermat_api.layer.osa_android.database_system.exceptions.CantOpenDatabaseException;
@@ -74,6 +75,12 @@ public class AssetIssuerWalletPluginRoot extends AbstractPlugin implements
 
     @NeededPluginReference(platform = Platforms.DIGITAL_ASSET_PLATFORM, layer = Layers.ACTOR, plugin = Plugins.ASSET_ISSUER)
     ActorAssetIssuerManager assetIssuerManager;
+<<<<<<< HEAD
+=======
+
+    @NeededAddonReference(platform = Platforms.OPERATIVE_SYSTEM_API, layer = Layers.SYSTEM, addon = Addons.PLUGIN_BROADCASTER_SYSTEM)
+    private Broadcaster broadcaster;
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 
     private static final String WALLET_ISSUER_FILE_NAME = "walletsIds";
     private List<UUID> issuerWallets = new ArrayList<>();
@@ -191,7 +198,20 @@ public class AssetIssuerWalletPluginRoot extends AbstractPlugin implements
     public AssetIssuerWallet loadAssetIssuerWallet(String walletPublicKey, BlockchainNetworkType networkType) throws CantLoadWalletException {
 
         try {
+<<<<<<< HEAD
             AssetIssuerWalletImpl assetIssuerWallet = new AssetIssuerWalletImpl(errorManager, pluginDatabaseSystem, pluginFileSystem, pluginId, actorAssetUserManager, actorAssetRedeemPointManager, assetIssuerManager);
+=======
+            AssetIssuerWalletImpl assetIssuerWallet = new AssetIssuerWalletImpl(
+                    errorManager,
+                    pluginDatabaseSystem,
+                    pluginFileSystem,
+                    pluginId,
+                    actorAssetUserManager,
+                    actorAssetRedeemPointManager,
+                    assetIssuerManager,
+                    broadcaster);
+
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
             UUID internalAssetIssuerWalletId = WalletUtilities.constructWalletId(walletPublicKey, networkType);
             assetIssuerWallet.initialize(internalAssetIssuerWalletId);
             return assetIssuerWallet;
@@ -207,7 +227,20 @@ public class AssetIssuerWalletPluginRoot extends AbstractPlugin implements
     @Override
     public void createWalletAssetIssuer(String walletPublicKey, BlockchainNetworkType networkType) throws CantCreateWalletException {
         try {
+<<<<<<< HEAD
             AssetIssuerWalletImpl assetIssuerWallet = new AssetIssuerWalletImpl(errorManager, pluginDatabaseSystem, pluginFileSystem, pluginId, actorAssetUserManager, actorAssetRedeemPointManager, assetIssuerManager);
+=======
+            AssetIssuerWalletImpl assetIssuerWallet = new AssetIssuerWalletImpl(
+                    errorManager,
+                    pluginDatabaseSystem,
+                    pluginFileSystem,
+                    pluginId,
+                    actorAssetUserManager,
+                    actorAssetRedeemPointManager,
+                    assetIssuerManager,
+                    broadcaster);
+
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
             UUID internalAssetIssuerWalletId = assetIssuerWallet.create(walletPublicKey, networkType);
             issuerWallets.add(internalAssetIssuerWalletId);
         } catch (CantCreateWalletException exception) {

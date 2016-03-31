@@ -38,4 +38,17 @@ public class FermatInstalledDesktop implements InstalledDesktop {
     public int getIconResource() {
         return 0;
     }
+<<<<<<< HEAD
+=======
+
+    @Override
+    public void setBanner(int res) {
+
+    }
+
+    @Override
+    public int getBannerRes() {
+        return 0;
+    }
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 }

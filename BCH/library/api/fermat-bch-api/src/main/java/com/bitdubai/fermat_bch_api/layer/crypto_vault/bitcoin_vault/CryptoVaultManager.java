@@ -37,13 +37,14 @@ public interface CryptoVaultManager extends FermatManager, PlatformCryptoVault {
      * @param FermatTrId internal transaction Id - used to validate that it was not send previously.
      * @param addressTo the valid address we are sending to
      * @param satoshis the amount in long of satoshis
+     * @param blockchainNetworkType the network type where we are going to create this transaction
      * @return the transaction Hash of the new created transaction in the vault.
      * @throws InsufficientCryptoFundsException
      * @throws InvalidSendToAddressException
      * @throws CouldNotSendMoneyException
      */
-    String sendBitcoins (String walletPublicKey, UUID FermatTrId,  CryptoAddress addressTo, long satoshis) throws InsufficientCryptoFundsException, InvalidSendToAddressException, CouldNotSendMoneyException, CryptoTransactionAlreadySentException;
-
+    String sendBitcoins (String walletPublicKey, UUID FermatTrId,  CryptoAddress addressTo, long satoshis, BlockchainNetworkType blockchainNetworkType) throws InsufficientCryptoFundsException, InvalidSendToAddressException, CouldNotSendMoneyException, CryptoTransactionAlreadySentException;
+    String sendBitcoins (String walletPublicKey, UUID FermatTrId,  CryptoAddress addressTo, long satoshis, String op_Return, BlockchainNetworkType blockchainNetworkType) throws InsufficientCryptoFundsException, InvalidSendToAddressException, CouldNotSendMoneyException, CryptoTransactionAlreadySentException;
     /**
      * Generates a new Bitcoin Transaction with needed inputs and outputs.
      * Also signs and pass to the Crypto Network the transaction generated.
@@ -51,11 +52,13 @@ public interface CryptoVaultManager extends FermatManager, PlatformCryptoVault {
      * @param fermatTrId
      * @param addressTo
      * @param satoshis
+     * @param blockchainNetworkType the network type where we are going to create this transaction
      * @return
      * @throws InsufficientCryptoFundsException
      * @throws InvalidSendToAddressException
      * @throws CryptoTransactionAlreadySentException
      */
+<<<<<<< HEAD
     String generateTransaction (String walletPublicKey, UUID fermatTrId,  CryptoAddress addressTo, long satoshis) throws InsufficientCryptoFundsException, InvalidSendToAddressException,  CryptoTransactionAlreadySentException, CouldNotGenerateTransactionException;
     String generateTransaction (String walletPublicKey, UUID fermatTrId,  CryptoAddress addressTo, long satoshis, String op_Return) throws InsufficientCryptoFundsException, InvalidSendToAddressException,  CryptoTransactionAlreadySentException, CouldNotGenerateTransactionException;
 
@@ -74,6 +77,10 @@ public interface CryptoVaultManager extends FermatManager, PlatformCryptoVault {
      * @throws CryptoTransactionAlreadySentException
      */
     String sendBitcoins (String walletPublicKey, UUID FermatTrId,  CryptoAddress addressTo, long satoshis, String op_Return) throws InsufficientCryptoFundsException, InvalidSendToAddressException, CouldNotSendMoneyException, CryptoTransactionAlreadySentException;
+=======
+    String generateTransaction (String walletPublicKey, UUID fermatTrId,  CryptoAddress addressTo, long satoshis, BlockchainNetworkType blockchainNetworkType) throws InsufficientCryptoFundsException, InvalidSendToAddressException,  CryptoTransactionAlreadySentException, CouldNotGenerateTransactionException;
+    String generateTransaction (String walletPublicKey, UUID fermatTrId,  CryptoAddress addressTo, long satoshis, String op_Return, BlockchainNetworkType blockchainNetworkType) throws InsufficientCryptoFundsException, InvalidSendToAddressException,  CryptoTransactionAlreadySentException, CouldNotGenerateTransactionException;
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 
     /**
      * Validates if the passes CryptoAddress is valid in the current network or not.
@@ -106,7 +113,11 @@ public interface CryptoVaultManager extends FermatManager, PlatformCryptoVault {
      * @return the draft transaction with the added values.
      * @throws CantCreateDraftTransactionException
      */
+<<<<<<< HEAD
     DraftTransaction addInputsToDraftTransaction (DraftTransaction draftTransaction, long valueToSend, CryptoAddress addressTo) throws CantCreateDraftTransactionException;
+=======
+    DraftTransaction addInputsToDraftTransaction (DraftTransaction draftTransaction, long valueToSend, CryptoAddress addressTo, BlockchainNetworkType blockchainNetworkType) throws CantCreateDraftTransactionException;
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 
     /**
      * Returns a stored draft transaction

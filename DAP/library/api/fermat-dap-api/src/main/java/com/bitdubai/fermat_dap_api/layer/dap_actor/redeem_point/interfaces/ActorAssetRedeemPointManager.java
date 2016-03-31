@@ -102,8 +102,15 @@ public interface ActorAssetRedeemPointManager extends FermatManager {
      * @throws CantGetAssetRedeemPointActorsException
      */
     List<ActorAssetRedeemPoint> getAllRedeemPointActorConnected(BlockchainNetworkType blockchainNetworkType) throws CantGetAssetRedeemPointActorsException;
+<<<<<<< HEAD
 
     List<ActorAssetRedeemPoint> getAllRedeemPointActorConnectedForIssuer(String issuerPublicKey, BlockchainNetworkType blockchainNetworkType) throws CantGetAssetRedeemPointActorsException;
+=======
+
+    List<ActorAssetRedeemPoint> getAllRedeemPointActorConnectedForIssuer(String issuerPublicKey, BlockchainNetworkType blockchainNetworkType) throws CantGetAssetRedeemPointActorsException;
+
+    void updateOfflineRedeemPointRegisterInNetworkService(List<ActorAssetRedeemPoint> actorAssetUsers) throws CantGetAssetRedeemPointActorsException;
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 
     /**
      * The method <code>sendMessage</code> Stablish Connection

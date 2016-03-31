@@ -380,8 +380,12 @@ public final class IncomingMessageDao {
 
         try {
 
+<<<<<<< HEAD
             if(findById(String.valueOf(entity.getId()))== null)
             {
+=======
+            if (findById(String.valueOf(entity.getId())) == null) {
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
                 /* 1- Create the record to the entity
                     */
                 DatabaseTableRecord entityRecord = constructFrom(entity);
@@ -395,7 +399,10 @@ public final class IncomingMessageDao {
             }
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
         } catch (DatabaseTransactionFailedException databaseTransactionFailedException) {
 
             // Register the failure.
@@ -419,7 +426,11 @@ public final class IncomingMessageDao {
         if (fermatMessage == null) {
             throw new IllegalArgumentException("The id is required, can not be null");
         }
+<<<<<<< HEAD
         ((FermatMessageCommunication)fermatMessage).setFermatMessagesStatus(FermatMessagesStatus.READ);
+=======
+        ((FermatMessageCommunication) fermatMessage).setFermatMessagesStatus(FermatMessagesStatus.READ);
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
         update(fermatMessage);
 
     }
@@ -463,13 +474,18 @@ public final class IncomingMessageDao {
         }
     }
 
+<<<<<<< HEAD
     private void setValuesToRecord(DatabaseTableRecord entityRecord, FermatMessage incomingTemplateNetworkServiceMessage){
+=======
+    private void setValuesToRecord(DatabaseTableRecord entityRecord, FermatMessage incomingTemplateNetworkServiceMessage) {
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
         entityRecord.setStringValue(CommunicationNetworkServiceDatabaseConstants.INCOMING_MESSAGES_ID_COLUMN_NAME, incomingTemplateNetworkServiceMessage.getId().toString());
         entityRecord.setStringValue(CommunicationNetworkServiceDatabaseConstants.INCOMING_MESSAGES_SENDER_ID_COLUMN_NAME, incomingTemplateNetworkServiceMessage.getSender());
         entityRecord.setStringValue(CommunicationNetworkServiceDatabaseConstants.INCOMING_MESSAGES_RECEIVER_ID_COLUMN_NAME, incomingTemplateNetworkServiceMessage.getReceiver());
         entityRecord.setStringValue(CommunicationNetworkServiceDatabaseConstants.INCOMING_MESSAGES_TEXT_CONTENT_COLUMN_NAME, incomingTemplateNetworkServiceMessage.getContent());
         entityRecord.setStringValue(CommunicationNetworkServiceDatabaseConstants.INCOMING_MESSAGES_TYPE_COLUMN_NAME, incomingTemplateNetworkServiceMessage.getFermatMessageContentType().getCode());
 
+<<<<<<< HEAD
         if (incomingTemplateNetworkServiceMessage.getShippingTimestamp() != null){
             entityRecord.setLongValue(CommunicationNetworkServiceDatabaseConstants.OUTGOING_MESSAGES_SHIPPING_TIMESTAMP_COLUMN_NAME, incomingTemplateNetworkServiceMessage.getShippingTimestamp().getTime());
         }else {
@@ -479,11 +495,26 @@ public final class IncomingMessageDao {
         if (incomingTemplateNetworkServiceMessage.getDeliveryTimestamp() != null){
             entityRecord.setLongValue(CommunicationNetworkServiceDatabaseConstants.INCOMING_MESSAGES_SHIPPING_TIMESTAMP_COLUMN_NAME, incomingTemplateNetworkServiceMessage.getDeliveryTimestamp().getTime());
         }else {
+=======
+        if (incomingTemplateNetworkServiceMessage.getShippingTimestamp() != null) {
+            entityRecord.setLongValue(CommunicationNetworkServiceDatabaseConstants.INCOMING_MESSAGES_SHIPPING_TIMESTAMP_COLUMN_NAME, incomingTemplateNetworkServiceMessage.getShippingTimestamp().getTime());
+        } else {
+            entityRecord.setLongValue(CommunicationNetworkServiceDatabaseConstants.INCOMING_MESSAGES_SHIPPING_TIMESTAMP_COLUMN_NAME, (long) 0);
+        }
+
+        if (incomingTemplateNetworkServiceMessage.getDeliveryTimestamp() != null) {
+            entityRecord.setLongValue(CommunicationNetworkServiceDatabaseConstants.INCOMING_MESSAGES_DELIVERY_TIMESTAMP_COLUMN_NAME, incomingTemplateNetworkServiceMessage.getDeliveryTimestamp().getTime());
+        } else {
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
             entityRecord.setLongValue(CommunicationNetworkServiceDatabaseConstants.INCOMING_MESSAGES_DELIVERY_TIMESTAMP_COLUMN_NAME, (long) 0);
         }
 
         entityRecord.setStringValue(CommunicationNetworkServiceDatabaseConstants.INCOMING_MESSAGES_STATUS_COLUMN_NAME, incomingTemplateNetworkServiceMessage.getFermatMessagesStatus().getCode());
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
     /**
      * Method that delete a entity in the data base.
      *
@@ -539,7 +570,16 @@ public final class IncomingMessageDao {
             incomingTemplateNetworkServiceMessage.setContent(record.getStringValue(CommunicationNetworkServiceDatabaseConstants.INCOMING_MESSAGES_TEXT_CONTENT_COLUMN_NAME));
             incomingTemplateNetworkServiceMessage.setFermatMessageContentType((FermatMessageContentType.getByCode(record.getStringValue(CommunicationNetworkServiceDatabaseConstants.INCOMING_MESSAGES_TYPE_COLUMN_NAME))));
             incomingTemplateNetworkServiceMessage.setShippingTimestamp(new Timestamp(record.getLongValue(CommunicationNetworkServiceDatabaseConstants.INCOMING_MESSAGES_SHIPPING_TIMESTAMP_COLUMN_NAME)));
+<<<<<<< HEAD
             incomingTemplateNetworkServiceMessage.setDeliveryTimestamp(new Timestamp(record.getLongValue(CommunicationNetworkServiceDatabaseConstants.INCOMING_MESSAGES_DELIVERY_TIMESTAMP_COLUMN_NAME)));
+=======
+//            incomingTemplateNetworkServiceMessage.setDeliveryTimestamp(new Timestamp(record.getLongValue(CommunicationNetworkServiceDatabaseConstants.INCOMING_MESSAGES_DELIVERY_TIMESTAMP_COLUMN_NAME)));
+
+            if (record.getStringValue(CommunicationNetworkServiceDatabaseConstants.INCOMING_MESSAGES_DELIVERY_TIMESTAMP_COLUMN_NAME) == null)
+                incomingTemplateNetworkServiceMessage.setDeliveryTimestamp(new Timestamp(0));
+            else
+                incomingTemplateNetworkServiceMessage.setDeliveryTimestamp(new Timestamp(record.getLongValue(CommunicationNetworkServiceDatabaseConstants.INCOMING_MESSAGES_DELIVERY_TIMESTAMP_COLUMN_NAME)));
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 
             incomingTemplateNetworkServiceMessage.setFermatMessagesStatus(FermatMessagesStatus.getByCode(record.getStringValue(CommunicationNetworkServiceDatabaseConstants.INCOMING_MESSAGES_STATUS_COLUMN_NAME)));
 
@@ -570,7 +610,11 @@ public final class IncomingMessageDao {
         /*
          * Set the entity values
          */
+<<<<<<< HEAD
         setValuesToRecord(entityRecord,incomingTemplateNetworkServiceMessage);
+=======
+        setValuesToRecord(entityRecord, incomingTemplateNetworkServiceMessage);
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
         /*
          * return the new table record
          */

@@ -9,6 +9,10 @@ import com.bitdubai.fermat_api.layer.all_definition.enums.Plugins;
 import com.bitdubai.fermat_api.layer.all_definition.enums.ReferenceWallet;
 import com.bitdubai.fermat_api.layer.all_definition.enums.VaultType;
 import com.bitdubai.fermat_api.layer.all_definition.money.CryptoAddress;
+<<<<<<< HEAD
+=======
+import com.bitdubai.fermat_api.layer.dmp_module.wallet_manager.CantLoadWalletsException;
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 import com.bitdubai.fermat_bch_api.layer.crypto_module.crypto_address_book.exceptions.CantRegisterCryptoAddressBookRecordException;
 import com.bitdubai.fermat_bch_api.layer.crypto_module.crypto_address_book.interfaces.CryptoAddressBookManager;
 import com.bitdubai.fermat_bch_api.layer.crypto_vault.bitcoin_vault.CryptoVaultManager;
@@ -33,6 +37,10 @@ import com.bitdubai.fermat_ccp_api.layer.basic_wallet.common.exceptions.CantLoad
 import com.bitdubai.fermat_ccp_api.layer.basic_wallet.common.exceptions.CantStoreMemoException;
 import com.bitdubai.fermat_ccp_api.layer.basic_wallet.loss_protected_wallet.interfaces.BitcoinLossProtectedWallet;
 import com.bitdubai.fermat_ccp_api.layer.basic_wallet.loss_protected_wallet.interfaces.BitcoinLossProtectedWalletManager;
+<<<<<<< HEAD
+=======
+import com.bitdubai.fermat_ccp_api.layer.basic_wallet.loss_protected_wallet.interfaces.BitcoinLossProtectedWalletSpend;
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 import com.bitdubai.fermat_ccp_api.layer.basic_wallet.loss_protected_wallet.interfaces.BitcoinLossProtectedWalletTransaction;
 import com.bitdubai.fermat_ccp_api.layer.basic_wallet.loss_protected_wallet.interfaces.BitcoinLossProtectedWalletTransactionSummary;
 import com.bitdubai.fermat_ccp_api.layer.crypto_transaction.outgoing_extra_user.OutgoingExtraUserManager;
@@ -78,6 +86,10 @@ import com.bitdubai.fermat_ccp_api.layer.wallet_module.loss_protected_wallet.exc
 import com.bitdubai.fermat_ccp_api.layer.wallet_module.loss_protected_wallet.exceptions.CantListLossProtectedPaymentRequestDateOrderException;
 import com.bitdubai.fermat_ccp_api.layer.wallet_module.loss_protected_wallet.exceptions.CantListLossProtectedReceivePaymentRequestException;
 import com.bitdubai.fermat_ccp_api.layer.wallet_module.loss_protected_wallet.exceptions.CantListLossProtectedSentPaymentRequestException;
+<<<<<<< HEAD
+=======
+import com.bitdubai.fermat_ccp_api.layer.wallet_module.loss_protected_wallet.exceptions.CantListLossProtectedSpendingException;
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 import com.bitdubai.fermat_ccp_api.layer.wallet_module.loss_protected_wallet.exceptions.CantListLossProtectedTransactionsException;
 import com.bitdubai.fermat_ccp_api.layer.wallet_module.loss_protected_wallet.exceptions.CantListLossProtectedWalletIntraUserIdentityException;
 import com.bitdubai.fermat_ccp_api.layer.wallet_module.loss_protected_wallet.exceptions.CantRefuseLossProtectedRequestPaymentException;
@@ -114,6 +126,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+<<<<<<< HEAD
+=======
+import java.util.Locale;
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.BlockingDeque;
@@ -725,6 +741,24 @@ public class LossProtectedWalletModuleManager implements LossProtectedWallet {
         try {
             BitcoinLossProtectedWallet bitcoinWalletWallet = bitcoinWalletManager.loadWallet(walletPublicKey);
             return bitcoinWalletWallet.getBalance(balanceType).getBalance(blockchainNetworkType);
+<<<<<<< HEAD
+=======
+        } catch (CantCalculateBalanceException e) {
+            throw new CantGetLossProtectedBalanceException(CantGetLossProtectedBalanceException.DEFAULT_MESSAGE, e, "", "Cant Calculate Balance of the wallet.");
+        } catch(Exception e){
+            throw new CantGetLossProtectedBalanceException(CantGetLossProtectedBalanceException.DEFAULT_MESSAGE, FermatException.wrapException(e));
+        }
+    }
+
+    @Override
+    public long getBalance(BalanceType balanceType,
+                           String walletPublicKey,
+                           BlockchainNetworkType blockchainNetworkType,
+                           long exchangeRate) throws CantGetLossProtectedBalanceException {
+        try {
+            BitcoinLossProtectedWallet bitcoinWalletWallet = bitcoinWalletManager.loadWallet(walletPublicKey);
+            return bitcoinWalletWallet.getBalance(balanceType).getBalance(blockchainNetworkType,exchangeRate);
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
         } catch (CantLoadWalletException e) {
             throw new CantGetLossProtectedBalanceException(CantGetLossProtectedBalanceException.DEFAULT_MESSAGE, e, "", "Cant Load Wallet.");
         }  catch (CantCalculateBalanceException e) {
@@ -734,6 +768,10 @@ public class LossProtectedWalletModuleManager implements LossProtectedWallet {
         }
     }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
     @Override
 
     public List<LossProtectedWalletTransaction> getTransactions(String intraUserLoggedInPublicKey,
@@ -774,7 +812,11 @@ public class LossProtectedWalletModuleManager implements LossProtectedWallet {
             }
 
             return cryptoWalletTransactionList;
+<<<<<<< HEAD
         } catch (CantLoadWalletException | com.bitdubai.fermat_ccp_api.layer.basic_wallet.common.exceptions.CantListTransactionsException e) {
+=======
+        } catch (com.bitdubai.fermat_ccp_api.layer.basic_wallet.common.exceptions.CantListTransactionsException e) {
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
             throw new CantListLossProtectedTransactionsException(CantListLossProtectedTransactionsException.DEFAULT_MESSAGE, e);
         } catch(Exception e){
             throw new CantListLossProtectedTransactionsException(CantListLossProtectedTransactionsException.DEFAULT_MESSAGE, FermatException.wrapException(e));
@@ -810,7 +852,11 @@ public class LossProtectedWalletModuleManager implements LossProtectedWallet {
             }
 
             return cryptoWalletTransactionList;
+<<<<<<< HEAD
         } catch (CantLoadWalletException | com.bitdubai.fermat_ccp_api.layer.basic_wallet.common.exceptions.CantListTransactionsException e) {
+=======
+        } catch (com.bitdubai.fermat_ccp_api.layer.basic_wallet.common.exceptions.CantListTransactionsException e) {
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
             throw new CantListLossProtectedTransactionsException(CantListLossProtectedTransactionsException.DEFAULT_MESSAGE, e);
         } catch(Exception e){
             throw new CantListLossProtectedTransactionsException(CantListLossProtectedTransactionsException.DEFAULT_MESSAGE, FermatException.wrapException(e));
@@ -818,13 +864,32 @@ public class LossProtectedWalletModuleManager implements LossProtectedWallet {
     }
 
     @Override
+<<<<<<< HEAD
+=======
+    public List<BitcoinLossProtectedWalletSpend> listSpendingBlocksValue(String walletPublicKey,UUID transactionId) throws CantListLossProtectedSpendingException {
+        try {
+            return bitcoinWalletManager.loadWallet(walletPublicKey).listTransactionsSpending(transactionId);
+
+        } catch (CantLoadWalletException e) {
+            throw new CantListLossProtectedSpendingException(CantGetActorLossProtectedTransactionHistoryException.DEFAULT_MESSAGE, e);
+        } catch(Exception e){
+            throw new CantListLossProtectedSpendingException(CantGetActorLossProtectedTransactionHistoryException.DEFAULT_MESSAGE, FermatException.wrapException(e));
+        }
+    }
+
+    @Override
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
     public LossProtectedActorTransactionSummary getActorTransactionHistory(BalanceType balanceType,
                                                               String walletPublicKey,
                                                               String actorPublicKey) throws CantGetActorLossProtectedTransactionHistoryException {
         try {
             BitcoinLossProtectedWallet bitcoinWalletWallet = bitcoinWalletManager.loadWallet(walletPublicKey);
             return constructActorTransactionSummary(bitcoinWalletWallet.getActorTransactionSummary(actorPublicKey, balanceType));
+<<<<<<< HEAD
         } catch (CantLoadWalletException | CantGetActorTransactionSummaryException e) {
+=======
+        } catch (CantGetActorTransactionSummaryException e) {
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
             throw new CantGetActorLossProtectedTransactionHistoryException(CantGetActorLossProtectedTransactionHistoryException.DEFAULT_MESSAGE, e);
         } catch(Exception e){
             throw new CantGetActorLossProtectedTransactionHistoryException(CantGetActorLossProtectedTransactionHistoryException.DEFAULT_MESSAGE, FermatException.wrapException(e));
@@ -902,14 +967,23 @@ public class LossProtectedWalletModuleManager implements LossProtectedWallet {
 
             return  cryptoWalletTransaction;
 
+<<<<<<< HEAD
         } catch (CantLoadWalletException e) {
             throw new CantListLossProtectedTransactionsException(CantListLossProtectedTransactionsException.DEFAULT_MESSAGE, e);
+=======
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
         } catch (CantFindTransactionException e) {
             throw new CantListLossProtectedTransactionsException(CantListLossProtectedTransactionsException.DEFAULT_MESSAGE, e);
         } catch (CantEnrichLossProtectedTransactionException e) {
             throw new CantListLossProtectedTransactionsException(CantListLossProtectedTransactionsException.DEFAULT_MESSAGE, e);
+<<<<<<< HEAD
         }
 
+=======
+        } catch (CantLoadWalletException e) {
+            throw new CantListLossProtectedTransactionsException(CantListLossProtectedTransactionsException.DEFAULT_MESSAGE, e);
+        }
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
     }
 
     @Override
@@ -920,7 +994,11 @@ public class LossProtectedWalletModuleManager implements LossProtectedWallet {
         try {
             BitcoinLossProtectedWallet bitcoinWalletWallet = bitcoinWalletManager.loadWallet(walletPublicKey);
             bitcoinWalletWallet.setTransactionDescription(transactionID, description);
+<<<<<<< HEAD
         } catch (CantLoadWalletException | CantStoreMemoException e) {
+=======
+        } catch (CantStoreMemoException e) {
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
             throw new CantSaveLossProtectedTransactionDescriptionException(CantSaveLossProtectedTransactionDescriptionException.DEFAULT_MESSAGE, e);
         } catch (CantFindTransactionException e) {
             throw new LossProtectedTransactionNotFoundException(LossProtectedTransactionNotFoundException.DEFAULT_MESSAGE, e);
@@ -1033,6 +1111,14 @@ public class LossProtectedWalletModuleManager implements LossProtectedWallet {
 
     }
 
+<<<<<<< HEAD
+=======
+    @Override
+    public long getActualExchangeRate() throws CantListReceivePaymentRequestException {
+        return 400;
+    }
+
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 
     public List<LossProtectedPaymentRequest> listReceivedPaymentRequest(String walletPublicKey,int max,int offset) throws CantListLossProtectedReceivePaymentRequestException {
 
@@ -1186,6 +1272,7 @@ public class LossProtectedWalletModuleManager implements LossProtectedWallet {
 
 
 
+<<<<<<< HEAD
     @Override
     public List<LossProtectedPaymentRequest> listPaymentRequestDateOrder(String walletPublicKey,int max,int offset) throws CantListLossProtectedPaymentRequestDateOrderException {
         try {
@@ -1212,6 +1299,9 @@ public class LossProtectedWalletModuleManager implements LossProtectedWallet {
             throw new CantListLossProtectedPaymentRequestDateOrderException(CantListLossProtectedPaymentRequestDateOrderException.DEFAULT_MESSAGE, FermatException.wrapException(e));
         }
     }
+=======
+
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 
     @Override
     public boolean isValidAddress(CryptoAddress cryptoAddress) {
@@ -1441,7 +1531,13 @@ public class LossProtectedWalletModuleManager implements LossProtectedWallet {
 
     private  String convertTime(long time){
         Date date = new Date(time);
+<<<<<<< HEAD
         Format format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         return format.format(date);
+=======
+        SimpleDateFormat sdf = new SimpleDateFormat("MMMM dd, yyyy HH:mm", Locale.US);
+
+        return sdf.format(date);
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
     }
 }

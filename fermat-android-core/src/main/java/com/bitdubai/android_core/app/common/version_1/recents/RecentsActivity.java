@@ -26,6 +26,12 @@ import android.view.View;
 import com.bitdubai.android_core.app.common.version_1.ApplicationConstants;
 import com.bitdubai.fermat.R;
 import com.bitdubai.fermat_android_api.engine.FermatRecentApp;
+<<<<<<< HEAD
+=======
+import com.bitdubai.fermat_android_api.layer.definition.wallet.views.FermatTextView;
+import com.bitdubai.fermat_android_api.ui.util.FermatAnimationsUtils;
+import com.bitdubai.fermat_api.layer.all_definition.navigation_structure.enums.FermatAppType;
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 import com.wirelesspienetwork.overview.misc.Utilities;
 import com.wirelesspienetwork.overview.model.OverviewAdapter;
 import com.wirelesspienetwork.overview.views.Overview;
@@ -37,12 +43,20 @@ import java.util.List;
 /**
  * The main Recents activity that is started from AlternateRecentsComponent.
  */
+<<<<<<< HEAD
 public class RecentsActivity extends Activity implements Overview.RecentsViewCallbacks, OverviewAdapter.Callbacks, ItemClickListener<RecentApp> {
+=======
+public class RecentsActivity extends Activity implements Overview.RecentsViewCallbacks, OverviewAdapter.Callbacks, RecentCallback<RecentApp> {
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
     boolean mVisible;
     // Top level views
     Overview mRecentsView;
 
     List<FermatRecentApp> recents;
+<<<<<<< HEAD
+=======
+    private FermatTextView emptyView;
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 
     /** Called with the activity is first created. */
     @Override
@@ -54,6 +68,14 @@ public class RecentsActivity extends Activity implements Overview.RecentsViewCal
 
         // Set the Recents layout
         setContentView(R.layout.recents);
+<<<<<<< HEAD
+=======
+
+        emptyView = (FermatTextView) findViewById(R.id.empty_text);
+
+        emptyView.setVisibility(View.VISIBLE);
+
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
         mRecentsView = (Overview) findViewById(R.id.recents_view);
         mRecentsView.setCallbacks(this);
         mRecentsView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
@@ -96,8 +118,18 @@ public class RecentsActivity extends Activity implements Overview.RecentsViewCal
         Object[] objects = ((Object[]) getIntent().getSerializableExtra(ApplicationConstants.RECENT_APPS));
         List<RecentApp> models = new ArrayList<>();//Arrays.asList((RecentApp[])objects);
 
+<<<<<<< HEAD
         for (Object object : objects) {
             models.add((RecentApp) object);
+=======
+        RecentApp recentApp;
+        for (Object object : objects) {
+            recentApp = (RecentApp) object;
+            if(recentApp.getFermatApp().getAppType() != FermatAppType.DESKTOP) {
+                recentApp.getFermatApp().setBanner(selectBannerSwitch(recentApp.getPublicKey()));
+                models.add(recentApp);
+            }
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
         }
 //        for(int i = 0; i < 4; ++i) {
 //            Random random = new Random();
@@ -133,7 +165,11 @@ public class RecentsActivity extends Activity implements Overview.RecentsViewCal
 
         RecentsAdapter recentsAdapter = new RecentsAdapter(this,models);
         recentsAdapter.setCallbacks(this);
+<<<<<<< HEAD
         recentsAdapter.setItemClickListener(this);
+=======
+        recentsAdapter.setRecentCallback(this);
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 
         mRecentsView.setTaskStack(recentsAdapter);
 
@@ -144,6 +180,13 @@ public class RecentsActivity extends Activity implements Overview.RecentsViewCal
 //            }
 //        },2000);
 
+<<<<<<< HEAD
+=======
+        if(models.isEmpty()){
+            emptyView.setText("Nothing to show");
+            FermatAnimationsUtils.showEmpty(this,true,emptyView);
+        }
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 
     }
 
@@ -173,6 +216,11 @@ public class RecentsActivity extends Activity implements Overview.RecentsViewCal
 
     @Override
     public void onAllCardsDismissed() {
+<<<<<<< HEAD
+=======
+        emptyView.setText("Nothing to show");
+        FermatAnimationsUtils.showEmpty(this,true,emptyView);
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
     }
 
     @Override
@@ -199,4 +247,26 @@ public class RecentsActivity extends Activity implements Overview.RecentsViewCal
         setResult(Activity.RESULT_OK, resultIntent);
         finish();
     }
+<<<<<<< HEAD
+=======
+
+    @Override
+    public void onFirstElementAdded() {
+        FermatAnimationsUtils.showEmpty(this, false, emptyView);
+    }
+
+
+
+    // metodo totalmente innecesario que será eliminado una vez que se puedan instalar las apps desde la store
+    private int selectBannerSwitch(String key){
+        int res = 0;
+        switch (key){
+            case "reference_wallet":
+                res = R.drawable.banner_bitcoin_wallet;
+                break;
+        }
+
+        return res;
+    }
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 }

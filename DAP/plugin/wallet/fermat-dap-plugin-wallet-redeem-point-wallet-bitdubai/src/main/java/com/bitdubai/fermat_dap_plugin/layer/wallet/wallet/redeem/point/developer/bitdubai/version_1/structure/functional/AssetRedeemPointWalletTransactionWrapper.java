@@ -48,6 +48,35 @@ public class AssetRedeemPointWalletTransactionWrapper implements AssetRedeemPoin
         this.timeStamp = timeStamp;
         this.memo = memo;
     }
+<<<<<<< HEAD
+
+    @Override
+    public String getAssetPublicKey() {
+        return assetPublicKey;
+    }
+=======
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        AssetRedeemPointWalletTransactionWrapper that = (AssetRedeemPointWalletTransactionWrapper) o;
+
+        if (!getTransactionHash().equals(that.getTransactionHash())) return false;
+        return getAssetPublicKey().equals(that.getAssetPublicKey());
+
+    }
+
+    @Override
+<<<<<<< HEAD
+=======
+    public int hashCode() {
+        int result = getTransactionHash().hashCode();
+        result = 31 * result + getAssetPublicKey().hashCode();
+        return result;
+    }
 
     @Override
     public String getAssetPublicKey() {
@@ -65,6 +94,7 @@ public class AssetRedeemPointWalletTransactionWrapper implements AssetRedeemPoin
     }
 
     @Override
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
     public DAPActor getActorFrom() {
         return actorFrom;
     }

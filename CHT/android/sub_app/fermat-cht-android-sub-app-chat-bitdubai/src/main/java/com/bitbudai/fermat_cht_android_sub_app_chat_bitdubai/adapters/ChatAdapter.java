@@ -175,7 +175,10 @@ public class ChatAdapter extends FermatAdapter<ChatMessage, ChatHolder> {//ChatF
 
     private void setAlignment(ChatHolder holder, boolean isMe, ChatMessage data) {
         holder.tickstatusimage.setImageResource(0);
+<<<<<<< HEAD
         //TODO: put empty the others holders too
+=======
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
         holder.txtMessage.setText(data.getMessage());
         holder.txtInfo.setText(data.getDate());
         if (isMe) {
@@ -198,12 +201,23 @@ public class ChatAdapter extends FermatAdapter<ChatMessage, ChatHolder> {//ChatF
             layoutParams = (LinearLayout.LayoutParams) holder.txtInfo.getLayoutParams();
             layoutParams.gravity = Gravity.RIGHT;
             holder.txtInfo.setLayoutParams(layoutParams);
+<<<<<<< HEAD
             if (data.getStatus() == MessageStatus.SEND.toString() || data.getStatus() == MessageStatus.CREATED.toString())
                 holder.tickstatusimage.setImageResource(R.drawable.cht_ticksent);
             else if (data.getStatus() == MessageStatus.DELIVERED.toString() || data.getStatus() == MessageStatus.RECEIVE.toString())
                 holder.tickstatusimage.setImageResource(R.drawable.cht_tickdelivered);
             else if (data.getStatus() == MessageStatus.READ.toString())
                 holder.tickstatusimage.setImageResource(R.drawable.cht_tickread);
+=======
+            if(data.getStatus() != null) {
+                if (data.getStatus().equals(MessageStatus.SEND.toString()) || data.getStatus().equals(MessageStatus.CREATED.toString()))
+                    holder.tickstatusimage.setImageResource(R.drawable.cht_ticksent);
+                else if (data.getStatus().equals(MessageStatus.DELIVERED.toString()) || data.getStatus().equals(MessageStatus.RECEIVE.toString()))
+                    holder.tickstatusimage.setImageResource(R.drawable.cht_tickdelivered);
+                else if (data.getStatus().equals(MessageStatus.READ.toString()))
+                    holder.tickstatusimage.setImageResource(R.drawable.cht_tickread);
+            }
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
         } else {
             holder.contentWithBG.setBackgroundResource(R.drawable.burble_white_shadow);
 

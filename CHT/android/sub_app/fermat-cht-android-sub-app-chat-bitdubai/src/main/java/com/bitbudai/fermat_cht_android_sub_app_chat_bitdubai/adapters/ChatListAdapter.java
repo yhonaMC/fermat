@@ -21,6 +21,11 @@ import com.bitbudai.fermat_cht_android_sub_app_chat_bitdubai.util.Utils;
 import com.bitdubai.fermat_android_api.ui.adapters.FermatAdapter;
 import com.bitdubai.fermat_api.layer.dmp_engine.sub_app_runtime.enums.SubApps;
 import com.bitdubai.fermat_cht_android_sub_app_chat_bitdubai.R;
+<<<<<<< HEAD
+=======
+import com.bitdubai.fermat_cht_api.all_definition.enums.MessageStatus;
+import com.bitdubai.fermat_cht_api.all_definition.enums.TypeMessage;
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 import com.bitdubai.fermat_pip_api.layer.platform_service.error_manager.enums.UnexpectedSubAppExceptionSeverity;
 import com.bitdubai.fermat_pip_api.layer.platform_service.error_manager.interfaces.ErrorManager;
 
@@ -52,6 +57,7 @@ public class ChatListAdapter extends ArrayAdapter {//public class ChatListAdapte
         this.chatinfo.addAll(chatinfo);
         this.imgid.addAll(imgid);
         this.errorManager=errorManager;
+<<<<<<< HEAD
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -143,6 +149,129 @@ public class ChatListAdapter extends ArrayAdapter {//public class ChatListAdapte
         return targetBitmap;
     }
 
+=======
+    }
+
+    public View getView(int position, View convertView, ViewGroup parent) {
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        View item = inflater.inflate(R.layout.chat_list_listview, null, true);
+        try {
+            String name ="",message ="",messagedate ="",type ="",status ="",noreadmsgsstr ="";
+            int noreadmsgs=0;
+            String values=chatinfo.get(position);
+            List<String> converter=new ArrayList<String>();
+            converter.addAll(Arrays.asList(values.split("@#@#")));
+            name=converter.get(0);
+            message=converter.get(1);
+            messagedate=converter.get(2);
+            status=converter.get(5);
+            type=converter.get(6);
+            noreadmsgsstr=converter.get(7);
+            try{
+                noreadmsgs= Integer.parseInt(noreadmsgsstr);
+            }catch(Exception e){
+                noreadmsgs=0;
+            }
+
+            ImageView imagen = (ImageView) item.findViewById(R.id.image);//imagen.setImageResource(imgid.get(position));
+            imagen.setImageBitmap(getRoundedShape(imgid.get(position), 400));
+
+            TextView contactname = (TextView) item.findViewById(R.id.tvtitle);
+            contactname.setText(name);//    contactname.setText(chatinfo.get(0).get(0));
+            //contactname.setTypeface(tf, Typeface.NORMAL);
+
+            TextView lastmessage = (TextView) item.findViewById(R.id.tvdesc);
+            lastmessage.setText(message);        //   lastmessage.setText(chatinfo.get(0).get(1));
+            //lastmessage.setTypeface(tf, Typeface.NORMAL);
+
+            TextView dateofmessage = (TextView) item.findViewById(R.id.tvdate);
+            dateofmessage.setText(messagedate);
+
+            ImageView imagetick = (ImageView) item.findViewById(R.id.imagetick);//imagen.setImageResource(imgid.get(position));
+            imagetick.setImageResource(0);
+            if(type.equals(TypeMessage.OUTGOING.toString())){
+                imagetick.setVisibility(View.VISIBLE);
+                if (status.equals(MessageStatus.SEND.toString()) || status.equals(MessageStatus.CREATED.toString()))
+                {    imagetick.setImageResource(R.drawable.cht_ticksent);}
+                else if (status.equals(MessageStatus.DELIVERED.toString()) || status.equals(MessageStatus.RECEIVE.toString()))
+                {    imagetick.setImageResource(R.drawable.cht_tickdelivered);}
+                else if (status.equals(MessageStatus.READ.toString()))
+                {    imagetick.setImageResource(R.drawable.cht_tickread);}
+            }else
+                imagetick.setVisibility(View.GONE);
+
+            TextView tvnumber = (TextView) item.findViewById(R.id.tvnumber);
+            if(noreadmsgs>0)
+            {
+                tvnumber.setText(noreadmsgsstr);
+                tvnumber.setVisibility(View.VISIBLE);
+            }else
+                tvnumber.setVisibility(View.GONE);
+
+        }catch (Exception e)
+        {
+            errorManager.reportUnexpectedSubAppException(SubApps.CHT_CHAT, UnexpectedSubAppExceptionSeverity.DISABLES_SOME_FUNCTIONALITY_WITHIN_THIS_FRAGMENT, e);
+        }
+        return (item);
+    }
+
+    public void refreshEvents(ArrayList datos,ArrayList  imagen) {
+         this.chatinfo.removeAll(this.chatinfo);
+         this.imgid.removeAll(this.imgid);
+         this.chatinfo.addAll(datos);
+         this.imgid.addAll(imagen);
+         notifyDataSetChanged();
+    }
+
+    public static Bitmap decodeFile(Context context,int resId) {
+        // decode image size
+        BitmapFactory.Options o = new BitmapFactory.Options();
+        o.inJustDecodeBounds = true;
+        BitmapFactory.decodeResource(context.getResources(), resId, o);
+        // Find the correct scale value. It should be the power of 2.
+        final int REQUIRED_SIZE = 300;
+        int width_tmp = o.outWidth, height_tmp = o.outHeight;
+        int scale = 1;
+        while (true)
+        {
+            if (width_tmp / 2 < REQUIRED_SIZE
+                    || height_tmp / 2 < REQUIRED_SIZE)
+                break;
+            width_tmp /= 2;
+            height_tmp /= 2;
+            scale++;
+        }
+// decode with inSampleSize
+        BitmapFactory.Options o2 = new BitmapFactory.Options();
+        o2.inSampleSize = scale;
+        return BitmapFactory.decodeResource(context.getResources(), resId, o2);
+    }
+
+    public static Bitmap getRoundedShape(Bitmap scaleBitmapImage,int width) {
+        // TODO Auto-generated method stub
+        int targetWidth = width;
+        int targetHeight = width;
+        Bitmap targetBitmap = Bitmap.createBitmap(targetWidth,
+                targetHeight,Bitmap.Config.ARGB_8888);
+
+        Canvas canvas = new Canvas(targetBitmap);
+        Path path = new Path();
+        path.addCircle(((float) targetWidth - 1) / 2,
+                ((float) targetHeight - 1) / 2,
+                (Math.min(((float) targetWidth),
+                        ((float) targetHeight)) / 2),
+                Path.Direction.CCW);
+        canvas.clipPath(path);
+        Bitmap sourceBitmap = scaleBitmapImage;
+        canvas.drawBitmap(sourceBitmap,
+                new Rect(0, 0, sourceBitmap.getWidth(),
+                        sourceBitmap.getHeight()),
+                new Rect(0, 0, targetWidth,
+                        targetHeight), null);
+        return targetBitmap;
+    }
+
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 //    @Override
 //    protected ChatHolder createHolder(View itemView, int type) {
 //        return new ChatHolder(itemView);

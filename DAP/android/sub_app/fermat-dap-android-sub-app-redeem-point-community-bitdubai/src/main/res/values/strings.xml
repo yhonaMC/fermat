@@ -21,7 +21,11 @@
     <string name="dap_other_profile_cryptoaddres">CryptoAddress</string>
     <string name="dap_other_profile_crypto_currency">CryptoCurrency</string>
     <string name="dap_other_profile_last_connection_date">Last Connection Date</string>
+<<<<<<< HEAD
     <string name="dap_other_profile_connection_rejected">Connection Rejected</string>
+=======
+    <string name="dap_other_profile_connection_rejected">Connection Canceled</string>
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
     <string name="dap_other_profile_request_send">Request Sent</string>
     <string name="dap_other_profile_request_send_toast">The connection request has been sent you need to wait until the user responds</string>
     <string name="dap_other_profile_request_reject_toast">The connection request has been rejected</string>

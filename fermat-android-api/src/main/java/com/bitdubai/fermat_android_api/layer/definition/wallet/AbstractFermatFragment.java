@@ -24,6 +24,10 @@ import com.bitdubai.fermat_api.layer.all_definition.enums.Engine;
 import com.bitdubai.fermat_api.layer.all_definition.navigation_structure.enums.Activities;
 import com.bitdubai.fermat_api.layer.all_definition.navigation_structure.interfaces.FermatRuntime;
 import com.bitdubai.fermat_api.layer.all_definition.navigation_structure.interfaces.FermatScreenSwapper;
+<<<<<<< HEAD
+=======
+import com.bitdubai.fermat_api.layer.osa_android.broadcaster.FermatBundle;
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 import com.bitdubai.fermat_api.layer.pip_engine.interfaces.ResourceProviderManager;
 
 /**
@@ -227,6 +231,7 @@ public abstract class AbstractFermatFragment<S extends FermatSession,R extends R
 
     protected final AndroidCoreManager getFermatState(){
         return ((FermatStates)getActivity()).getFermatStates();
+<<<<<<< HEAD
     }
 
 
@@ -246,6 +251,27 @@ public abstract class AbstractFermatFragment<S extends FermatSession,R extends R
         });
     }
 
+=======
+    }
+
+
+    public final void onUpdateViewHandler(final String appCode,final String code){
+        if(appSession.getAppPublicKey().equals(appCode)){
+            onUpdateView(code);
+        }
+
+    }
+
+    public final void onUpdateViewUIThred(final String code){
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                onUpdateViewOnUIThread(code);
+            }
+        });
+    }
+
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
     /**
      * This class have to be ovverride if someone wants to get broadcast
      *
@@ -267,10 +293,25 @@ public abstract class AbstractFermatFragment<S extends FermatSession,R extends R
         return;
     }
 
+<<<<<<< HEAD
+=======
+    public void onUpdateView(FermatBundle bundle) {
+
+    }
+    public void onUpdateViewUIThred(FermatBundle bundle) {
+
+    }
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
     /**
      * This method will be called when the user press the back button
      */
     public void onBackPressed() {
 
     }
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 }

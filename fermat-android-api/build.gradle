@@ -58,4 +58,8 @@ repositories {
     maven { url 'https://jitpack.io' }
 
 }
+<<<<<<< HEAD
+=======
+    compile 'com.android.support:design:23.1.1'
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 }

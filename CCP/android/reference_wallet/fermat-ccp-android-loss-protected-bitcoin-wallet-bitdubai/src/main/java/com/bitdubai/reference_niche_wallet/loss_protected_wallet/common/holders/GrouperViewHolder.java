@@ -101,7 +101,11 @@ public class GrouperViewHolder extends ParentViewHolder {
         txt_amount.setText(formatBalanceString(cryptoWalletTransaction.getAmount(), ShowMoneyType.BITCOIN.getCode())+ " btc");
 
         txt_notes.setText(cryptoWalletTransaction.getMemo());
+<<<<<<< HEAD
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
+=======
+        SimpleDateFormat sdf = new SimpleDateFormat("MMMM dd, yyyy HH:mm", Locale.US);
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
         txt_time.setText(sdf.format(cryptoWalletTransaction.getTimestamp()) + " hs");
         txt_total_number_transactions.setText(String.valueOf(childCount)+ " records");
 

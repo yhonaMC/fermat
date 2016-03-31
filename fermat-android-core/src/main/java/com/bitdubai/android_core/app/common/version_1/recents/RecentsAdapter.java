@@ -16,7 +16,11 @@ public class RecentsAdapter extends OverviewAdapter<RecentHolder,RecentApp> {
 
 
     private final Context context;
+<<<<<<< HEAD
     private ItemClickListener itemClickListener;
+=======
+    private RecentCallback recentCallback;
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 
     public RecentsAdapter(Context context,List<RecentApp> recentApps) {
         super(recentApps);
@@ -31,11 +35,22 @@ public class RecentsAdapter extends OverviewAdapter<RecentHolder,RecentApp> {
 
     @Override
     public void onBindViewHolder(final RecentHolder viewHolder) {
+<<<<<<< HEAD
+=======
+        if(viewHolder.getPosition()==0){
+            recentCallback.onFirstElementAdded();
+        }
+
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
         viewHolder.itemView.setBackgroundColor(232);
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+<<<<<<< HEAD
                 itemClickListener.onItemClick(viewHolder.model);
+=======
+                recentCallback.onItemClick(viewHolder.model);
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
             }
         });
         try {
@@ -48,12 +63,26 @@ public class RecentsAdapter extends OverviewAdapter<RecentHolder,RecentApp> {
         }catch (Exception e){
             e.printStackTrace();
         }
+<<<<<<< HEAD
         //viewHolder.getRoot().addView(View.inflate(context, R.layout.widgetlayout, null));
     }
 
 
     public void setItemClickListener(ItemClickListener itemClickListener) {
         this.itemClickListener = itemClickListener;
+=======
+        try {
+            int res = viewHolder.model.getFermatApp().getBannerRes();
+            if(res!=0) viewHolder.getRoot().setBackgroundResource(res);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
+    public void setRecentCallback(RecentCallback recentCallback) {
+        this.recentCallback = recentCallback;
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
     }
 
 

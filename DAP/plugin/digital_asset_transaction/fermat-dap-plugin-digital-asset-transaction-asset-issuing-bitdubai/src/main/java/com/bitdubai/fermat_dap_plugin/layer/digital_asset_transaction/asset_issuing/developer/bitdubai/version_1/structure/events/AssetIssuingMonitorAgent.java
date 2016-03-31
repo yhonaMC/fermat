@@ -8,6 +8,10 @@ import com.bitdubai.fermat_api.layer.all_definition.enums.Plugins;
 import com.bitdubai.fermat_api.layer.all_definition.exceptions.InvalidParameterException;
 import com.bitdubai.fermat_api.layer.all_definition.transaction_transference_protocol.crypto_transactions.CryptoStatus;
 import com.bitdubai.fermat_api.layer.all_definition.transaction_transference_protocol.crypto_transactions.CryptoTransaction;
+<<<<<<< HEAD
+=======
+import com.bitdubai.fermat_api.layer.all_definition.transaction_transference_protocol.crypto_transactions.CryptoTransactionType;
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 import com.bitdubai.fermat_api.layer.osa_android.database_system.exceptions.CantLoadTableToMemoryException;
 import com.bitdubai.fermat_api.layer.osa_android.database_system.exceptions.CantUpdateRecordException;
 import com.bitdubai.fermat_bch_api.layer.crypto_module.crypto_address_book.interfaces.CryptoAddressBookManager;
@@ -213,10 +217,18 @@ public class AssetIssuingMonitorAgent extends FermatAgent {
                     System.out.println("ASSET ISSUING is null - continue asking");
                     continue;
                 }
+<<<<<<< HEAD
                 CryptoTransaction cryptoTransaction = bitcoinNetworkManager.getCryptoTransaction(genesisTransaction);
                 dao.updateGenesisTx(record.getTransactionId(), record.getAssetMetadata(), cryptoTransaction);
                 assetIssuerWalletManager.loadAssetIssuerWallet(WalletUtilities.WALLET_PUBLIC_KEY, cryptoTransaction.getBlockchainNetworkType()).createdNewAsset(record.getAssetMetadata());
                 dao.updateMetadataIssuingStatus(record.getTransactionId(), IssuingStatus.WAITING_CONFIRMATION);
+=======
+                CryptoTransaction cryptoTransaction = bitcoinNetworkManager.getCryptoTransaction(genesisTransaction, CryptoTransactionType.INCOMING, record.getAssetMetadata().getDigitalAsset().getGenesisAddress());
+                dao.updateGenesisTx(record.getTransactionId(), record.getAssetMetadata(), cryptoTransaction);
+                assetIssuerWalletManager.loadAssetIssuerWallet(WalletUtilities.WALLET_PUBLIC_KEY, cryptoTransaction.getBlockchainNetworkType()).createdNewAsset(record.getAssetMetadata());
+                dao.updateMetadataIssuingStatus(record.getTransactionId(), IssuingStatus.WAITING_CONFIRMATION);
+                dao.unProcessingAsset(record.getAssetMetadata().getDigitalAsset().getPublicKey());
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
             }
 
             for (MetadataRecord record : dao.getMetadataForStatus(IssuingStatus.WAITING_CONFIRMATION)) {
@@ -298,6 +310,7 @@ public class AssetIssuingMonitorAgent extends FermatAgent {
         private void checkGeneratingAssets() throws ExecutionException, InterruptedException, CantGetDigitalAssetFromLocalStorageException, InvalidParameterException, CantLoadTableToMemoryException, RecordsNotFoundException, CantUpdateRecordException, CantGetOutgoingIntraActorTransactionManagerException {
             for (IssuingRecord record : dao.getRecordsForStatus(IssuingStatus.ISSUING)) {
                 dao.processingAsset(record.getAsset().getPublicKey());
+<<<<<<< HEAD
                 int missingAssets = record.getAssetsToGenerate() - record.getAssetsProcessed();
                 for (int i = 0; i < missingAssets; i++) {
                     if (assetVaultManager.getAvailableKeyCount() <= MINIMUN_KEY_COUNT) {
@@ -308,6 +321,15 @@ public class AssetIssuingMonitorAgent extends FermatAgent {
                         AssetMetadataFactory assetMetadataFactory = new AssetMetadataFactory(record, assetVaultManager, issuer, intraActor, dao, outgoingIntraActorManager.getTransactionManager(), cryptoAddressBookManager, bitcoinWalletManager);
                         Future<Boolean> result = executor.submit(assetMetadataFactory);
                     }
+=======
+                if (assetVaultManager.getAvailableKeyCount() <= MINIMUN_KEY_COUNT) {
+                    dao.unProcessingAsset(record.getAsset().getPublicKey());
+                    outOfKeys = true;
+                    return;
+                } else {
+                    AssetMetadataFactory assetMetadataFactory = new AssetMetadataFactory(record, assetVaultManager, issuer, intraActor, dao, outgoingIntraActorManager.getTransactionManager(), cryptoAddressBookManager, bitcoinWalletManager);
+                    Future<Boolean> result = executor.submit(assetMetadataFactory);
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
                 }
             }
         }

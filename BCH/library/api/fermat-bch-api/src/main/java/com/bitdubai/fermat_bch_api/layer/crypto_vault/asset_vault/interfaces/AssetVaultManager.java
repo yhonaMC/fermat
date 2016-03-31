@@ -58,7 +58,7 @@ public interface AssetVaultManager extends FermatManager, PlatformCryptoVault {
      * @return
      * @throws CantSendAssetBitcoinsToUserException
      */
-    String sendAssetBitcoins(String genesisTransactionHash, String genesisBlockHash, CryptoAddress addressTo) throws CantSendAssetBitcoinsToUserException;
+    String sendAssetBitcoins(String genesisTransactionHash, String genesisBlockHash, CryptoAddress addressTo, BlockchainNetworkType blockchainNetworkType) throws CantSendAssetBitcoinsToUserException;
 
     /**
      * Gets the amount of unused keys that are available from the master account.
@@ -114,7 +114,11 @@ public interface AssetVaultManager extends FermatManager, PlatformCryptoVault {
      * @return the Transaction Hash of the new transaction
      * @throws CantCreateBitcoinTransactionException
      */
+<<<<<<< HEAD
     String createBitcoinTransaction (String inputTransaction, CryptoAddress addressTo) throws CantCreateBitcoinTransactionException;
+=======
+    String createBitcoinTransaction (String inputTransaction, CryptoAddress addressTo, BlockchainNetworkType blockchainNetworkType) throws CantCreateBitcoinTransactionException;
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 
     /**
      * generates a final transaction based on a draft transaction and prepares it to be broadcasted.
@@ -132,7 +136,11 @@ public interface AssetVaultManager extends FermatManager, PlatformCryptoVault {
      * @return a DraftTransaction class
      * @throws CantCreateDraftTransactionException
      */
+<<<<<<< HEAD
     DraftTransaction createDraftTransaction (String inputTransaction, CryptoAddress addressTo) throws CantCreateDraftTransactionException;
+=======
+    DraftTransaction createDraftTransaction (String inputTransaction, CryptoAddress addressTo, BlockchainNetworkType blockchainNetworkType) throws CantCreateDraftTransactionException;
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 
 
     /**

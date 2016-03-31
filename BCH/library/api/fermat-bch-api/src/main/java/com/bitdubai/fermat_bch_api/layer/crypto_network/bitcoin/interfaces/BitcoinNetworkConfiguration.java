@@ -33,10 +33,24 @@ public interface BitcoinNetworkConfiguration {
      * Amount of Timeout minutes for broadcasting transactions
      */
     int TRANSACTION_BROADCAST_TIMEOUT = 5;
+<<<<<<< HEAD
 
     /**
      * The minimun of Satoshis that we can send, to avoid dusty sends.
      * Dusty sends are considered invalid in the network
      */
     long MIN_ALLOWED_SATOSHIS_ON_SEND = 5430;
+=======
+
+    /**
+     * The minimun of Satoshis that we can send, to avoid dusty sends.
+     * Dusty sends are considered invalid in the network
+     */
+    long MIN_ALLOWED_SATOSHIS_ON_SEND = 5430;
+
+    /**
+     * Fixed fee value for outgoing transactions
+     */
+    long FIXED_FEE_VALUE = 30000;
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 }

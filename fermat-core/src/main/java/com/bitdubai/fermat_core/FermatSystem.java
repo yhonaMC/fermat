@@ -128,8 +128,13 @@ public final class FermatSystem {
         }
 
         try {
+<<<<<<< HEAD
 
             fermatSystemContext.registerPlatform(new ARTPlatform());
+=======
+            //TODO Desactivacion debido a un tema de P2P
+            //fermatSystemContext.registerPlatform(new ARTPlatform());
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
             fermatSystemContext.registerPlatform(new BCHPlatform());
             fermatSystemContext.registerPlatform(new BNKPlatform());
             fermatSystemContext.registerPlatform(new CBPPlatform());
@@ -144,6 +149,10 @@ public final class FermatSystem {
             fermatSystemContext.registerPlatform(new WPDPlatform());
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
         } catch(CantRegisterPlatformException e) {
 
             throw new CantStartSystemException(e, "", "There was a problem registering a Platform.");

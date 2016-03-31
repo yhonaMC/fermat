@@ -12,7 +12,11 @@
         android:layout_height="wrap_content"
         android:id="@+id/txt_settings_name"
         tools:text="settings"
+<<<<<<< HEAD
         android:textSize="20sp"
+=======
+        android:textSize="15sp"
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
         android:layout_marginLeft="24dp"
         android:paddingTop="16dp"
         android:textColor="@color/color_black"

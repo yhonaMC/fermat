@@ -183,4 +183,9 @@ public interface ActorAssetIssuerManager extends FermatManager {
 
     ActorAssetIssuer getLastNotificationActorAssetIssuer(String actorAssetIssuerPublicKey) throws CantGetActorAssetNotificationException;
 
+<<<<<<< HEAD
+=======
+    void updateOfflineIssuersRegisterInNetworkService(List<ActorAssetIssuer> actorAssetIssuers) throws CantGetAssetIssuerActorsException;
+
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 }

@@ -41,11 +41,21 @@ public class BitcoinWalletLossProtectedWalletAvailableBalance implements Bitcoin
         this.broadcaster = broadcaster;
     }
 
+<<<<<<< HEAD
     @Override
     public long getBalance() throws CantCalculateBalanceException {
         try {
             bitcoinWalletBasicWalletDao = new BitcoinWalletLossProtectedWalletDao(this.database);
             return bitcoinWalletBasicWalletDao.getAvailableBalance(BlockchainNetworkType.REG_TEST); //TODO red harcoder
+=======
+
+
+    @Override
+    public long getBalance(BlockchainNetworkType blockchainNetworkType) throws CantCalculateBalanceException {
+        try {
+            bitcoinWalletBasicWalletDao = new BitcoinWalletLossProtectedWalletDao(this.database);
+            return bitcoinWalletBasicWalletDao.getAvailableBalance(blockchainNetworkType);
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
         } catch(CantCalculateBalanceException exception){
             throw exception;
         } catch(Exception exception){
@@ -53,9 +63,19 @@ public class BitcoinWalletLossProtectedWalletAvailableBalance implements Bitcoin
         }
     }
 
+<<<<<<< HEAD
     @Override
     public long getBalance(BlockchainNetworkType blockchainNetworkType) throws CantCalculateBalanceException {
         try {
+=======
+
+    @Override
+    public long getBalance(BlockchainNetworkType blockchainNetworkType, long exchangeRate) throws CantCalculateBalanceException {
+        try {
+
+            //calculate how many btc can spend the balance of your wallet, based on the exchangeRate
+
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
             bitcoinWalletBasicWalletDao = new BitcoinWalletLossProtectedWalletDao(this.database);
             return bitcoinWalletBasicWalletDao.getAvailableBalance(blockchainNetworkType);
         } catch(CantCalculateBalanceException exception){

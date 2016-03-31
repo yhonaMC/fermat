@@ -9,6 +9,10 @@ import com.bitdubai.fermat_api.layer.all_definition.enums.ReferenceWallet;
 import com.bitdubai.fermat_api.layer.all_definition.events.EventSource;
 import com.bitdubai.fermat_api.layer.all_definition.events.interfaces.FermatEvent;
 import com.bitdubai.fermat_api.layer.all_definition.transaction_transference_protocol.crypto_transactions.CryptoStatus;
+<<<<<<< HEAD
+=======
+import com.bitdubai.fermat_api.layer.dmp_module.wallet_manager.CantLoadWalletsException;
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 import com.bitdubai.fermat_api.layer.osa_android.broadcaster.Broadcaster;
 import com.bitdubai.fermat_api.layer.osa_android.broadcaster.BroadcasterType;
 import com.bitdubai.fermat_bch_api.layer.crypto_network.bitcoin.exceptions.CantGetTransactionCryptoStatusException;
@@ -21,7 +25,6 @@ import com.bitdubai.fermat_ccp_api.layer.basic_wallet.bitcoin_wallet.interfaces.
 import com.bitdubai.fermat_ccp_api.layer.basic_wallet.bitcoin_wallet.interfaces.BitcoinWalletWallet;
 import com.bitdubai.fermat_ccp_api.layer.basic_wallet.common.enums.BalanceType;
 import com.bitdubai.fermat_ccp_api.layer.basic_wallet.common.exceptions.CantCalculateBalanceException;
-import com.bitdubai.fermat_ccp_api.layer.basic_wallet.common.exceptions.CantLoadWalletException;
 import com.bitdubai.fermat_ccp_api.layer.basic_wallet.common.exceptions.CantProcessRequestAcceptedException;
 import com.bitdubai.fermat_ccp_api.layer.basic_wallet.common.exceptions.CantRegisterCreditException;
 import com.bitdubai.fermat_ccp_api.layer.basic_wallet.common.exceptions.CantRegisterDebitException;
@@ -265,7 +268,7 @@ public class OutgoingIntraActorTransactionProcessorAgent extends FermatAgent {
                         }
                     } catch (OutgoingIntraActorWalletNotSupportedException | CantCalculateBalanceException
                             | CantRegisterDebitException | OutgoingIntraActorCantCancelTransactionException
-                            | CantLoadWalletException e) {
+                            | CantLoadWalletsException e) {
                         //reportUnexpectedException(e);
                         // Todo: Rodrigo, since the wallet cant be loaded at this time, I'm still putting the transacction in PIA
                         dao.setToPIA(transaction);
@@ -284,9 +287,9 @@ public class OutgoingIntraActorTransactionProcessorAgent extends FermatAgent {
                         String hash;
 
                         hash = (transaction.getOp_Return() == null) ?
-                                this.cryptoVaultManager.generateTransaction(transaction.getWalletPublicKey(), transaction.getTransactionId(), transaction.getAddressTo(), transaction.getAmount())
+                                this.cryptoVaultManager.generateTransaction(transaction.getWalletPublicKey(), transaction.getTransactionId(), transaction.getAddressTo(), transaction.getAmount(), transaction.getBlockchainNetworkType())
                                 :
-                                this.cryptoVaultManager.generateTransaction(transaction.getWalletPublicKey(), transaction.getTransactionId(), transaction.getAddressTo(), transaction.getAmount(), transaction.getOp_Return());
+                                this.cryptoVaultManager.generateTransaction(transaction.getWalletPublicKey(), transaction.getTransactionId(), transaction.getAddressTo(), transaction.getAmount(), transaction.getOp_Return(), transaction.getBlockchainNetworkType());
 
 //                        if (transaction.getOp_Return() == null)
 //                            hash = this.cryptoVaultManager.sendBitcoins(transaction.getWalletPublicKey(), transaction.getTransactionId(), transaction.getAddressTo(), transaction.getAmount());
@@ -417,7 +420,11 @@ public class OutgoingIntraActorTransactionProcessorAgent extends FermatAgent {
 
         }
 
+<<<<<<< HEAD
         private boolean thereAreEnoughFunds(OutgoingIntraActorTransactionWrapper transaction) throws OutgoingIntraActorWalletNotSupportedException, CantCalculateBalanceException, CantLoadWalletException {
+=======
+        private boolean thereAreEnoughFunds(OutgoingIntraActorTransactionWrapper transaction) throws OutgoingIntraActorWalletNotSupportedException, CantCalculateBalanceException, CantLoadWalletsException {
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
             return getWalletAvailableBalance(transaction.getWalletPublicKey(), transaction.getReferenceWallet(),transaction.getBlockchainNetworkType()) >= transaction.getAmount();
         }
 
@@ -425,7 +432,11 @@ public class OutgoingIntraActorTransactionProcessorAgent extends FermatAgent {
             this.errorManager.reportUnexpectedPluginException(Plugins.BITDUBAI_CCP_OUTGOING_INTRA_ACTOR_TRANSACTION, UnexpectedPluginExceptionSeverity.DISABLES_SOME_FUNCTIONALITY_WITHIN_THIS_PLUGIN, e);
         }
 
+<<<<<<< HEAD
         private long getWalletAvailableBalance(String walletPublicKey, ReferenceWallet referenceWallet, BlockchainNetworkType blockchainNetworkType) throws CantLoadWalletException, CantCalculateBalanceException, OutgoingIntraActorWalletNotSupportedException {
+=======
+        private long getWalletAvailableBalance(String walletPublicKey, ReferenceWallet referenceWallet, BlockchainNetworkType blockchainNetworkType) throws CantLoadWalletsException, CantCalculateBalanceException, OutgoingIntraActorWalletNotSupportedException {
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
             switch (referenceWallet) {
                 case BASIC_WALLET_BITCOIN_WALLET:
                     return this.bitcoinWalletManager.loadWallet(walletPublicKey).getBalance(BalanceType.AVAILABLE).getBalance(blockchainNetworkType);
@@ -434,7 +445,7 @@ public class OutgoingIntraActorTransactionProcessorAgent extends FermatAgent {
             }
         }
 
-        private void debitFromAvailableBalance(OutgoingIntraActorTransactionWrapper transaction) throws CantLoadWalletException, CantRegisterDebitException, OutgoingIntraActorWalletNotSupportedException {
+        private void debitFromAvailableBalance(OutgoingIntraActorTransactionWrapper transaction) throws CantLoadWalletsException, CantRegisterDebitException, OutgoingIntraActorWalletNotSupportedException {
             switch (transaction.getReferenceWallet()) {
                 case BASIC_WALLET_BITCOIN_WALLET:
                     this.bitcoinWalletManager.loadWallet(transaction.getWalletPublicKey()).getBalance(BalanceType.AVAILABLE).debit(transaction);
@@ -467,7 +478,7 @@ public class OutgoingIntraActorTransactionProcessorAgent extends FermatAgent {
                     default:
                         throw new OutgoingIntraActorWalletNotSupportedException("Roolback", null, "ReferenceWallet enum value: " + transaction.getReferenceWallet().toString(), " Roolback");
                 }
-            } catch (CantLoadWalletException e) {
+            } catch (CantLoadWalletsException e) {
                 e.printStackTrace();
             } catch (OutgoingIntraActorWalletNotSupportedException e) {
                 e.printStackTrace();
@@ -512,7 +523,11 @@ public class OutgoingIntraActorTransactionProcessorAgent extends FermatAgent {
 
             eventManager.raiseEvent(platformEvent);*/
 
+<<<<<<< HEAD
             broadcaster.publish(BroadcasterType.NOTIFICATION_SERVICE, transactionWrapper.getWalletPublicKey(),"TRANSACTION_REVERSE|" + transactionWrapper.getTransactionId().toString());
+=======
+            broadcaster.publish(BroadcasterType.NOTIFICATION_SERVICE, transactionWrapper.getWalletPublicKey(),"TRANSACTIONREVERSE|" + transactionWrapper.getTransactionId().toString());
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 
         }
 

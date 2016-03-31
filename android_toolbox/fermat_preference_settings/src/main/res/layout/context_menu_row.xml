@@ -11,7 +11,11 @@
         android:id="@+id/radio_context"
         tools:text="menu1"
         android:button="@null"
+<<<<<<< HEAD
         android:drawableRight="@android:drawable/btn_radio"
+=======
+        android:drawableEnd="@android:drawable/btn_radio"
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
         android:textSize="20sp"
         android:paddingLeft="24dp"
         android:paddingRight="32dp"

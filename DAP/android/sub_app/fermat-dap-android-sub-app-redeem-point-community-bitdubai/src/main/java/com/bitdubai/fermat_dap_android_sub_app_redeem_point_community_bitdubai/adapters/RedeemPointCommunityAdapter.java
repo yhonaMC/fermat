@@ -60,6 +60,11 @@ public class RedeemPointCommunityAdapter extends FermatAdapter<Actor, RedeemPoin
                         break;
                     case DENIED_LOCALLY:
                     case DENIED_REMOTELY:
+<<<<<<< HEAD
+=======
+                    case CANCELLED_LOCALLY:
+                    case CANCELLED_REMOTELY:
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
                         holder.connectedStateWaiting.setVisibility(View.GONE);
                         holder.connectedStateDenied.setVisibility(View.VISIBLE);
                         break;
@@ -106,6 +111,7 @@ public class RedeemPointCommunityAdapter extends FermatAdapter<Actor, RedeemPoin
 
             //byte[] profileImage = data.getProfileImage();
 
+<<<<<<< HEAD
             //TODO: chamo esto te va a tirar error si es nula la imagen :p, el leght no lo va a poder sacar
 //            if (data.getProfileImage() != null && data.getProfileImage().length > 0) {
 //                holder.thumbnail.setImageDrawable(new BitmapDrawable(context.getResources(),
@@ -113,11 +119,18 @@ public class RedeemPointCommunityAdapter extends FermatAdapter<Actor, RedeemPoin
 //            }
 
             /*if (profileImage != null) {
+=======
+            if (profileImage != null) {
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
                 if (profileImage.length > 0) {
                     Bitmap bitmap = BitmapFactory.decodeByteArray(profileImage, 0, profileImage.length);
                     holder.thumbnail.setImageBitmap(bitmap);
                 } else Picasso.with(context).load(R.drawable.reddem_point_community).into(holder.thumbnail);
+<<<<<<< HEAD
             } else */
+=======
+            } else
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
                 Picasso.with(context).load(R.drawable.reddem_point_community).into(holder.thumbnail);
 
         } catch (Exception ex) {

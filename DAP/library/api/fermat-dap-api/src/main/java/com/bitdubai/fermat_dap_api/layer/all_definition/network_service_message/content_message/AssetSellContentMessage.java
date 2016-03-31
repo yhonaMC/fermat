@@ -18,12 +18,18 @@ public class AssetSellContentMessage implements DAPContentMessage {
     private AssetSellStatus sellStatus;
     private DigitalAssetMetadata assetMetadata;
     private UUID negotiationId;
+<<<<<<< HEAD
     private CryptoAddress cryptoVaultAddress;
+=======
+    private CryptoAddress sellerCryptoAddress;
+    private CryptoAddress buyerCryptoAddress;
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
     //CONSTRUCTORS
 
     public AssetSellContentMessage() {
     }
 
+<<<<<<< HEAD
     public AssetSellContentMessage(UUID sellingId, byte[] serializedTransaction, AssetSellStatus sellStatus, DigitalAssetMetadata assetMetadata, UUID negotiationId, long transactionValue, CryptoAddress cryptoVaultAddress) {
         this.sellingId = sellingId;
         this.serializedTransaction = serializedTransaction;
@@ -32,6 +38,17 @@ public class AssetSellContentMessage implements DAPContentMessage {
         this.negotiationId = negotiationId;
         this.transactionValue = transactionValue;
         this.cryptoVaultAddress = cryptoVaultAddress;
+=======
+    public AssetSellContentMessage(UUID sellingId, byte[] serializedTransaction, long transactionValue, AssetSellStatus sellStatus, DigitalAssetMetadata assetMetadata, UUID negotiationId, CryptoAddress sellerCryptoAddress, CryptoAddress buyerCryptoAddress) {
+        this.sellingId = sellingId;
+        this.serializedTransaction = serializedTransaction;
+        this.transactionValue = transactionValue;
+        this.sellStatus = sellStatus;
+        this.assetMetadata = assetMetadata;
+        this.negotiationId = negotiationId;
+        this.sellerCryptoAddress = sellerCryptoAddress;
+        this.buyerCryptoAddress = buyerCryptoAddress;
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
     }
 
     //PUBLIC METHODS
@@ -74,9 +91,19 @@ public class AssetSellContentMessage implements DAPContentMessage {
         return transactionValue;
     }
 
+<<<<<<< HEAD
     public CryptoAddress getCryptoVaultAddress() {
         return cryptoVaultAddress;
     }
 
+=======
+    public CryptoAddress getSellerCryptoAddress() {
+        return sellerCryptoAddress;
+    }
+
+    public CryptoAddress getBuyerCryptoAddress() {
+        return buyerCryptoAddress;
+    }
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
     //INNER CLASSES
 }

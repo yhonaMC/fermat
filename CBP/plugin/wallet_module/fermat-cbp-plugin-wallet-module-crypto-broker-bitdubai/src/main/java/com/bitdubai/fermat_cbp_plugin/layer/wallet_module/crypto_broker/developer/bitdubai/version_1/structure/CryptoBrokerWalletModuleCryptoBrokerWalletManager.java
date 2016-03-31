@@ -10,6 +10,7 @@ import com.bitdubai.fermat_api.layer.all_definition.enums.FiatCurrency;
 import com.bitdubai.fermat_api.layer.all_definition.enums.Platforms;
 import com.bitdubai.fermat_api.layer.all_definition.exceptions.InvalidParameterException;
 import com.bitdubai.fermat_api.layer.all_definition.settings.structure.SettingsManager;
+import com.bitdubai.fermat_api.layer.dmp_module.wallet_manager.CantLoadWalletsException;
 import com.bitdubai.fermat_api.layer.modules.common_classes.ActiveActorIdentityInformation;
 import com.bitdubai.fermat_api.layer.modules.exceptions.CantGetSelectedActorIdentityException;
 import com.bitdubai.fermat_api.layer.modules.interfaces.FermatSettings;
@@ -149,7 +150,10 @@ import com.bitdubai.fermat_cbp_api.layer.wallet_module.crypto_broker.exceptions.
 import com.bitdubai.fermat_cbp_api.layer.wallet_module.crypto_broker.interfaces.CryptoBrokerWalletManager;
 import com.bitdubai.fermat_ccp_api.layer.basic_wallet.bitcoin_wallet.interfaces.BitcoinWalletManager;
 import com.bitdubai.fermat_ccp_api.layer.basic_wallet.common.enums.BalanceType;
+<<<<<<< HEAD
 import com.bitdubai.fermat_ccp_api.layer.basic_wallet.common.exceptions.CantLoadWalletException;
+=======
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 import com.bitdubai.fermat_cer_api.all_definition.interfaces.CurrencyPair;
 import com.bitdubai.fermat_cer_api.all_definition.interfaces.ExchangeRate;
 import com.bitdubai.fermat_cer_api.layer.provider.exceptions.CantGetExchangeRateException;
@@ -523,6 +527,7 @@ public class CryptoBrokerWalletModuleCryptoBrokerWalletManager implements Crypto
     @Override
     public boolean associateIdentity(ActorIdentity brokerIdentity, String brokerWalletPublicKey) throws CantCreateNewBrokerIdentityWalletRelationshipException {
         return cryptoBrokerActorManager.createNewBrokerIdentityWalletRelationship(brokerIdentity, brokerWalletPublicKey) != null;
+<<<<<<< HEAD
     }
 
     @Override
@@ -531,6 +536,16 @@ public class CryptoBrokerWalletModuleCryptoBrokerWalletManager implements Crypto
     }
 
     @Override
+=======
+    }
+
+    @Override
+    public void clearAssociatedIdentities(String brokerWalletPublicKey) throws CantClearBrokerIdentityWalletRelationshipException {
+        cryptoBrokerActorManager.clearBrokerIdentityWalletRelationship(brokerWalletPublicKey);
+    }
+
+    @Override
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
     public CustomerBrokerNegotiationInformation cancelNegotiation(CustomerBrokerNegotiationInformation negotiation, String reason) throws CouldNotCancelNegotiationException, CantCancelNegotiationException {
         CustomerBrokerSaleNegotiationImpl customerBrokerSaleNegotiation = new CustomerBrokerSaleNegotiationImpl(
                 negotiation.getNegotiationId(),
@@ -716,12 +731,21 @@ public class CryptoBrokerWalletModuleCryptoBrokerWalletManager implements Crypto
     @Override
     public ActorIdentity getCustomerInfoByPublicKey(String brokerPublicKey, String customerPublicKey) throws CantListActorConnectionsException {
         try {
+<<<<<<< HEAD
 
             CryptoCustomerLinkedActorIdentity linkedActorIdentity = new CryptoCustomerLinkedActorIdentity(
                     brokerPublicKey,
                     Actors.CBP_CRYPTO_BROKER
             );
 
+=======
+
+            CryptoCustomerLinkedActorIdentity linkedActorIdentity = new CryptoCustomerLinkedActorIdentity(
+                    brokerPublicKey,
+                    Actors.CBP_CRYPTO_BROKER
+            );
+
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
             final CryptoCustomerActorConnectionSearch search = cryptoCustomerActorConnectionManager.getSearch(linkedActorIdentity);
 
             search.addConnectionState(ConnectionState.CONNECTED);
@@ -1072,7 +1096,11 @@ public class CryptoBrokerWalletModuleCryptoBrokerWalletManager implements Crypto
         customerBrokerSaleNegotiationManager.deleteBankAccount(bankAccount);
     }
 
+<<<<<<< HEAD
     @Override
+=======
+    @Override //TODO BNK
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
     public double getBalanceBankWallet(String walletPublicKey, String accountNumber) throws CantCalculateBalanceException, CantLoadBankMoneyWalletException {
         return bankMoneyWalletManager.loadBankMoneyWallet(walletPublicKey).getAvailableBalance().getBalance(accountNumber);
     }
@@ -1082,22 +1110,57 @@ public class CryptoBrokerWalletModuleCryptoBrokerWalletManager implements Crypto
         return cashMoneyWalletManager.loadCashMoneyWallet(walletPublicKey).getAvailableBalance().getBalance();
     }
 
+<<<<<<< HEAD
     @Override
     public boolean cashMoneyWalletExists(String walletPublicKey) {
         return cashMoneyWalletManager.cashMoneyWalletExists(walletPublicKey);
     }
 
+=======
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
     @Override
-    public long getBalanceBitcoinWallet(String walletPublicKey) throws com.bitdubai.fermat_ccp_api.layer.basic_wallet.common.exceptions.CantCalculateBalanceException, CantLoadWalletException {
-        return bitcoinWalletManager.loadWallet(walletPublicKey).getBalance(BalanceType.AVAILABLE).getBalance();
+    public boolean cashMoneyWalletExists(String walletPublicKey) {
+        return cashMoneyWalletManager.cashMoneyWalletExists(walletPublicKey);
     }
 
+<<<<<<< HEAD
     @Override
     public SettingsManager<FermatSettings> getSettingsManager() {
         return null;
     }
 
     @Override
+    public ActiveActorIdentityInformation getSelectedActorIdentity() throws CantGetSelectedActorIdentityException {
+=======
+    @Override//TODO CCP - CBP
+    public long getBalanceBitcoinWallet(String walletPublicKey) throws com.bitdubai.fermat_cbp_api.layer.wallet.crypto_broker.exceptions.CantCalculateBalanceException, CantLoadWalletsException {
+        try {
+            return bitcoinWalletManager.loadWallet(walletPublicKey).getBalance(BalanceType.AVAILABLE).getBalance();
+        } catch (com.bitdubai.fermat_ccp_api.layer.basic_wallet.common.exceptions.CantCalculateBalanceException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    @Override
+    public SettingsManager<FermatSettings> getSettingsManager() {
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
+        return null;
+    }
+
+    @Override
+<<<<<<< HEAD
+    public void createIdentity(String name, String phrase, byte[] profile_img) throws Exception {
+        //DO NOTHING...
+    }
+
+    @Override
+    public void setAppPublicKey(String publicKey) {
+        //DO NOTHING...
+    }
+
+    @Override
+=======
     public ActiveActorIdentityInformation getSelectedActorIdentity() throws CantGetSelectedActorIdentityException {
         return null;
     }
@@ -1113,6 +1176,7 @@ public class CryptoBrokerWalletModuleCryptoBrokerWalletManager implements Crypto
     }
 
     @Override
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
     public int[] getMenuNotifications() {
         return new int[0];
     }
@@ -1245,6 +1309,7 @@ public class CryptoBrokerWalletModuleCryptoBrokerWalletManager implements Crypto
             if (contractClauseType == ContractClauseType.CRYPTO_TRANSFER) {
                 return customerBrokerContractSale.getStatus();
             }
+<<<<<<< HEAD
 
             // Case: ack offline merchandise.
             if (contractClauseType == ContractClauseType.BANK_TRANSFER
@@ -1269,6 +1334,32 @@ public class CryptoBrokerWalletModuleCryptoBrokerWalletManager implements Crypto
 
             throw new CantAckPaymentException("Cannot find the contract clause");
 
+=======
+
+            // Case: ack offline merchandise.
+            if (contractClauseType == ContractClauseType.BANK_TRANSFER
+                    || contractClauseType == ContractClauseType.CASH_DELIVERY
+                    || contractClauseType == ContractClauseType.CASH_ON_HAND) {
+
+                String cryptoBrokerPublicKey = "walletPublicKeyTest"; //TODO: this is a hardcoded public key
+                //Get the customer alias to show in contract execution
+                ActorIdentity actorIdentity = getCustomerInfoByPublicKey(
+                        customerBrokerContractSale.getPublicKeyBroker(),
+                        customerBrokerContractSale.getPublicKeyCustomer()
+                );
+                String customerAlias;
+                if (actorIdentity == null) {
+                    customerAlias = "Unregistered customer";
+                } else {
+                    customerAlias = actorIdentity.getAlias();
+                }
+                this.brokerAckOfflinePaymentManager.ackPayment(cryptoBrokerPublicKey, contractHash, customerBrokerContractSale.getPublicKeyBroker(), customerAlias);
+                return customerBrokerContractSale.getStatus();
+            }
+
+            throw new CantAckPaymentException("Cannot find the contract clause");
+
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
         } catch (CantGetListCustomerBrokerContractSaleException e) {
             throw new CantAckPaymentException(e, "Cannot ack the merchandise", "Cannot get the contract");
         } catch (CantGetListClauseException e) {
@@ -1286,6 +1377,7 @@ public class CryptoBrokerWalletModuleCryptoBrokerWalletManager implements Crypto
 
         EarningsSettings earningsSettings;
         EarningsPair earningsPair = null;
+<<<<<<< HEAD
 
         try {
             earningsSettings = matchingEngineManager.loadEarningsSettings(brokerWalletPublicKey);
@@ -1302,6 +1394,24 @@ public class CryptoBrokerWalletModuleCryptoBrokerWalletManager implements Crypto
             earningsPair = earningsSettings.registerPair(earningCurrency, linkedCurrency, new WalletReference(earningWalletPublicKey));
         } catch (CantAssociatePairException | PairAlreadyAssociatedException e) {
 
+=======
+
+        try {
+            earningsSettings = matchingEngineManager.loadEarningsSettings(brokerWalletPublicKey);
+        } catch (EarningsSettingsNotRegisteredException ex) {
+
+            try {
+                earningsSettings = matchingEngineManager.registerEarningsSettings(new WalletReference(brokerWalletPublicKey));
+            } catch (CantRegisterEarningsSettingsException e) {
+                throw new CantAssociatePairException(e, "", "");
+            }
+        }
+
+        try {
+            earningsPair = earningsSettings.registerPair(earningCurrency, linkedCurrency, new WalletReference(earningWalletPublicKey));
+        } catch (CantAssociatePairException | PairAlreadyAssociatedException e) {
+
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
             try {
                 for (EarningsPair ep : earningsSettings.listEarningPairs()) {
                     if (ep.getEarningCurrency() == earningCurrency && ep.getLinkedCurrency() == linkedCurrency)

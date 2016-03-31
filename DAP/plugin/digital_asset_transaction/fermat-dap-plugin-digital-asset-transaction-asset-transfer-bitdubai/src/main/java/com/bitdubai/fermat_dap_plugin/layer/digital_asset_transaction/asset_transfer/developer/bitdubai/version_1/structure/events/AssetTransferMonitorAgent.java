@@ -40,7 +40,10 @@ import com.bitdubai.fermat_dap_api.layer.all_definition.network_service_message.
 import com.bitdubai.fermat_dap_api.layer.all_definition.network_service_message.exceptions.CantGetDAPMessagesException;
 import com.bitdubai.fermat_dap_api.layer.all_definition.network_service_message.exceptions.CantSendMessageException;
 import com.bitdubai.fermat_dap_api.layer.all_definition.network_service_message.exceptions.CantUpdateMessageStatusException;
+<<<<<<< HEAD
 import com.bitdubai.fermat_dap_api.layer.all_definition.util.ActorUtils;
+=======
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 import com.bitdubai.fermat_dap_api.layer.dap_actor.asset_issuer.AssetIssuerActorRecord;
 import com.bitdubai.fermat_dap_api.layer.dap_actor.asset_issuer.exceptions.CantGetAssetIssuerActorsException;
 import com.bitdubai.fermat_dap_api.layer.dap_actor.asset_issuer.interfaces.ActorAssetIssuer;
@@ -382,8 +385,11 @@ public class AssetTransferMonitorAgent implements Agent, DealsWithLogger, DealsW
                     case DELIVERING:
                         DigitalAssetMetadata digitalAsset = digitalAssetTransferVault.getDigitalAssetMetadataFromWallet(assetAcceptedGenesisTransaction, record.getNetworkType());
                         //NOTIFYING ISSUER THAT I'M TRANSFERING THIS ASSET
+<<<<<<< HEAD
                         updateDistributionStatus(DistributionStatus.NOTIFYING_ISSUER, assetAcceptedGenesisTransaction);
                         assetTransferDAO.updateDeliveringStatusForTxId(record.getTransactionId(), DistributionStatus.NOTIFYING_ISSUER);
+=======
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
                         ActorAssetUser userToSend = getUserForGenesisTx(assetAcceptedGenesisTransaction);
 
                         //SENDING THE CRYPTO

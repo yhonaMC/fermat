@@ -4,6 +4,10 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -31,6 +35,10 @@ import com.bitdubai.fermat_api.layer.all_definition.resources_structure.enums.Sc
 import com.bitdubai.fermat_api.layer.all_definition.util.DeviceInfoUtils;
 import com.bitdubai.fermat_api.layer.all_definition.util.Version;
 import com.bitdubai.fermat_api.layer.osa_android.broadcaster.BroadcasterType;
+<<<<<<< HEAD
+=======
+import com.bitdubai.fermat_api.layer.osa_android.broadcaster.FermatBundle;
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 import com.bitdubai.fermat_core.FermatSystem;
 import com.bitdubai.fermat_osa_android_core.OSAPlatform;
 import com.bitdubai.fermat_pip_api.layer.platform_service.platform_info.exceptions.CantSetPlatformInformationException;
@@ -197,27 +205,59 @@ public class StartActivity extends AppCompatActivity implements  BroadcasterInte
         startActivity(intent);
         finish();
         return true;
+<<<<<<< HEAD
+=======
     }
 
 
     @Override
     public void publish(BroadcasterType broadcasterType, String code) {
         //Toast.makeText(this,"holas",Toast.LENGTH_SHORT).show();
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
+    }
+
+
+    @Override
+<<<<<<< HEAD
+    public void publish(BroadcasterType broadcasterType, String code) {
+        //Toast.makeText(this,"holas",Toast.LENGTH_SHORT).show();
     }
 
     @Override
+    public void publish(BroadcasterType broadcasterType, String appCode, String code) {
+=======
     public void publish(BroadcasterType broadcasterType, String appCode, String code) {
 
     }
 
     @Override
     public void publish(BroadcasterType broadcasterType, String code, Platforms lauchedPlatform) {
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 
     }
 
     @Override
+<<<<<<< HEAD
+    public void publish(BroadcasterType broadcasterType, String code, Platforms lauchedPlatform) {
+=======
+    public void publish(BroadcasterType broadcasterType, String code, FermatApps fermatApp) {
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
+
+    }
+
+    @Override
+<<<<<<< HEAD
     public void publish(BroadcasterType broadcasterType, String code, FermatApps fermatApp) {
 
+=======
+    public void publish(BroadcasterType broadcasterType, String appCode, FermatBundle bundle) {
+
+    }
+
+    @Override
+    public void publish(BroadcasterType broadcasterType, FermatBundle bundle) {
+
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
     }
 
 

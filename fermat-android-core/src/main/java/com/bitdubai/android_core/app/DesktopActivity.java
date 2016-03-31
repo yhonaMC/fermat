@@ -490,6 +490,7 @@ public class DesktopActivity extends FermatActivity implements FermatScreenSwapp
                 openRecentsScreen();
             }
         });
+<<<<<<< HEAD
 
     }
 
@@ -501,6 +502,19 @@ public class DesktopActivity extends FermatActivity implements FermatScreenSwapp
         }
 
     }
+=======
+
+    }
+
+    private void paintScreen(Activity activity) {
+        String backgroundColor = activity.getBackgroundColor();
+        if(backgroundColor!=null){
+            Drawable colorDrawable = new ColorDrawable(Color.parseColor(backgroundColor));
+            getWindow().setBackgroundDrawable(colorDrawable);
+        }
+
+    }
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 
 
     @Override
@@ -520,5 +534,12 @@ public class DesktopActivity extends FermatActivity implements FermatScreenSwapp
             e.printStackTrace();
         }
     }
+<<<<<<< HEAD
+=======
 
+    @Override
+    public void setTabCustomImageView(int position,View view) {
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
+
+    }
 }

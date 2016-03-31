@@ -41,6 +41,10 @@ import com.bitdubai.fermat_dap_android_wallet_asset_user_bitdubai.models.Digital
 import com.bitdubai.fermat_dap_android_wallet_asset_user_bitdubai.sessions.AssetUserSession;
 import com.bitdubai.fermat_dap_android_wallet_asset_user_bitdubai.sessions.SessionConstantsAssetUser;
 import com.bitdubai.fermat_dap_android_wallet_asset_user_bitdubai.util.CommonLogger;
+<<<<<<< HEAD
+=======
+import com.bitdubai.fermat_dap_api.layer.all_definition.DAPConstants;
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 import com.bitdubai.fermat_dap_api.layer.all_definition.digital_asset.AssetNegotiation;
 import com.bitdubai.fermat_dap_api.layer.all_definition.exceptions.CantGetIdentityAssetUserException;
 import com.bitdubai.fermat_dap_api.layer.dap_identity.asset_user.interfaces.IdentityAssetUser;
@@ -430,4 +434,18 @@ public class UserMainActivityFragment extends FermatWalletListFragment<DigitalAs
             noAssetsView.setVisibility(View.GONE);
         }
     }
+<<<<<<< HEAD
+=======
+
+    @Override
+    public void onUpdateViewOnUIThread(String code) {
+        switch (code) {
+            case DAPConstants.DAP_UPDATE_VIEW_ANDROID:
+                onRefresh();
+                break;
+            default:
+                super.onUpdateViewOnUIThread(code);
+        }
+    }
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 }

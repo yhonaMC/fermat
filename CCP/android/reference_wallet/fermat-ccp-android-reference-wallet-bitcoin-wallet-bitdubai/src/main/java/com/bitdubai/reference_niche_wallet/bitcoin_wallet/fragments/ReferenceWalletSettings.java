@@ -87,7 +87,12 @@ public class ReferenceWalletSettings extends FermatPreferenceFragment<ReferenceW
         list.add(new PreferenceSettingsOpenDialogText(5,"Select Network",strings));
 
 
+<<<<<<< HEAD
         list.add(new PreferenceSettingsEditText(9,"Export Private key",""));
+=======
+
+        list.add(new PreferenceSettingsEditText(9,"Export Private key","Click Here"));
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 
         } catch (CantGetSettingsException e) {
             e.printStackTrace();
@@ -121,9 +126,15 @@ public class ReferenceWalletSettings extends FermatPreferenceFragment<ReferenceW
             bitcoinWalletSettings.setIsPresentationHelpEnabled(false);
 
 
+<<<<<<< HEAD
             if (preferenceSettingsItem.getId() == 1){
                 //enable notifications settings
                 bitcoinWalletSettings.setNotificationEnabled(((PreferenceSettingsSwithItem)preferenceSettingsItem).getSwitchChecked());
+=======
+
+            if (preferenceSettingsItem.getId() == 9) {
+                //export key open dialog
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
             }
             else {
                 PreferenceSettingsTextPlusRadioItem preferenceSettingsTextPlusRadioItem = (PreferenceSettingsTextPlusRadioItem) preferenceSettingsItem;

@@ -3,6 +3,10 @@ package com.bitdubai.android_core.app;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
+<<<<<<< HEAD
+=======
+import android.support.design.widget.TabLayout;
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -482,4 +486,13 @@ public class SubAppActivity extends FermatActivity implements FermatScreenSwappe
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         startActivity(intent);
     }
+<<<<<<< HEAD
+=======
+
+    @Override
+    public void setTabCustomImageView(int position, View view) {
+        TabLayout.Tab tab = tabLayout.getTabAt(position);
+        tab.setCustomView(view);
+    }
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 }

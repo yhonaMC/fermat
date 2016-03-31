@@ -344,7 +344,11 @@ public class RedeemPointDetailTransactionsFragment extends FermatWalletListFragm
             toolbar.setBackgroundColor(getResources().getColor(R.color.dap_redeem_point_wallet_principal));
             toolbar.setTitleTextColor(Color.WHITE);
             toolbar.setBottom(Color.WHITE);
+<<<<<<< HEAD
             toolbar.setTitle(digitalAsset.getName());
+=======
+//            toolbar.setTitle(digitalAsset.getName());
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
             if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
                 Window window = getActivity().getWindow();
                 window.setStatusBarColor(getResources().getColor(R.color.dap_redeem_point_wallet_principal));

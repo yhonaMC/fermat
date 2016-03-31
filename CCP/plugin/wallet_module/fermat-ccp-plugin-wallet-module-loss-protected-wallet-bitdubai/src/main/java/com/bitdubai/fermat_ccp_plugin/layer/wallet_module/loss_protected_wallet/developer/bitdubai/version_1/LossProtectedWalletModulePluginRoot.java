@@ -122,7 +122,11 @@ public class LossProtectedWalletModulePluginRoot extends AbstractPlugin implemen
 
         try {
 
+<<<<<<< HEAD
             logManager.log(LossProtectedWalletModulePluginRoot.getLogLevelByClass(this.getClass().getName()), "CryptoWallet instantiation started...", null, null);
+=======
+            logManager.log(LossProtectedWalletModulePluginRoot.getLogLevelByClass(this.getClass().getName()), "LossProtectedWallet instantiation started...", null, null);
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 
             LossProtectedWalletModuleManager walletModuleLossProtectedWallet = new LossProtectedWalletModuleManager(
                     bitcoinWalletManager          ,
@@ -153,8 +157,13 @@ public class LossProtectedWalletModulePluginRoot extends AbstractPlugin implemen
     @Override
     public List<String> getClassesFullPath() {
         List<String> returnedClasses = new ArrayList<>();
+<<<<<<< HEAD
         returnedClasses.add("CryptoWalletCryptoModulePluginRoot");
         returnedClasses.add("CryptoWalletWalletModuleManager");
+=======
+        returnedClasses.add("LossProtectedWalletModulePluginRoot");
+        returnedClasses.add("LossProtectedWalletModuleManager");
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 
         /**
          * I return the values.

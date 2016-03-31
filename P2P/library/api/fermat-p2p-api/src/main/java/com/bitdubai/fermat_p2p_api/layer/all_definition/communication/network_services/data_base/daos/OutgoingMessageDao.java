@@ -19,7 +19,10 @@ import com.bitdubai.fermat_api.layer.osa_android.database_system.DatabaseTransac
 import com.bitdubai.fermat_api.layer.osa_android.database_system.exceptions.CantLoadTableToMemoryException;
 import com.bitdubai.fermat_api.layer.osa_android.database_system.exceptions.CantUpdateRecordException;
 import com.bitdubai.fermat_api.layer.osa_android.database_system.exceptions.DatabaseTransactionFailedException;
+<<<<<<< HEAD
 import com.bitdubai.fermat_ccp_api.layer.actor.intra_user.exceptions.CantGetNotificationException;
+=======
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.commons.contents.FermatMessageCommunication;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.network_services.data_base.CommunicationNetworkServiceDatabaseConstants;
 import com.bitdubai.fermat_p2p_api.layer.all_definition.communication.network_services.exceptions.CantDeleteRecordDataBaseException;
@@ -31,6 +34,10 @@ import com.bitdubai.fermat_p2p_api.layer.p2p_communication.MessagesStatus;
 import com.bitdubai.fermat_p2p_api.layer.p2p_communication.commons.contents.FermatMessage;
 import com.bitdubai.fermat_p2p_api.layer.p2p_communication.commons.enums.FermatMessageContentType;
 import com.bitdubai.fermat_p2p_api.layer.p2p_communication.commons.enums.FermatMessagesStatus;
+<<<<<<< HEAD
+=======
+import com.bitdubai.fermat_pip_api.layer.module.notification.exception.CantGetNotificationsException;
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -280,8 +287,11 @@ public final class OutgoingMessageDao {
     }
 
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
     /**
      * Method that list the all entities on the data base. The valid value of
      * the key are the att of the <code>CommunicationNetworkServiceDatabaseConstants</code>
@@ -374,7 +384,10 @@ public final class OutgoingMessageDao {
     }
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
     /**
      * Method that create a new entity in the data base.
      *
@@ -450,6 +463,7 @@ public final class OutgoingMessageDao {
             String possibleCause = "The record do not exist";
             CantUpdateRecordDataBaseException cantUpdateRecordDataBaseException = new CantUpdateRecordDataBaseException(CantUpdateRecordDataBaseException.DEFAULT_MESSAGE, databaseTransactionFailedException, context, possibleCause);
             throw cantUpdateRecordDataBaseException;
+<<<<<<< HEAD
 
         }
 
@@ -459,12 +473,23 @@ public final class OutgoingMessageDao {
         entityRecord.setStringValue(CommunicationNetworkServiceDatabaseConstants.OUTGOING_MESSAGES_SENDER_ID_COLUMN_NAME, fermatMessage.getSender());
         entityRecord.setFermatEnum(CommunicationNetworkServiceDatabaseConstants.OUTGOING_MESSAGES_SENDER_TYPE_COLUMN_NAME, fermatMessage.getSenderType());
         entityRecord.setFermatEnum (CommunicationNetworkServiceDatabaseConstants.OUTGOING_MESSAGES_SENDER_NS_TYPE_COLUMN_NAME, fermatMessage.getSenderNsType());
+=======
+        }
+    }
+
+    private void setValuesToRecord(DatabaseTableRecord entityRecord, FermatMessage fermatMessage) {
+        entityRecord.setStringValue(CommunicationNetworkServiceDatabaseConstants.OUTGOING_MESSAGES_ID_COLUMN_NAME, fermatMessage.getId().toString());
+        entityRecord.setStringValue(CommunicationNetworkServiceDatabaseConstants.OUTGOING_MESSAGES_SENDER_ID_COLUMN_NAME, fermatMessage.getSender());
+        entityRecord.setFermatEnum(CommunicationNetworkServiceDatabaseConstants.OUTGOING_MESSAGES_SENDER_TYPE_COLUMN_NAME, fermatMessage.getSenderType());
+        entityRecord.setFermatEnum(CommunicationNetworkServiceDatabaseConstants.OUTGOING_MESSAGES_SENDER_NS_TYPE_COLUMN_NAME, fermatMessage.getSenderNsType());
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
         entityRecord.setStringValue(CommunicationNetworkServiceDatabaseConstants.OUTGOING_MESSAGES_RECEIVER_ID_COLUMN_NAME, fermatMessage.getReceiver());
         entityRecord.setFermatEnum(CommunicationNetworkServiceDatabaseConstants.OUTGOING_MESSAGES_RECEIVER_TYPE_COLUMN_NAME, fermatMessage.getReceiverType());
         entityRecord.setFermatEnum(CommunicationNetworkServiceDatabaseConstants.OUTGOING_MESSAGES_RECEIVER_NS_TYPE_COLUMN_NAME, fermatMessage.getReceiverNsType());
         entityRecord.setStringValue(CommunicationNetworkServiceDatabaseConstants.OUTGOING_MESSAGES_TEXT_CONTENT_COLUMN_NAME, fermatMessage.getContent());
         entityRecord.setStringValue(CommunicationNetworkServiceDatabaseConstants.OUTGOING_MESSAGES_TYPE_COLUMN_NAME, fermatMessage.getFermatMessageContentType().getCode());
 
+<<<<<<< HEAD
         if (fermatMessage.getShippingTimestamp() != null){
             entityRecord.setLongValue(CommunicationNetworkServiceDatabaseConstants.OUTGOING_MESSAGES_SHIPPING_TIMESTAMP_COLUMN_NAME, fermatMessage.getShippingTimestamp().getTime());
         }else {
@@ -480,6 +505,23 @@ public final class OutgoingMessageDao {
         entityRecord.setIntegerValue(CommunicationNetworkServiceDatabaseConstants.OUTGOING_MESSAGES_FAIL_COUNT_COLUMN_NAME, fermatMessage.getFailCount());
         entityRecord.setStringValue(CommunicationNetworkServiceDatabaseConstants.OUTGOING_MESSAGES_STATUS_COLUMN_NAME, fermatMessage.getFermatMessagesStatus().getCode());
     }
+=======
+        if (fermatMessage.getShippingTimestamp() != null) {
+            entityRecord.setLongValue(CommunicationNetworkServiceDatabaseConstants.OUTGOING_MESSAGES_SHIPPING_TIMESTAMP_COLUMN_NAME, fermatMessage.getShippingTimestamp().getTime());
+        } else {
+            entityRecord.setLongValue(CommunicationNetworkServiceDatabaseConstants.OUTGOING_MESSAGES_SHIPPING_TIMESTAMP_COLUMN_NAME, (long) 0);
+        }
+
+        if (fermatMessage.getDeliveryTimestamp() != null) {
+            entityRecord.setLongValue(CommunicationNetworkServiceDatabaseConstants.OUTGOING_MESSAGES_DELIVERY_TIMESTAMP_COLUMN_NAME, fermatMessage.getDeliveryTimestamp().getTime());
+        } else {
+            entityRecord.setLongValue(CommunicationNetworkServiceDatabaseConstants.OUTGOING_MESSAGES_DELIVERY_TIMESTAMP_COLUMN_NAME, (long) 0);
+        }
+        entityRecord.setIntegerValue(CommunicationNetworkServiceDatabaseConstants.OUTGOING_MESSAGES_FAIL_COUNT_COLUMN_NAME, fermatMessage.getFailCount());
+        entityRecord.setStringValue(CommunicationNetworkServiceDatabaseConstants.OUTGOING_MESSAGES_STATUS_COLUMN_NAME, fermatMessage.getFermatMessagesStatus().getCode());
+    }
+
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
     /**
      * Method that list the all entities on the data base. The valid value of
      * the column name are the att of the <code>CommunicationNetworkServiceDatabaseConstants</code>
@@ -504,7 +546,11 @@ public final class OutgoingMessageDao {
              */
             List<DatabaseTableFilter> filtersTable = new ArrayList<>();
 
+<<<<<<< HEAD
             if (countFailMin != null){
+=======
+            if (countFailMin != null) {
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 
                 DatabaseTableFilter newFilter = templateTable.getEmptyTableFilter();
                 newFilter.setType(DatabaseFilterType.GREATER_OR_EQUAL_THAN);
@@ -513,7 +559,11 @@ public final class OutgoingMessageDao {
                 filtersTable.add(newFilter);
             }
 
+<<<<<<< HEAD
             if (countFailMax != null){
+=======
+            if (countFailMax != null) {
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 
                 DatabaseTableFilter newFilter = templateTable.getEmptyTableFilter();
                 newFilter.setType(DatabaseFilterType.LESS_OR_EQUAL_THAN);
@@ -648,9 +698,15 @@ public final class OutgoingMessageDao {
             outgoingTemplateNetworkServiceMessage.setShippingTimestamp(new Timestamp(record.getLongValue(CommunicationNetworkServiceDatabaseConstants.OUTGOING_MESSAGES_SHIPPING_TIMESTAMP_COLUMN_NAME)));
             outgoingTemplateNetworkServiceMessage.setDeliveryTimestamp(new Timestamp(record.getLongValue(CommunicationNetworkServiceDatabaseConstants.OUTGOING_MESSAGES_DELIVERY_TIMESTAMP_COLUMN_NAME)));
 
+<<<<<<< HEAD
            if(record.getIntegerValue(CommunicationNetworkServiceDatabaseConstants.OUTGOING_MESSAGES_FAIL_COUNT_COLUMN_NAME) != null){
                outgoingTemplateNetworkServiceMessage.setFailCount(record.getIntegerValue(CommunicationNetworkServiceDatabaseConstants.OUTGOING_MESSAGES_FAIL_COUNT_COLUMN_NAME));
            }
+=======
+            if (record.getIntegerValue(CommunicationNetworkServiceDatabaseConstants.OUTGOING_MESSAGES_FAIL_COUNT_COLUMN_NAME) != null) {
+                outgoingTemplateNetworkServiceMessage.setFailCount(record.getIntegerValue(CommunicationNetworkServiceDatabaseConstants.OUTGOING_MESSAGES_FAIL_COUNT_COLUMN_NAME));
+            }
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 
             outgoingTemplateNetworkServiceMessage.setFermatMessagesStatus(FermatMessagesStatus.getByCode(record.getStringValue(CommunicationNetworkServiceDatabaseConstants.OUTGOING_MESSAGES_STATUS_COLUMN_NAME)));
 
@@ -679,7 +735,11 @@ public final class OutgoingMessageDao {
         /*
          * Set the entity values
          */
+<<<<<<< HEAD
         setValuesToRecord(entityRecord,fermatMessage);
+=======
+        setValuesToRecord(entityRecord, fermatMessage);
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 
         /*
          * return the new table record
@@ -688,7 +748,11 @@ public final class OutgoingMessageDao {
 
     }
 
+<<<<<<< HEAD
     public boolean existPendingNotification(final UUID notificationId) throws CantGetNotificationException {
+=======
+    public boolean existPendingNotification(final UUID notificationId) throws CantGetNotificationsException {
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 
 
         try {
@@ -710,7 +774,11 @@ public final class OutgoingMessageDao {
 
         } catch (CantLoadTableToMemoryException exception) {
 
+<<<<<<< HEAD
             throw new CantGetNotificationException( "",exception, "Exception not handled by the plugin, there is a problem in database and i cannot load the table.","");
+=======
+            throw new CantGetNotificationsException("", exception, "Exception not handled by the plugin, there is a problem in database and i cannot load the table.", "");
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
         }
 
     }

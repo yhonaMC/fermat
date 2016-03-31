@@ -111,6 +111,7 @@ import com.bitdubai.fermat_api.layer.all_definition.runtime.FermatApp;
 import com.bitdubai.fermat_api.layer.modules.exceptions.ActorIdentityNotSelectedException;
 import com.bitdubai.fermat_api.layer.modules.exceptions.CantGetSelectedActorIdentityException;
 import com.bitdubai.fermat_api.layer.modules.interfaces.ModuleManager;
+import com.bitdubai.fermat_api.layer.osa_android.broadcaster.FermatBundle;
 import com.bitdubai.fermat_api.layer.pip_engine.desktop_runtime.DesktopObject;
 import com.bitdubai.fermat_api.layer.pip_engine.desktop_runtime.DesktopRuntimeManager;
 import com.bitdubai.fermat_pip_api.layer.platform_service.error_manager.enums.UnexpectedUIExceptionSeverity;
@@ -202,6 +203,7 @@ public abstract class FermatActivity extends AppCompatActivity implements
     private AppBarLayout appBarLayout;
     private CollapsingToolbarLayout collapsingToolbarLayout;
     private ViewPager pagertabs;
+    protected TabLayout tabLayout;
     private CoordinatorLayout coordinatorLayout;
     private DrawerLayout mDrawerLayout;
 
@@ -216,6 +218,10 @@ public abstract class FermatActivity extends AppCompatActivity implements
      */
     private RuntimeStructureManager runtimeStructureManager;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
     /**
      * Service
      */
@@ -646,7 +652,7 @@ public abstract class FermatActivity extends AppCompatActivity implements
      * Method used from app to paint tabs
      */
     protected void setPagerTabs(TabStrip tabStrip, FermatSession fermatSession,FermatFragmentFactory fermatFragmentFactory) {
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.setVisibility(View.VISIBLE);
         pagertabs = (ViewPager) findViewById(R.id.pager);
         pagertabs.setVisibility(View.VISIBLE);
@@ -1271,6 +1277,9 @@ public abstract class FermatActivity extends AppCompatActivity implements
                         case 1:
                             radioGroup.check(R.id.radioButton2);
                             break;
+                        case 2:
+                            radioGroup.check(R.id.radioButton3);
+                            break;
                     }
                 }
 
@@ -1383,8 +1392,13 @@ public abstract class FermatActivity extends AppCompatActivity implements
         }
         return fermatSession;
     }
+<<<<<<< HEAD
 
 
+=======
+
+
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
     //TODO: esto es un plugin más para el manejo de los desktops
     protected InstalledDesktop getDesktopManager(){
         return new FermatInstalledDesktop();
@@ -1476,9 +1490,31 @@ public abstract class FermatActivity extends AppCompatActivity implements
 
 
     public void notificateBroadcast(String appPublicKey,String code){
+<<<<<<< HEAD
         try {
             if(mNotificationServiceConnected){
                 notificationService.notificate(code,getFermatAppManager().getAppStructure(appPublicKey));
+=======
+        try {
+            if(mNotificationServiceConnected){
+                notificationService.notificate(code,getFermatAppManager().getAppStructure(appPublicKey));
+            }else{
+                Intent intent = new Intent(this, NotificationService.class);
+                //acá puedo mandarle el messenger con el handler para el callback
+                intent.putExtra(NotificationService.LOG_TAG,"Activity 1");
+                startService(intent);
+                bindService(intent, mServiceConnection, Context.BIND_AUTO_CREATE);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+    public void notificateBroadcast(String appPublicKey,FermatBundle bundle){
+        try {
+            if(mNotificationServiceConnected){
+                notificationService.notificate(appPublicKey,bundle);
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
             }else{
                 Intent intent = new Intent(this, NotificationService.class);
                 //acá puedo mandarle el messenger con el handler para el callback

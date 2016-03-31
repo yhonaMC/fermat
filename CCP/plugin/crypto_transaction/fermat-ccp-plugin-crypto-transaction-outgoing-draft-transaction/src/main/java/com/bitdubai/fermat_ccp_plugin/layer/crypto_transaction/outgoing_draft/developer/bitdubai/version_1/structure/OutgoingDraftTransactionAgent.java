@@ -10,6 +10,15 @@ import com.bitdubai.fermat_api.layer.all_definition.enums.ReferenceWallet;
 import com.bitdubai.fermat_api.layer.all_definition.events.EventSource;
 import com.bitdubai.fermat_api.layer.all_definition.events.interfaces.FermatEvent;
 import com.bitdubai.fermat_api.layer.all_definition.money.CryptoAddress;
+<<<<<<< HEAD
+=======
+import com.bitdubai.fermat_api.layer.all_definition.transaction_transference_protocol.crypto_transactions.CryptoTransaction;
+
+import com.bitdubai.fermat_api.layer.dmp_module.wallet_manager.CantLoadWalletsException;
+
+import com.bitdubai.fermat_api.layer.all_definition.transaction_transference_protocol.crypto_transactions.CryptoTransactionType;
+
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 import com.bitdubai.fermat_api.layer.osa_android.broadcaster.Broadcaster;
 import com.bitdubai.fermat_bch_api.layer.crypto_network.bitcoin.interfaces.BitcoinNetworkManager;
 import com.bitdubai.fermat_bch_api.layer.crypto_vault.bitcoin_vault.CryptoVaultManager;
@@ -19,7 +28,10 @@ import com.bitdubai.fermat_ccp_api.layer.basic_wallet.bitcoin_wallet.interfaces.
 import com.bitdubai.fermat_ccp_api.layer.basic_wallet.bitcoin_wallet.interfaces.BitcoinWalletWallet;
 import com.bitdubai.fermat_ccp_api.layer.basic_wallet.common.enums.BalanceType;
 import com.bitdubai.fermat_ccp_api.layer.basic_wallet.common.exceptions.CantCalculateBalanceException;
+<<<<<<< HEAD
 import com.bitdubai.fermat_ccp_api.layer.basic_wallet.common.exceptions.CantLoadWalletException;
+=======
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 import com.bitdubai.fermat_ccp_api.layer.basic_wallet.common.exceptions.CantRegisterDebitException;
 import com.bitdubai.fermat_ccp_api.layer.network_service.crypto_transmission.interfaces.CryptoTransmissionNetworkServiceManager;
 import com.bitdubai.fermat_ccp_plugin.layer.crypto_transaction.outgoing_draft.developer.bitdubai.version_1.database.OutgoingDraftTransactionDao;
@@ -204,7 +216,11 @@ public class OutgoingDraftTransactionAgent extends FermatAgent {
                         }
                     } catch (OutgoingIntraActorWalletNotSupportedException | CantCalculateBalanceException
                             | CantRegisterDebitException | OutgoingIntraActorCantCancelTransactionException
+<<<<<<< HEAD
                             | CantLoadWalletException e) {
+=======
+                            | CantLoadWalletsException e) {
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
                         //reportUnexpectedException(e);
                         dao.setToDIW(transaction);
                     }
@@ -221,7 +237,11 @@ public class OutgoingDraftTransactionAgent extends FermatAgent {
                         DraftTransaction draftTransaction = cryptoVaultManager.getDraftTransaction(transaction.getBlockchainNetworkType(), transaction.getTxHash());
 
                         System.out.print("-------------- send draft to cryptoVaultManager");
+<<<<<<< HEAD
                         draftTransaction = cryptoVaultManager.addInputsToDraftTransaction(draftTransaction, transaction.getValueToSend(), transaction.getAddressTo());
+=======
+                        draftTransaction = cryptoVaultManager.addInputsToDraftTransaction(draftTransaction, transaction.getValueToSend(), transaction.getAddressTo(), transaction.getBlockchainNetworkType());
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 
                         // just send the metadata in this place. This MUST be corrected.
                         dao.updateTxHash(transaction.getRequestId(), draftTransaction.getTxHash());
@@ -271,12 +291,25 @@ public class OutgoingDraftTransactionAgent extends FermatAgent {
         private void checkConfirmedTransactions() {
             try {
                 for (OutgoingDraftTransactionWrapper transaction : dao.getAllInState(TransactionState.SUCCESSFUL_SIG)) {
+<<<<<<< HEAD
                     switch (bitcoinNetworkManager.getCryptoStatus(transaction.getTxHash())) {
                         case ON_BLOCKCHAIN:
                         case IRREVERSIBLE:
                             debitFromWallet(buildBitcoinTransaction(transaction), transaction.getReferenceWallet(), transaction.getWalletPublicKey(), BalanceType.BOOK);
                             dao.setToCompleted(transaction);
                             break;
+=======
+                    List<CryptoTransaction> cryptoTransactions = bitcoinNetworkManager.getCryptoTransactions(transaction.getBlockchainNetworkType(), transaction.getAddressTo(), CryptoTransactionType.OUTGOING);
+                    dance:
+                    for (CryptoTransaction cryptoTx : cryptoTransactions) {
+                        switch (cryptoTx.getCryptoStatus()) {
+                            case ON_BLOCKCHAIN:
+                            case IRREVERSIBLE:
+                                debitFromWallet(buildBitcoinTransaction(transaction), transaction.getReferenceWallet(), transaction.getWalletPublicKey(), BalanceType.BOOK);
+                                dao.setToCompleted(transaction);
+                                break dance; //If we find our transaction then a single update is needed, so we'll break the for
+                        }
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
                     }
                 }
             } catch (Exception e) {
@@ -288,7 +321,11 @@ public class OutgoingDraftTransactionAgent extends FermatAgent {
 
         }
 
+<<<<<<< HEAD
         private boolean thereAreEnoughFunds(OutgoingDraftTransactionWrapper transaction) throws OutgoingIntraActorWalletNotSupportedException, CantCalculateBalanceException, CantLoadWalletException {
+=======
+        private boolean thereAreEnoughFunds(OutgoingDraftTransactionWrapper transaction) throws OutgoingIntraActorWalletNotSupportedException, CantCalculateBalanceException, CantLoadWalletsException {
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
             return getWalletAvailableBalance(transaction.getWalletPublicKey(), transaction.getReferenceWallet(), transaction.getBlockchainNetworkType()) >= transaction.getValueToSend();
         }
 
@@ -296,7 +333,11 @@ public class OutgoingDraftTransactionAgent extends FermatAgent {
             this.errorManager.reportUnexpectedPluginException(Plugins.BITDUBAI_CCP_OUTGOING_INTRA_ACTOR_TRANSACTION, UnexpectedPluginExceptionSeverity.DISABLES_SOME_FUNCTIONALITY_WITHIN_THIS_PLUGIN, e);
         }
 
+<<<<<<< HEAD
         private long getWalletAvailableBalance(String walletPublicKey, ReferenceWallet referenceWallet, BlockchainNetworkType blockchainNetworkType) throws CantLoadWalletException, CantCalculateBalanceException, OutgoingIntraActorWalletNotSupportedException {
+=======
+        private long getWalletAvailableBalance(String walletPublicKey, ReferenceWallet referenceWallet, BlockchainNetworkType blockchainNetworkType) throws CantLoadWalletsException, CantCalculateBalanceException, OutgoingIntraActorWalletNotSupportedException {
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
             switch (referenceWallet) {
                 case BASIC_WALLET_BITCOIN_WALLET:
                     return this.bitcoinWalletManager.loadWallet(walletPublicKey).getBalance(BalanceType.AVAILABLE).getBalance(blockchainNetworkType);
@@ -305,7 +346,11 @@ public class OutgoingDraftTransactionAgent extends FermatAgent {
             }
         }
 
+<<<<<<< HEAD
         private void debitFromWallet(BitcoinWalletTransactionRecord transaction, ReferenceWallet referenceWallet, String walletPublicKey, BalanceType balanceType) throws CantLoadWalletException, CantRegisterDebitException, OutgoingIntraActorWalletNotSupportedException {
+=======
+        private void debitFromWallet(BitcoinWalletTransactionRecord transaction, ReferenceWallet referenceWallet, String walletPublicKey, BalanceType balanceType) throws CantLoadWalletsException, CantRegisterDebitException, OutgoingIntraActorWalletNotSupportedException {
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
             switch (referenceWallet) {
                 case BASIC_WALLET_BITCOIN_WALLET:
                     this.bitcoinWalletManager.loadWallet(walletPublicKey).getBalance(balanceType).debit(transaction);

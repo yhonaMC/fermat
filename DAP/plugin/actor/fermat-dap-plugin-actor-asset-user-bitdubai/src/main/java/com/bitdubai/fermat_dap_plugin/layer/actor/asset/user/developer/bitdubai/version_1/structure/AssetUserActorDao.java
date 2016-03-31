@@ -375,9 +375,55 @@ public class AssetUserActorDao implements Serializable {
             throw new CantAddPendingActorAssetException("CAN'T INSERT ASSET USER REGISTERED IN ACTOR NETWORK SERVICE", FermatException.wrapException(e), "", "Cant update exist ASSET USER REGISTERED IN ACTOR NETWORK SERVICE state, unknown failure.");
         } catch (Exception e) {
             throw new CantAddPendingActorAssetException("CAN'T INSERT ASSET USER", FermatException.wrapException(e), "", "Cant create new ASSET USER, unknown failure.");
+<<<<<<< HEAD
+=======
         }
     }
 
+    public void updateOfflineUserRegisterInNetworkService(List<ActorAssetUser> onlineUsersInNetworkService) throws CantGetAssetUsersListException, CantUpdateAssetUserConnectionException {
+
+        try {
+            List<ActorAssetUser> list = getAllAssetUserActorRegistered();
+
+            for (ActorAssetUser registeredUser : list)
+            {
+                if (notInNetworkService(registeredUser,onlineUsersInNetworkService))
+                {
+                    if (registeredUser.getDapConnectionState().equals(DAPConnectionState.CONNECTED_ONLINE))
+                        updateAssetUserDAPConnectionStateActorNetworkService(registeredUser, DAPConnectionState.CONNECTED_OFFLINE, registeredUser.getCryptoAddress());
+                    else if (registeredUser.getDapConnectionState().equals(DAPConnectionState.REGISTERED_ONLINE))
+                        updateAssetUserDAPConnectionStateActorNetworkService(registeredUser, DAPConnectionState.REGISTERED_OFFLINE,registeredUser.getCryptoAddress());
+                }
+                else
+                {
+                    if (registeredUser.getDapConnectionState().equals(DAPConnectionState.CONNECTED_OFFLINE))
+                        updateAssetUserDAPConnectionStateActorNetworkService(registeredUser, DAPConnectionState.CONNECTED_ONLINE, registeredUser.getCryptoAddress());
+                    else if (registeredUser.getDapConnectionState().equals(DAPConnectionState.REGISTERED_OFFLINE))
+                        updateAssetUserDAPConnectionStateActorNetworkService(registeredUser, DAPConnectionState.REGISTERED_ONLINE,registeredUser.getCryptoAddress());
+                }
+            }
+
+        } catch (CantGetAssetUsersListException e) {
+            throw new CantGetAssetUsersListException(e.getMessage(), e, "Asset User Actor", "Cant load " + AssetUserActorDatabaseConstants.ASSET_USER_TABLE_NAME + " table in memory.");
+        } catch (CantUpdateAssetUserConnectionException e) {
+            throw new CantUpdateAssetUserConnectionException(e.getMessage(), e, "Asset User Actor", "Cant update state in " + AssetUserActorDatabaseConstants.ASSET_USER_TABLE_NAME + "");
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
+        }
+
+    }
+
+<<<<<<< HEAD
+=======
+    private boolean notInNetworkService(ActorAssetUser registeredUser, List<ActorAssetUser> onlineUsersInNetworkService) {
+
+        for (ActorAssetUser onlineUser : onlineUsersInNetworkService) {
+            if (onlineUser.getActorPublicKey().equals(registeredUser.getActorPublicKey()))
+                return false;
+        }
+        return true;
+    }
+
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
     public int createNewAssetUserRegisterInNetworkServiceByList(List<ActorAssetUser> actorAssetUserRecord) throws CantAddPendingActorAssetException {
         int recordInsert = 0;
         try {
@@ -422,10 +468,17 @@ public class AssetUserActorDao implements Serializable {
                             record.setStringValue(AssetUserActorDatabaseConstants.ASSET_USER_REGISTERED_GENDER_COLUMN_NAME, Genders.INDEFINITE.getCode());
                         else
                             record.setStringValue(AssetUserActorDatabaseConstants.ASSET_USER_REGISTERED_GENDER_COLUMN_NAME, actorAssetUser.getGenders().getCode());
+<<<<<<< HEAD
 
 
 //                        if (record.getStringValue(AssetUserActorDatabaseConstants.ASSET_USER_REGISTERED_CRYPTO_ADDRESS_COLUMN_NAME) != null) {
                             record.setStringValue(AssetUserActorDatabaseConstants.ASSET_USER_REGISTERED_CONNECTION_STATE_COLUMN_NAME, DAPConnectionState.REGISTERED_ONLINE.getCode());//actorAssetUser.getDAPConnectionState().getCode());
+=======
+
+
+//                        if (record.getStringValue(AssetUserActorDatabaseConstants.ASSET_USER_REGISTERED_CRYPTO_ADDRESS_COLUMN_NAME) != null) {
+                        record.setStringValue(AssetUserActorDatabaseConstants.ASSET_USER_REGISTERED_CONNECTION_STATE_COLUMN_NAME, DAPConnectionState.REGISTERED_ONLINE.getCode());//actorAssetUser.getDAPConnectionState().getCode());
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 //                        } else {
 //                            record.setStringValue(AssetUserActorDatabaseConstants.ASSET_USER_REGISTERED_CONNECTION_STATE_COLUMN_NAME, DAPConnectionState.CONNECTED_ONLINE.getCode());//actorAssetUser.getDAPConnectionState().getCode());
 //                        }
@@ -915,6 +968,8 @@ public class AssetUserActorDao implements Serializable {
             table.loadToMemory();
             // 3) Get Asset Users Record.
             this.addRecordsTableRegisteredToList(list, table.getRecords(), null);
+<<<<<<< HEAD
+=======
 
         } catch (CantLoadTableToMemoryException e) {
             throw new CantGetAssetUsersListException(e.getMessage(), e, "Asset User Actor", "Cant load " + AssetUserActorDatabaseConstants.ASSET_USER_REGISTERED_TABLE_NAME + " table in memory.");
@@ -927,6 +982,42 @@ public class AssetUserActorDao implements Serializable {
         return list;
     }
 
+    public List<ActorAssetUser> getAllAssetUserActorRegistered(BlockchainNetworkType blockchainNetworkType) throws CantGetAssetUsersListException {
+        List<ActorAssetUser> list = new ArrayList<>(); // Asset User Actor list.
+
+        DatabaseTable table;
+
+        // Get Asset Users identities list.
+        try {
+            /**
+             * 1) Get the table.
+             */
+            table = this.database.getTable(AssetUserActorDatabaseConstants.ASSET_USER_REGISTERED_TABLE_NAME);
+
+            if (table == null) {
+                /**
+                 * Table not found.
+                 */
+                throw new CantGetUserDeveloperIdentitiesException("Cant get asset User identity list, table not found.", "Plugin Identity", "Cant get asset user identity list, table not found.");
+            }//TODO Filtro de Busqueda en Tabla NO colocado para que traiga toda la informacion que contiene
+
+            table.loadToMemory();
+            // 3) Get Asset Users Record.
+            this.addRecordsTableRegisteredToList(list, table.getRecords(), blockchainNetworkType);
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
+
+        } catch (CantLoadTableToMemoryException e) {
+            throw new CantGetAssetUsersListException(e.getMessage(), e, "Asset User Actor", "Cant load " + AssetUserActorDatabaseConstants.ASSET_USER_REGISTERED_TABLE_NAME + " table in memory.");
+        } catch (CantGetAssetUserActorProfileImageException e) {
+            throw new CantGetAssetUsersListException(e.getMessage(), e, "Asset User Actor", "Can't get profile ImageMiddleware.");
+        } catch (Exception e) {
+            throw new CantGetAssetUsersListException(e.getMessage(), FermatException.wrapException(e), "Asset User Actor", "Cant get Asset User Actor list, unknown failure.");
+        }
+        // Return the list values.
+        return list;
+    }
+
+<<<<<<< HEAD
     public List<ActorAssetUser> getAllAssetUserActorRegistered(BlockchainNetworkType blockchainNetworkType) throws CantGetAssetUsersListException {
         List<ActorAssetUser> list = new ArrayList<>(); // Asset User Actor list.
 
@@ -963,6 +1054,10 @@ public class AssetUserActorDao implements Serializable {
 
     public List<ActorAssetUser> getAllAssetUserActorConnected(BlockchainNetworkType blockchainNetworkType) throws CantGetAssetUsersListException {
         List<ActorAssetUser> list = new ArrayList<>(); // Asset User Actor list.
+=======
+    public List<ActorAssetUser> getAllAssetUserActorConnected(BlockchainNetworkType blockchainNetworkType) throws CantGetAssetUsersListException {
+        List<ActorAssetUser> list = new ArrayList<>(); // Asset User Actor list.
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
         List<ActorAssetUser> auxList = new ArrayList<>();
         DatabaseTable table;
         // Get Asset Users identities list.
@@ -1158,7 +1253,11 @@ public class AssetUserActorDao implements Serializable {
         return actorAssetUser;
     }
 
+<<<<<<< HEAD
     private void addRecordsTableRegisteredToList(List<ActorAssetUser> list, List<DatabaseTableRecord> records, BlockchainNetworkType blockchainNetworkType) throws InvalidParameterException, CantGetAssetUserActorProfileImageException, CantGetAssetUserCryptoAddressTableExcepcion, CantGetAssetUsersCryptoAddressListException {
+=======
+    private void addRecordsTableRegisteredToList(List<ActorAssetUser> list, List<DatabaseTableRecord> records, BlockchainNetworkType blockchainNetworkType) throws InvalidParameterException, CantGetAssetUserActorProfileImageException, CantGetAssetUserCryptoAddressTableExcepcion, CantGetAssetUsersCryptoAddressListException, CantUpdateAssetUserConnectionException {
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 
         for (DatabaseTableRecord record : records) {
             Genders genders = Genders.INDEFINITE;
@@ -1183,6 +1282,34 @@ public class AssetUserActorDao implements Serializable {
             if (blockchainNetworkType != null) {
                 getCryptoAddressNetwork(user, blockchainNetworkType);
             }
+<<<<<<< HEAD
+=======
+
+            if (user.getCryptoAddress() != null)
+            {
+                if (user.getDapConnectionState().equals(DAPConnectionState.REGISTERED_ONLINE)) {
+                    updateAssetUserDAPConnectionStateActorNetworkService(user, DAPConnectionState.CONNECTED_ONLINE, user.getCryptoAddress());
+                    user.setConnectionState(DAPConnectionState.CONNECTED_ONLINE);
+                }
+                else if (user.getDapConnectionState().equals(DAPConnectionState.REGISTERED_OFFLINE))
+                {
+                    updateAssetUserDAPConnectionStateActorNetworkService(user, DAPConnectionState.CONNECTED_OFFLINE, user.getCryptoAddress());
+                    user.setConnectionState(DAPConnectionState.CONNECTED_OFFLINE);
+                }
+            }
+            else
+            {
+                if (user.getDapConnectionState().equals(DAPConnectionState.CONNECTED_ONLINE)) {
+                    updateAssetUserDAPConnectionStateActorNetworkService(user, DAPConnectionState.REGISTERED_ONLINE, user.getCryptoAddress());
+                    user.setConnectionState(DAPConnectionState.REGISTERED_ONLINE);
+                }
+                else if (user.getDapConnectionState().equals(DAPConnectionState.CONNECTED_OFFLINE))
+                {
+                    updateAssetUserDAPConnectionStateActorNetworkService(user, DAPConnectionState.REGISTERED_OFFLINE, user.getCryptoAddress());
+                    user.setConnectionState(DAPConnectionState.REGISTERED_OFFLINE);
+                }
+            }
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
             list.add(user);
             
         }

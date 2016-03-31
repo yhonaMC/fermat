@@ -17,7 +17,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+<<<<<<< HEAD
     android:paddingTop="32dp">
+=======
+    android:paddingTop="32dp"
+    >
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 
     <!-- Recents View -->
     <com.wirelesspienetwork.overview.views.Overview
@@ -25,5 +30,27 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:focusable="true" />
+<<<<<<< HEAD
+=======
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/loading_empty_view"
+        >
+
+        <com.bitdubai.fermat_android_api.layer.definition.wallet.views.FermatTextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/empty_text"
+            android:text="Loading..."
+            android:textColor="#000"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:paddingBottom="90dp"
+            android:visibility="gone"/>
+
+    </LinearLayout>
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 
 </FrameLayout>

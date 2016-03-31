@@ -326,7 +326,11 @@ public class AssetTransferFragment extends AbstractFermatFragment {
             e.printStackTrace();
         }
 
+<<<<<<< HEAD
         toolbar.setTitle(digitalAsset.getName());
+=======
+//        toolbar.setTitle(digitalAsset.getName());
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 
         byte[] img = (digitalAsset.getImage() == null) ? new byte[0] : digitalAsset.getImage();
         BitmapWorkerTask bitmapWorkerTask = new BitmapWorkerTask(assetTransferImage, res, R.drawable.img_asset_without_image, false);

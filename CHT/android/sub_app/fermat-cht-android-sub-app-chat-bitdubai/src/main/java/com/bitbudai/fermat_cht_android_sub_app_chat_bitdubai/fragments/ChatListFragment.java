@@ -146,35 +146,70 @@ public class ChatListFragment extends AbstractFermatFragment{
 
     public void chatlistview (){
 
+<<<<<<< HEAD
         int sizeofmessagelist=0;
         UUID chatidtemp;
         String contactid;
         String name,message,datemessage,chatid;
+=======
+        UUID chatidtemp;
+        String contactid;
+        String status;
+        String from;
+        String name="",message="",datemessage="",chatid="";
+        int noreadmsgs=0;
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
         try {
 
             //for (int i=0;i<chatManager.getChats().size();i++){
             List<Chat> chats = chatManager.getChats();
             if (chats != null && chats.size() > 0) {
                 infochat.clear();
+<<<<<<< HEAD
                 for (Chat chat : chats) {//for (int i=0;i<chatManager.getChats().size();i++){
+=======
+                for (Chat chat : chats) {
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
                     chatidtemp = chat.getChatId();
                     if (chatidtemp != null) {
                         List<Message> messageChat = chatManager.getMessageByChatId(chatidtemp);//
                         if (messageChat != null) {
+<<<<<<< HEAD
                             Message mess = messageChat.get(0);//3er chat id en mensajes buscar
                             if (mess != null) {
                                 List<Message> messl = chatManager.getMessageByChatId(chatidtemp);
+=======
+                            Message mess = messageChat.get(0);
+                            noreadmsgs=0;
+                            if (mess != null) {
+                                List<Message> messl = chatManager.getMessageByChatId(chatidtemp);
+                                if (messl != null && messl.size() > 0) {
+                                    for (Message mss : messl) {
+                                        if(mss.getType().toString().equals(TypeMessage.INCOMMING.toString()) && !(mss.getStatus().toString().equals(MessageStatus.READ.toString()))){
+                                            noreadmsgs++;
+                                        }
+                                    }
+                                }
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
                                 contactid = String.valueOf(mess.getContactId());
                                 Contact cont = chatManager.getContactByContactId(mess.getContactId());
                                 name = cont.getRemoteName();
                                 message = messl.get(messl.size() - 1).getMessage();
+<<<<<<< HEAD
+=======
+                                status = messl.get(messl.size() - 1).getStatus().toString();
+                                from = messl.get(messl.size() - 1).getType().toString();
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
                                 Chat chatl = chatManager.getChatByChatId(chatidtemp);
                                 long timemess = chatl.getLastMessageDate().getTime();
                                 long nanos = (chatl.getLastMessageDate().getNanos() / 1000000);
                                 long milliseconds = timemess + nanos;
                                 Date dated= new java.util.Date(milliseconds);
+<<<<<<< HEAD
                                 //String datef= DateFormat.getDateTimeInstance().format(dated);
                                 //Date to =new Date(datef);
+=======
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
                                 if (Validate.isDateToday(dated)) {
                                     datemessage = new SimpleDateFormat("HH:mm").format(new java.util.Date(milliseconds));
                                 }else {
@@ -187,7 +222,11 @@ public class ChatListFragment extends AbstractFermatFragment{
                                         datemessage = new SimpleDateFormat("dd/MM/yy").format(new java.util.Date(milliseconds));//.toString();
                                 }
                                 chatid = chatidtemp.toString();
+<<<<<<< HEAD
                                 infochat.add(name + "@#@#" + message + "@#@#" + datemessage + "@#@#" + chatid + "@#@#" + contactid + "@#@#");
+=======
+                                infochat.add(name + "@#@#" + message + "@#@#" + datemessage + "@#@#" + chatid + "@#@#" + contactid + "@#@#"+ status + "@#@#"+ from + "@#@#"+ noreadmsgs + "@#@#");
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
                                 ByteArrayInputStream bytes = new ByteArrayInputStream(cont.getProfileImage());
                                 BitmapDrawable bmd = new BitmapDrawable(bytes);
                                 imgid.add(bmd.getBitmap());
@@ -273,7 +312,11 @@ public class ChatListFragment extends AbstractFermatFragment{
                 text.setVisibility(View.GONE);
                 noData.setVisibility(View.GONE);
             }else{
+<<<<<<< HEAD
                 Toast.makeText(getActivity(), "No chats, swipe to create with contact table", Toast.LENGTH_SHORT).show();
+=======
+                //Toast.makeText(getActivity(), "No chats, swipe to create with contact table", Toast.LENGTH_SHORT).show();
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
                 text.setVisibility(View.VISIBLE);
                 noData.setVisibility(View.VISIBLE);
                 text.setText(" ");

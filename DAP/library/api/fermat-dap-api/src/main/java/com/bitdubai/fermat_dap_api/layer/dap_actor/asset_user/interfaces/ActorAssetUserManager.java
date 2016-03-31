@@ -78,6 +78,11 @@ public interface ActorAssetUserManager extends FermatManager {
      */
     void createActorAssetUserRegisterInNetworkService(List<ActorAssetUser> actorAssetUsers) throws CantCreateAssetUserActorException;
 
+<<<<<<< HEAD
+=======
+    void updateOfflineUserRegisterInNetworkService(List<ActorAssetUser> actorAssetUsers) throws CantGetAssetUserActorsException;
+
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
     void createActorAssetUserRegisterInNetworkService(ActorAssetUser actorAssetUsers) throws CantCreateAssetUserActorException;
     /**
      * The method <code>getActorPublicKey</code> get All Information about Actor
@@ -151,7 +156,7 @@ public interface ActorAssetUserManager extends FermatManager {
      * @param actorAssetUserGroupMember
      * @throws CantCreateAssetUserGroupException
      */
-    void addAssetUserToGroup (ActorAssetUserGroupMember actorAssetUserGroupMember) throws CantCreateAssetUserGroupException;
+    void addAssetUserToGroup(ActorAssetUserGroupMember actorAssetUserGroupMember) throws CantCreateAssetUserGroupException;
 
     /**
      * The method <code>removeAssetUserFromGroup</code> Remove a user from group
@@ -174,7 +179,11 @@ public interface ActorAssetUserManager extends FermatManager {
      * @return
      * @throws CantGetAssetUserActorsException
      */
+<<<<<<< HEAD
     List<ActorAssetUser> getListActorAssetUserByGroups (String groupId, BlockchainNetworkType blockchainNetworkType) throws CantGetAssetUserActorsException;
+=======
+    List<ActorAssetUser> getListActorAssetUserByGroups(String groupId, BlockchainNetworkType blockchainNetworkType) throws CantGetAssetUserActorsException;
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 
     /**
      * The method <code>getListAssetUserGroupsByActorAssetUser</code> Returns a list of groups by asset user
@@ -207,10 +216,17 @@ public interface ActorAssetUserManager extends FermatManager {
      * @throws CantAskConnectionActorAssetException if something goes wrong.
      */
     void askActorAssetUserForConnection(String actorAssetUserIdentityToLinkPublicKey,
+<<<<<<< HEAD
                                         String actorAssetUserToAddName              ,
                                         String actorAssetUserToAddPublicKey         ,
                                         byte[] profileImage                         ,
                                         BlockchainNetworkType blockchainNetworkType ) throws CantAskConnectionActorAssetException, CantRequestAlreadySendActorAssetException;
+=======
+                                        String actorAssetUserToAddName,
+                                        String actorAssetUserToAddPublicKey,
+                                        byte[] profileImage,
+                                        BlockchainNetworkType blockchainNetworkType) throws CantAskConnectionActorAssetException, CantRequestAlreadySendActorAssetException;
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 
 
     /**

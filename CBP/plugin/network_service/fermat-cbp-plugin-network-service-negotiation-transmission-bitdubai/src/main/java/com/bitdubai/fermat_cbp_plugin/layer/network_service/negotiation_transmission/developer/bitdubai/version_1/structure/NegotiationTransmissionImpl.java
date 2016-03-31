@@ -10,7 +10,10 @@ import com.bitdubai.fermat_cbp_api.all_definition.enums.NegotiationTransmissionT
 import com.bitdubai.fermat_cbp_api.all_definition.enums.NegotiationType;
 import com.bitdubai.fermat_cbp_api.layer.network_service.negotiation_transmission.enums.ActorProtocolState;
 import com.bitdubai.fermat_cbp_api.layer.network_service.negotiation_transmission.interfaces.NegotiationTransmission;
+<<<<<<< HEAD
 import com.bitdubai.fermat_ccp_api.layer.network_service.intra_actor.enums.NotificationDescriptor;
+=======
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -38,9 +41,15 @@ public class NegotiationTransmissionImpl implements NegotiationTransmission {
     private boolean pendingFlag;
     private boolean flagRead;
     private int sentCount;
+<<<<<<< HEAD
 
     private UUID responseToNotificationId;
 
+=======
+
+    private UUID responseToNotificationId;
+
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
     //OLD ONE
     public NegotiationTransmissionImpl(
             final UUID transmissionId,
@@ -194,6 +203,7 @@ public class NegotiationTransmissionImpl implements NegotiationTransmission {
     public void setNegotiationType(NegotiationType negotiationType){
         this.negotiationType = negotiationType;
     }
+<<<<<<< HEAD
 
     @Override
     public String getNegotiationXML() {
@@ -226,6 +236,40 @@ public class NegotiationTransmissionImpl implements NegotiationTransmission {
     }
 
     @Override
+=======
+
+    @Override
+    public String getNegotiationXML() {
+        return negotiationXML;
+    }
+
+    @Override
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    @Override
+    public boolean isPendingToRead() {
+        return this.pendingFlag;
+    }
+
+    @Override
+    public void confirmRead() {
+        this.pendingFlag = true;
+    }
+
+    @Override
+    public void setNegotiationTransactionType(NegotiationTransactionType type) {
+        this.negotiationTransactionType = type;
+    }
+
+    @Override
+    public void setTransmissionType(NegotiationTransmissionType type) {
+        this.transmissionType = type;
+    }
+
+    @Override
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
     public void setTransmissionState(NegotiationTransmissionState state) {
         this.transmissionState = state;
     }

@@ -113,6 +113,10 @@ public class WsCommunicationsTyrusCloudClientChannel {
 
         /**
          * if Packet is bigger than 1000 Send the message through of sendDividedChain
+<<<<<<< HEAD
+=======
+         *
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
          */
         if(message.length() > 1000){
 
@@ -123,7 +127,12 @@ public class WsCommunicationsTyrusCloudClientChannel {
             }
 
         }else{
+<<<<<<< HEAD
             clientConnection.getAsyncRemote().sendText(message);
+=======
+            if(clientConnection!=null && clientConnection.isOpen())
+                clientConnection.getAsyncRemote().sendText(message);
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
         }
 
     }
@@ -508,10 +517,20 @@ public class WsCommunicationsTyrusCloudClientChannel {
 
         for(int i = 0; i < ref-1; i++){
 
+<<<<<<< HEAD
             clientConnection.getBasicRemote().sendText(message.substring(beginIndex, endIndex), Boolean.FALSE);
             beginIndex = endIndex;
             endIndex = endIndex + 1000;
 
+=======
+            if(clientConnection!=null && clientConnection.isOpen()) {
+                clientConnection.getBasicRemote().sendText(message.substring(beginIndex, endIndex), Boolean.FALSE);
+                beginIndex = endIndex;
+                endIndex = endIndex + 1000;
+            }else{
+                raiseClientConnectionCloseNotificationEvent();
+            }
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
         }
 
         /*

@@ -152,8 +152,17 @@ public class AssetIssuingDAO {
             if (records.isEmpty()) throw new RecordsNotFoundException();
             DatabaseTableRecord record = records.get(0);
             int assetsProcessed = record.getIntegerValue(AssetIssuingDatabaseConstants.ASSET_ISSUING_ASSETS_PROCESSED_COLUMN_NAME);
+<<<<<<< HEAD
 
             record.setIntegerValue(AssetIssuingDatabaseConstants.ASSET_ISSUING_ASSETS_COMPLETED_COLUMN_NAME, ++assetsProcessed);
+=======
+            int assetsToGenerate = record.getIntegerValue(AssetIssuingDatabaseConstants.ASSET_ISSUING_ASSETS_TO_GENERATE_COLUMN_NAME);
+
+            record.setIntegerValue(AssetIssuingDatabaseConstants.ASSET_ISSUING_ASSETS_PROCESSED_COLUMN_NAME, ++assetsProcessed);
+            if (assetsProcessed >= assetsToGenerate) {
+                record.setStringValue(AssetIssuingDatabaseConstants.ASSET_ISSUING_ISSUING_STATUS_COLUMN_NAME, IssuingStatus.PROCESSED.getCode());
+            }
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
             databaseTable.updateRecord(record);
         } catch (Exception exception) {
             throw new CantCreateDigitalAssetTransactionException(FermatException.wrapException(exception), context, "Unexpected exception");
@@ -194,7 +203,10 @@ public class AssetIssuingDAO {
         try {
             updateRecordsForTableByFilter(getIssuingTable(), AssetIssuingDatabaseConstants.ASSET_ISSUING_PROCESSING_COLUMN_NAME, Boolean.FALSE, AssetIssuingDatabaseConstants.ASSET_ISSUING_ISSUING_STATUS_COLUMN_NAME, IssuingStatus.ISSUING.getCode());
         } catch (Exception e) {
+<<<<<<< HEAD
             e.printStackTrace();
+=======
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
             //Nothing.
         }
     }

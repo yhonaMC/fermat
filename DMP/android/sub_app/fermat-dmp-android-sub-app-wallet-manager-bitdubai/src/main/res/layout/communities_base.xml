@@ -81,9 +81,16 @@
     </FrameLayout>
 
 
+<<<<<<< HEAD
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+=======
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
@@ -91,14 +98,25 @@
             android:id="@+id/communities_recycler_view"
             android:paddingRight="7dp"
             android:paddingLeft="7dp"
+<<<<<<< HEAD
             tools:listitem="@layout/communities_row"/>
+=======
+            tools:listitem="@layout/communities_row"
+            android:layout_weight="50"/>
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+<<<<<<< HEAD
             android:layout_gravity="bottom"
             android:elevation="30dp"
+=======
+            android:layout_alignParentBottom="true"
+            android:elevation="30dp"
+            android:layout_weight="1"
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
             >
 
             <View
@@ -141,7 +159,11 @@
         </LinearLayout>
 
 
+<<<<<<< HEAD
     </FrameLayout>
+=======
+    </LinearLayout>
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 
 
 </LinearLayout>

@@ -1,11 +1,12 @@
-package com.bitdubai.fermat_ccp_api.layer.actor.intra_user.exceptions;
+package com.bitdubai.fermat_ccp_plugin.layer.network_service.crypto_transmission.developer.bitdubai.version_1.exceptions;
 
 import com.bitdubai.fermat_api.FermatException;
 
 /**
- * Created by natalia on 05/10/15.
+ * Created by mati on 2015.10.05..
  */
-public class CantGetNotificationException extends FermatException {
+public class CantSaveCryptoTransmissionMetadatatException extends FermatException {
+
     /**
      * This is the constructor that every inherited FermatException must implement
      *
@@ -14,7 +15,7 @@ public class CantGetNotificationException extends FermatException {
      * @param context        a String that provides the values of the variables that could have affected the exception
      * @param possibleReason an explicative reason of why we believe this exception was most likely thrown
      */
-    public CantGetNotificationException(String message, Exception cause, String context, String possibleReason) {
+    public CantSaveCryptoTransmissionMetadatatException(String message, Exception cause, String context, String possibleReason) {
         super(message, cause, context, possibleReason);
     }
 }

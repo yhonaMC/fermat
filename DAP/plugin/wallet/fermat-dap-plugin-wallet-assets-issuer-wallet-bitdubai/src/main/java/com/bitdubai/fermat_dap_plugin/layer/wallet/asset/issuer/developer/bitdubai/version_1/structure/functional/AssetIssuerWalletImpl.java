@@ -5,6 +5,10 @@ import com.bitdubai.fermat_api.layer.all_definition.enums.Actors;
 import com.bitdubai.fermat_api.layer.all_definition.enums.BlockchainNetworkType;
 import com.bitdubai.fermat_api.layer.all_definition.enums.Plugins;
 import com.bitdubai.fermat_api.layer.all_definition.util.XMLParser;
+<<<<<<< HEAD
+=======
+import com.bitdubai.fermat_api.layer.osa_android.broadcaster.Broadcaster;
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
 import com.bitdubai.fermat_api.layer.osa_android.database_system.Database;
 import com.bitdubai.fermat_api.layer.osa_android.database_system.PluginDatabaseSystem;
 import com.bitdubai.fermat_api.layer.osa_android.database_system.exceptions.CantCreateDatabaseException;
@@ -90,13 +94,23 @@ public class AssetIssuerWalletImpl implements AssetIssuerWallet {
 
     private final ActorAssetIssuerManager assetIssuerManager;
 
+<<<<<<< HEAD
+=======
+    private Broadcaster broadcaster;
+
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
     public AssetIssuerWalletImpl(ErrorManager errorManager,
                                  PluginDatabaseSystem pluginDatabaseSystem,
                                  PluginFileSystem pluginFileSystem,
                                  UUID pluginId,
                                  ActorAssetUserManager actorAssetUserManager,
                                  ActorAssetRedeemPointManager actorAssetRedeemPointManager,
+<<<<<<< HEAD
                                  ActorAssetIssuerManager assetIssuerManager) {
+=======
+                                 ActorAssetIssuerManager assetIssuerManager,
+                                 Broadcaster broadcaster) {
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
         this.errorManager = errorManager;
         this.pluginDatabaseSystem = pluginDatabaseSystem;
         this.pluginFileSystem = pluginFileSystem;
@@ -104,6 +118,10 @@ public class AssetIssuerWalletImpl implements AssetIssuerWallet {
         this.actorAssetUserManager = actorAssetUserManager;
         this.actorAssetRedeemPointManager = actorAssetRedeemPointManager;
         this.assetIssuerManager = assetIssuerManager;
+<<<<<<< HEAD
+=======
+        this.broadcaster = broadcaster;
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
     }
 
     public void initialize(UUID walletId) throws CantInitializeAssetIssuerWalletException {
@@ -189,7 +207,11 @@ public class AssetIssuerWalletImpl implements AssetIssuerWallet {
     @Override
     public AssetIssuerWalletBalance getBalance() throws CantGetTransactionsException {
         try {
+<<<<<<< HEAD
             return new AssetIssuerWallletBalanceImpl(assetIssuerWalletDao);
+=======
+            return new AssetIssuerWallletBalanceImpl(assetIssuerWalletDao, broadcaster);
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
         } catch (Exception exception) {
             errorManager.reportUnexpectedPluginException(Plugins.BITDUBAI_ASSET_WALLET_ISSUER, UnexpectedPluginExceptionSeverity.DISABLES_SOME_FUNCTIONALITY_WITHIN_THIS_PLUGIN, FermatException.wrapException(exception));
             throw new CantGetTransactionsException(CantGetTransactionsException.DEFAULT_MESSAGE, FermatException.wrapException(exception), null, null);

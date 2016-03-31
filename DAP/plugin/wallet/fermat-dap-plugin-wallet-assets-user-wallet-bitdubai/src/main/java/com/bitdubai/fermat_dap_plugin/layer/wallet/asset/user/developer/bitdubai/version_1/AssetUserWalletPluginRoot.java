@@ -18,6 +18,7 @@ import com.bitdubai.fermat_api.layer.all_definition.enums.Platforms;
 import com.bitdubai.fermat_api.layer.all_definition.enums.Plugins;
 import com.bitdubai.fermat_api.layer.all_definition.enums.ServiceStatus;
 import com.bitdubai.fermat_api.layer.all_definition.util.Version;
+import com.bitdubai.fermat_api.layer.osa_android.broadcaster.Broadcaster;
 import com.bitdubai.fermat_api.layer.osa_android.database_system.Database;
 import com.bitdubai.fermat_api.layer.osa_android.database_system.PluginDatabaseSystem;
 import com.bitdubai.fermat_api.layer.osa_android.database_system.exceptions.CantOpenDatabaseException;
@@ -74,6 +75,12 @@ public class AssetUserWalletPluginRoot extends AbstractPlugin implements
     @NeededPluginReference(platform = Platforms.DIGITAL_ASSET_PLATFORM, layer = Layers.ACTOR, plugin = Plugins.REDEEM_POINT)
     private ActorAssetRedeemPointManager redeemPointManager;
 
+<<<<<<< HEAD
+=======
+    @NeededAddonReference(platform = Platforms.OPERATIVE_SYSTEM_API, layer = Layers.SYSTEM, addon = Addons.PLUGIN_BROADCASTER_SYSTEM)
+    private Broadcaster broadcaster;
+
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
     public AssetUserWalletPluginRoot() {
         super(new PluginVersionReference(new Version()));
     }
@@ -106,7 +113,20 @@ public class AssetUserWalletPluginRoot extends AbstractPlugin implements
     @Override
     public AssetUserWallet loadAssetUserWallet(String walletPublicKey, BlockchainNetworkType networkType) throws CantLoadWalletException {
         try {
+<<<<<<< HEAD
             AssetUserWalletImpl userWallet = new AssetUserWalletImpl(errorManager, pluginDatabaseSystem, pluginFileSystem, pluginId, userManager, issuerManager, redeemPointManager);
+=======
+            AssetUserWalletImpl userWallet = new AssetUserWalletImpl(
+                    errorManager,
+                    pluginDatabaseSystem,
+                    pluginFileSystem,
+                    pluginId,
+                    userManager,
+                    issuerManager,
+                    redeemPointManager,
+                    broadcaster);
+
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
             UUID internalAssetIssuerWalletId = WalletUtilities.constructWalletId(walletPublicKey, networkType);
             userWallet.initialize(internalAssetIssuerWalletId);
             return userWallet;
@@ -119,7 +139,20 @@ public class AssetUserWalletPluginRoot extends AbstractPlugin implements
     @Override
     public void createAssetUserWallet(String walletPublicKey, BlockchainNetworkType networkType) throws CantCreateWalletException {
         try {
+<<<<<<< HEAD
             AssetUserWalletImpl userWallet = new AssetUserWalletImpl(errorManager, pluginDatabaseSystem, pluginFileSystem, pluginId, userManager, issuerManager, redeemPointManager);
+=======
+            AssetUserWalletImpl userWallet = new AssetUserWalletImpl(
+                    errorManager,
+                    pluginDatabaseSystem,
+                    pluginFileSystem,
+                    pluginId,
+                    userManager,
+                    issuerManager,
+                    redeemPointManager,
+                    broadcaster);
+
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
             UUID internalAssetIssuerWalletId = userWallet.create(walletPublicKey, networkType);
             userWallets.add(internalAssetIssuerWalletId);
         } catch (CantCreateWalletException exception) {

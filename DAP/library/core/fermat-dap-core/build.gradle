@@ -26,8 +26,13 @@ dependencies {
     compile project(':fermat-dap-plugin-digital-asset-transaction-asset-transfer-bitdubai')
     compile project(':fermat-dap-plugin-digital-asset-transaction-asset-issuing-bitdubai')
     compile project(':fermat-dap-plugin-digital-asset-transaction-asset-reception-bitdubai')
+<<<<<<< HEAD
     compile project(':fermat-dap-plugin-digital-asset-transaction-asset-seller-bitdubai')
     compile project(':fermat-dap-plugin-digital-asset-transaction-asset-buyer-bitdubai')
+=======
+    compile project(':fermat-dap-plugin-funds-transaction-asset-seller-bitdubai')
+    compile project(':fermat-dap-plugin-funds-transaction-asset-buyer-bitdubai')
+>>>>>>> 589579dd634da6d0edd4e49f3e34d40384772f86
     compile project(':fermat-dap-plugin-digital-asset-transaction-issuer-appropriation-bitdubai')
     compile project(':fermat-dap-plugin-digital-asset-transaction-issuer-redemption-bitdubai')
     compile project(':fermat-dap-plugin-digital-asset-transaction-redeem-point-redemption-bitdubai')
