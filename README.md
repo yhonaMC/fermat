@@ -266,7 +266,7 @@ Awesome!
 
 *__There are lots of ways you can help.__*
 
-#### Developers
+#### Developers s
 
 If you are a developer and want to contribute either from a bug-fix up to building a whole financial APP on top of Fermat, please read the [Contributing Guide](https://github.com/bitDubai/fermat/blob/master/CONTRIBUTING.md),
 then learn how to pull the repo and hack on Fermat. Then say hi at our [IRC DEV Channel](http://irc.lc/freenode/fermat-dev/) or you can also find us on [Facebook](https://www.facebook.com/FermatOrg/). 
